@@ -371,13 +371,14 @@ public enum WPVHomeControllerScheduler {
 					
 					log.info("Right, Job: " + jobName + " with trigger start: " + triggerStartTime + " now " + cal.getTime());
 	       	  		
-					
-					CronTrigger trigger1 = newTrigger()    
-						    //.withIdentity("trigger_" + jobDTO.getName(), jobDTO.getGroupName())
-							.withIdentity("trigger_" + jobDTO.getCronExpression(), jobDTO.getGroupName())
-						    .startAt(cal.getTime())   
-						    .withSchedule(cronSchedule( jobDTO.getCronExpression() ) )   
-						    .build();
+//					Trigger trigger1 = (Trigger) ((Object) trigger).clone();
+//					
+//					CronTrigger trigger1 = newTrigger()    
+//						    //.withIdentity("trigger_" + jobDTO.getName(), jobDTO.getGroupName())
+//							.withIdentity("trigger_" + jobDTO.getCronExpression(), jobDTO.getGroupName())
+//						    .startAt(cal.getTime())   
+//						    .withSchedule(cronSchedule( jobDTO.getCronExpression() ) )   
+//						    .build();
 					
 	       	  	}
 
