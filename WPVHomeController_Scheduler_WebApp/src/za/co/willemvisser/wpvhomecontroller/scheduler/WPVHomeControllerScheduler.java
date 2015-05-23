@@ -380,6 +380,7 @@ public enum WPVHomeControllerScheduler {
 						    .build();
 					
 	       	  	}
+
 	       	  	//Date nextFireTime = triggers.get(0).getNextFireTime(); 
 	        
 	       		//System.out.println("[jobName] : " + jobName + " [groupName] : "
