@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xbeeconfig>
+	<xbee>		
+		<address>00 13 A2 00 40 A8 C0 3C</address>
+		<name>Irrigation Controller</name>
+		<id>1</id>
+		<devices>
+			<device>
+				<id>IRR_DRIVEWAY</id>
+				<name>Driveway</name>
+				<portAddress>D</portAddress>
+				<port>3</port>
+				<logicalPort>3</logicalPort>
+				<digital>true</digital>
+				<type>Irrigation</type>
+			</device>
+			<device>
+				<id>IRR_GATE</id>
+				<name>Top Gate</name>
+				<portAddress>D</portAddress>
+				<port>2</port>
+				<logicalPort>2</logicalPort>
+				<digital>true</digital>
+				<type>Irrigation</type>
+			</device>
+			<device>
+				<id>IRR_BOTTOMWALL</id>
+				<name>Bottom Wall</name>
+				<portAddress>D</portAddress>
+				<port>6</port>
+				<logicalPort>6</logicalPort>
+				<digital>true</digital>
+				<type>Irrigation</type>
+			</device>
+			<device>
+				<id>IRR_BOTTOMHOUSE</id>
+				<name>Bottom House</name>
+				<portAddress>D</portAddress>
+				<port>4</port>
+				<logicalPort>4</logicalPort>
+				<digital>true</digital>
+				<type>Irrigation</type>
+			</device>
+			<device>
+				<id>IRR_MIDDLE</id>
+				<name>Middle</name>
+				<portAddress>D</portAddress>
+				<port>5</port>
+				<logicalPort>5</logicalPort>
+				<digital>true</digital>
+				<type>Irrigation</type>
+			</device>			
+		</devices>
+	</xbee>
+	<xbee>
+		<address>00 13 A2 00 40 B2 5C 6E</address>
+		<name>Outside - Pump and Lights</name>
+		<id>3</id>
+		<devices>
+			<device>
+				<id>IRR_PUMP</id>
+				<name>Irrigation Pump</name>
+				<portAddress>D</portAddress>
+				<port>7</port>
+				<logicalPort>7</logicalPort>
+				<digital>true</digital>
+				<type>Pump</type>
+			</device>
+			<device>
+				<id>LIGHT_PATH</id>
+				<name>Pathway Lights</name>
+				<portAddress>D</portAddress>
+				<port>5</port>
+				<logicalPort>5</logicalPort>
+				<digital>true</digital>
+				<type>Light</type>
+			</device>
+		</devices>
+	</xbee>
+	<xbee>
+		<address>00 13 A2 00 40 A8 BB 54</address>
+		<name>Study Controller</name>
+		<id>4</id>
+		<devices>
+			<device>
+				<id>STUDY_LAMP</id>
+				<name>Study Lamp</name>
+				<portAddress>P</portAddress>
+				<port>2</port>
+				<logicalPort>12</logicalPort>
+				<digital>true</digital>
+				<type>Light</type>
+			</device>
+			<device>
+				<id>STUDY_TEMP</id>
+				<name>Study Temperature</name>
+				<portAddress>D</portAddress>
+				<port>0</port>
+				<logicalPort>0</logicalPort>
+				<digital>false</digital>
+				<type>Temperature</type>
+			</device>
+			<device>
+				<id>STUDY_IR</id>
+				<name>Study D1</name>
+				<portAddress>D</portAddress>
+				<port>1</port>
+				<logicalPort>1</logicalPort>
+				<digital>true</digital>
+				<type>Pump</type>
+			</device>
+			<!-- 
+			<device>
+				<id>STUDY_IR</id>
+				<name>Study Infrared</name>
+				<portAddress>D</portAddress>
+				<port>1</port>
+				<logicalPort>1</logicalPort>
+				<digital>true</digital>
+				<type>Infrared</type>
+			</device>
+			 -->
+		</devices>
+	</xbee>		
+	<xbee>		
+		<address>00 13 A2 00 40 A7 81 B8</address>
+		<name>Breadboard</name>
+		<id>5</id>
+		<devices>
+			<device>
+				<id>BREADBOARD_IR</id>
+				<name>Breadboard D1</name>
+				<portAddress>D</portAddress>
+				<port>1</port>
+				<logicalPort>1</logicalPort>
+				<digital>true</digital>
+				<type>Pump</type>
+			</device>
+		</devices>
+	</xbee>
+	<!-- 
+	<xbee>		
+		<address>00 13 A2 00 40 A2 65 60</address>
+		<name>Irrigation Controller OLD</name>
+		<id>6</id>
+		<devices>
+			
+		</devices>
+	</xbee>
+	-->
+	<!-- 
+	<xbee>
+		<address>00 13 A2 00 40 A2 65 60</address>		
+		<name>Pool Pump - TBD</name>
+	</xbee>
+	 -->
+</xbeeconfig>

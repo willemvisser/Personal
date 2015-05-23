@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<generalproperties>
+	<generalproperty>
+		<key>XbeeMasterServiceAddress</key>
+		<value>192.168.1.200</value>
+		<description>
+			Address of the host that serves up the Xbee Coordinator
+		</description>
+	</generalproperty>
+	<generalproperty>
+		<key>XbeeEnabled</key>
+		<value>false</value>
+		<description>
+			Purely a dev type property where sometimes I don't want to connect to the Xbee 
+			to enable local launch
+		</description>
+	</generalproperty>
+	<generalproperty>
+		<key>ConfigHostAddress</key>
+		<value>54.68.136.170</value>
+		<description>
+			Config address for the server hosting the configuration
+		</description>
+	</generalproperty>
+	<generalproperty>
+		<key>ConfigHostDirectory</key>
+		<value>/config/</value>
+		<description>
+			Config host directory for the server hosting the configuration
+		</description>
+	</generalproperty>			
+</generalproperties>
