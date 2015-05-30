@@ -154,20 +154,5 @@
 			</device>
 		</devices>
 	</xbee>
-	<!-- 
-	<xbee>		
-		<address>00 13 A2 00 40 A2 65 60</address>
-		<name>Irrigation Controller OLD</name>
-		<id>6</id>
-		<devices>
-			
-		</devices>
-	</xbee>
-	-->
-	<!-- 
-	<xbee>
-		<address>00 13 A2 00 40 A2 65 60</address>		
-		<name>Pool Pump - TBD</name>
-	</xbee>
-	 -->
+	
 </xbeeconfig>
