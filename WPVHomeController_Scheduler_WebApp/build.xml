@@ -1,6 +1,20 @@
 <project default="compile">
+
+   <path id="master-classpath">
+      <fileset dir="./WebContent/WEB-INF/lib">
+         <include name="*.jar"/>
+      </fileset>
+      <fileset dir="/usr/local/apache-tomcat-8.0.15/lib">
+         <include name="servlet-api.jar"/>
+      </fileset>
+   </path>
+
     <target name="compile">
         <mkdir dir="bin"/>
-        <javac srcdir="src" destdir="bin"/>
+        <javac destdir="bin">
+           <src path="src"/>
+           <classpath refid="master-classpath"/>
+        </javac>
     </target>
+
 </project>
