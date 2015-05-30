@@ -1,4 +1,8 @@
-<project default="compile">
+<project default="buildwar">
+
+   <target name="clean" description="compile the source">
+        <delete dir="bin" failonerror="false"/>
+   </target>
 
    <path id="master-classpath">
       <fileset dir="./WebContent/WEB-INF/lib">
@@ -9,12 +13,27 @@
       </fileset>
    </path>
 
-    <target name="compile">
+    <target name="compile" depends="clean">
         <mkdir dir="bin"/>
         <javac destdir="bin">
            <src path="src"/>
            <classpath refid="master-classpath"/>
         </javac>
     </target>
+
+   <target name="makejar" depends="compile">
+      <jar destfile = "./WebContent/WEB-INF/lib/wpvhome.jar"
+                basedir = "./bin" />
+   </target>
+
+   <target name="buildwar" depends="makejar">
+      <war destfile = "WPVHomeController_Scheduler_WebApp.war" webxml = "./WebContent/WEB-INF/web.xml">
+
+      <fileset dir = "./WebContent">
+         <include name = "**/*.*"/>
+         <exclude name="WEB-INF/web.xml"/>
+      </fileset>
+      </war>
+   </target>
 
 </project>
