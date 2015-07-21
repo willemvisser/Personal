@@ -369,17 +369,20 @@ public enum WPVHomeControllerScheduler {
 					cal.setTime(triggerStartTime);					
 					cal.add(Calendar.DATE, 1);
 					
-					log.info("Right, Job: " + jobName + " with trigger start: " + triggerStartTime + " now " + cal.getTime());
+					CronTrigger cTrigger = (CronTrigger)trigger;
+					
+					log.info("Right, Job: " + jobName + " with trigger start: " + cTrigger.getStartTime() + " now " + cal.getTime());
 	       	  		
 //					Trigger trigger1 = (Trigger) ((Object) trigger).clone();
 //					
-//					CronTrigger trigger1 = newTrigger()    
-//						    //.withIdentity("trigger_" + jobDTO.getName(), jobDTO.getGroupName())
-//							.withIdentity("trigger_" + jobDTO.getCronExpression(), jobDTO.getGroupName())
-//						    .startAt(cal.getTime())   
-//						    .withSchedule(cronSchedule( jobDTO.getCronExpression() ) )   
-//						    .build();
+					CronTrigger trigger1 = newTrigger()    
+						    //.withIdentity("trigger_" + jobDTO.getName(), jobDTO.getGroupName())
+							.withIdentity(jobName, groupName)
+						    .startAt(cal.getTime())   
+						    .withSchedule(cronSchedule( cTrigger.getCronExpression() ) )   
+						    .build();
 					
+					scheduler.rescheduleJob(trigger.getKey(), trigger1);
 	       	  	}
 
 	       	  	//Date nextFireTime = triggers.get(0).getNextFireTime(); 

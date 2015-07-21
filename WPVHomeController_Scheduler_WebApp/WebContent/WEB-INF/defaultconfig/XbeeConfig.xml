@@ -139,20 +139,38 @@
 		</devices>
 	</xbee>
 	<xbee>
-		<address>00 13 A2 00 40 BE 47 03</address>
+    	<address>00 13 A2 00 40 BE 47 03</address>
 		<name>Pool Pump Controller</name>
-		<id>6</id>
-		<devices>
-			<device>
-				<id>PP_TEMP</id>
-				<name>Pool Pump Temperature</name>
-				<portAddress>D</portAddress>
-				<port>0</port>
-				<logicalPort>0</logicalPort>
-				<digital>false</digital>
-				<type>Temperature</type>
-			</device>
-		</devices>
-	</xbee>
+		<id>8</id>
+			<devices>
+				<device>
+					<id>PP_TEMP</id>
+                    <name>Pool Pump Temperature</name>
+                    <portAddress>D</portAddress>
+                    <port>0</port>
+                    <logicalPort>0</logicalPort>
+                    <digital>false</digital>
+                    <type>Temperature</type>
+				</device>
+                <device>
+                	<id>PP_PUMP</id>
+                    <name>Pool Pump</name>
+                    <portAddress>D</portAddress>
+                    <port>5</port>
+                    <logicalPort>5</logicalPort>
+                    <digital>true</digital>
+                    <type>Pump</type>
+                </device>
+                <device>
+                	<id>PP_PUMP</id>
+                    <name>Pool Pump</name>
+                    <portAddress>D</portAddress>
+                    <port>6</port>
+                    <logicalPort>6</logicalPort>
+                    <digital>true</digital>
+                    <type>Button</type>
+                </device>
+			</devices>
+        </xbee>
 	
 </xbeeconfig>
