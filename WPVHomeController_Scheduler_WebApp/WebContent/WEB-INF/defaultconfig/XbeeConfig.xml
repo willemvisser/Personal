@@ -42,8 +42,8 @@
 				<type>Irrigation</type>
 			</device>
 			<device>
-				<id>IRR_MIDDLE</id>
-				<name>Middle</name>
+				<id>IRR_OUTSIDE</id>
+				<name>Outside</name>
 				<portAddress>D</portAddress>
 				<port>5</port>
 				<logicalPort>5</logicalPort>

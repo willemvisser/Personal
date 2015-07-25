@@ -5,7 +5,7 @@
 		<name>Irrigation_Bottom_Wall_On_Morning</name>
 		<groupName>Irrigation</groupName>
 		<startTime>Now</startTime>
-		<cronStartExpression>0 41 07 * * ?</cronStartExpression>
+		<cronStartExpression>0 41 08 * * ?</cronStartExpression>
 		<durationMin>8</durationMin>
 		<params>
 			<param>
@@ -31,7 +31,7 @@
 		<name>Irrigation_Bottom_House_On_Morning</name>
 		<groupName>Irrigation</groupName>
 		<startTime>Now</startTime>
-		<cronStartExpression>0 50 07 * * ?</cronStartExpression>
+		<cronStartExpression>0 50 08 * * ?</cronStartExpression>
 		<durationMin>9</durationMin>
 		<params>
 			<param>
@@ -57,7 +57,7 @@
 		<name>Irrigation_Top_Gate_On_Morning</name>
 		<groupName>Irrigation</groupName>
 		<startTime>Now</startTime>
-		<cronStartExpression>0 00 08 * * ?</cronStartExpression>
+		<cronStartExpression>0 00 09 * * ?</cronStartExpression>
 		<durationMin>9</durationMin>
 		<params>
 			<param>
@@ -83,7 +83,7 @@
 		<name>Irrigation_Top_Driveway_On_Morning</name>
 		<groupName>Irrigation</groupName>
 		<startTime>Now</startTime>
-		<cronStartExpression>0 10 08 * * ?</cronStartExpression>
+		<cronStartExpression>0 10 09 * * ?</cronStartExpression>
 		<durationMin>10</durationMin>
 		<params>
 			<param>
@@ -104,6 +104,33 @@
 			</param>
 		</params>		
 	</job>	
+	<job>
+		<class>za.co.willemvisser.wpvhomecontroller.scheduler.job.XbeeRemoteIrrigationCommandJob</class>
+		<name>Irrigation_Outside_Morning</name>
+		<groupName>Irrigation</groupName>
+		<startTime>Now</startTime>
+		<cronStartExpression>0 21 10 * * ?</cronStartExpression>
+		<durationMin>10</durationMin>
+		<params>
+			<param>
+				<name>command</name>
+				<value>xon</value>
+			</param>
+			<param>
+				<name>boardId</name>
+				<value>1</value>
+			</param>
+			<param>
+				<name>ouputId</name>
+				<value>D</value>
+			</param>
+			<param>
+				<name>pin</name>
+				<value>5</value>
+			</param>
+		</params>		
+	</job>
+	<!-- 
 	<job>
 		<class>za.co.willemvisser.wpvhomecontroller.scheduler.job.XbeeRemoteIrrigationCommandJob</class>
 		<name>Irrigation_Top_Driveway_On_Afternoon</name>
@@ -208,4 +235,5 @@
 			</param>
 		</params>		
 	</job>
+	 -->
 </jobsconfig>

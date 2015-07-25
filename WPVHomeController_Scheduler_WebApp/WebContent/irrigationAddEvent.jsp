@@ -184,7 +184,7 @@
 							<br/>
 							<input type="radio" name="valve" value="2">Top - Gate
 							<br/>
-							<input type="radio" name="valve" value="5">Middle (Weak)
+							<input type="radio" name="valve" value="5">Outside
 							</span>
 			
 					 		<input type="submit" class="my-button" value="Add Event">
