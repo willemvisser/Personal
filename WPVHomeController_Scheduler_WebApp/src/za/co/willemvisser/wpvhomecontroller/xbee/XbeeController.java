@@ -192,5 +192,14 @@ public enum XbeeController {
 		}
 	}
 	
+	/**
+	 * @param xbeeConfigDeviceDTO
+	 * @param on
+	 * @return OK or ERROR: 
+	 */
+	public String switchXbeeDevice(XbeeConfigDeviceDTO xbeeConfigDeviceDTO, boolean on) {
+		return swithXbeeDevice(getXbeeWithDeviceID(xbeeConfigDeviceDTO.getId()).getAddress(), 
+				xbeeConfigDeviceDTO.getPortAddress(), xbeeConfigDeviceDTO.getPort(), on );
+	}
 	
 }

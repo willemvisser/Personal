@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.log4j.Logger;
 
+import za.co.willemvisser.wpvhomecontroller.xbee.XbeeController;
+
 import com.rapplogic.xbee.api.zigbee.ZNetRxIoSampleResponse;
 
 @XmlRootElement(name = "xbee")
@@ -74,20 +76,32 @@ public class XbeeConfigDTO implements Serializable {
 					//Start with check if this device is infrared
 					if (xbeeConfigDeviceDTO.getType().equals(XbeeConfigDeviceDTO.TYPE_INFRARED)) {
 						if (xbeeConfigDeviceDTO.isEnabled() && !latestPortReadings.isDigitalOn(devicePort) ) {
-							log.info("Turning off Infrared for: " + xbeeConfigDeviceDTO.getName() );
+							log.debug("Turning off Infrared for: " + xbeeConfigDeviceDTO.getName() );
 						} else if (!xbeeConfigDeviceDTO.isEnabled() && latestPortReadings.isDigitalOn(devicePort) ) {
-							log.info("Turning on Infrared for: " + xbeeConfigDeviceDTO.getName() );
+							log.debug("Turning on Infrared for: " + xbeeConfigDeviceDTO.getName() );
 						}
 						
 						xbeeConfigDeviceDTO.setEnabled( latestPortReadings.isDigitalOn(devicePort) );
 						
-					} else if (xbeeConfigDeviceDTO.getType().equals(XbeeConfigDeviceDTO.TYPE_SWITCH)) {
-						if (xbeeConfigDeviceDTO.isEnabled() && !latestPortReadings.isDigitalOn(devicePort) ) {
-							log.info("Turning on Switch for: " + xbeeConfigDeviceDTO.getName() );
-						} else if (!xbeeConfigDeviceDTO.isEnabled() && latestPortReadings.isDigitalOn(devicePort) ) {
-							log.info("Turning off Switch for: " + xbeeConfigDeviceDTO.getName() );
+					} else if (xbeeConfigDeviceDTO.getType().equals(XbeeConfigDeviceDTO.TYPE_TOGGLESWITCH)) {
+						
+						if (latestPortReadings.isDigitalOn(devicePort)) {
+							//OK button pressed, we should toggle the state now of the linked device
+							if (xbeeConfigDeviceDTO.getLinkedDeviceId() != null) {
+								XbeeConfigDeviceDTO linkedXbeeDeviceDTP = XbeeController.INSTANCE.getDeviceWithID(xbeeConfigDeviceDTO.getLinkedDeviceId());								
+								if (linkedXbeeDeviceDTP.isEnabled()) {
+									log.info("Linked device is on, so turning it off");
+									XbeeController.INSTANCE.switchXbeeDevice(linkedXbeeDeviceDTP, false);
+								} else {
+									log.info("Linked device is off, so turning it on");
+									XbeeController.INSTANCE.switchXbeeDevice(linkedXbeeDeviceDTP, true);
+								}
+							}																					
+							
 						}
-						xbeeConfigDeviceDTO.setEnabled( !latestPortReadings.isDigitalOn(devicePort) );
+																		
+						xbeeConfigDeviceDTO.setEnabled( !latestPortReadings.isDigitalOn(devicePort) );												
+						
 					} else {
 						xbeeConfigDeviceDTO.setEnabled( latestPortReadings.isDigitalOn(devicePort) );
 					}

@@ -18,7 +18,7 @@ public class XbeeConfigDeviceDTO implements Serializable {
 	public static final String TYPE_LIGHT = "Light";
 	public static final String TYPE_TEMPERATURE = "Temperature";
 	public static final String TYPE_INFRARED = "Infrared";
-	public static final String TYPE_SWITCH = "Switch";
+	public static final String TYPE_TOGGLESWITCH = "ToggleSwitch";
 	
 	private String id;
 	private String name;
@@ -27,6 +27,7 @@ public class XbeeConfigDeviceDTO implements Serializable {
 	private String logicalPort;
 	private String type;
 	private boolean digital;
+	private String linkedDeviceId;
 	
 	@XmlTransient
 	private boolean enabled;
@@ -58,12 +59,8 @@ public class XbeeConfigDeviceDTO implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public boolean isEnabled() {
-		if (getType().equals(TYPE_SWITCH)) {
-			return !enabled;
-		} else {
-			return enabled;
-		}
+	public boolean isEnabled() {		
+		return enabled;	
 	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
@@ -91,6 +88,12 @@ public class XbeeConfigDeviceDTO implements Serializable {
 	}
 	public void setLogicalPort(String logicalPort) {
 		this.logicalPort = logicalPort;
+	}
+	public String getLinkedDeviceId() {
+		return linkedDeviceId;
+	}
+	public void setLinkedDeviceId(String linkedDeviceId) {
+		this.linkedDeviceId = linkedDeviceId;
 	}
 
 }
