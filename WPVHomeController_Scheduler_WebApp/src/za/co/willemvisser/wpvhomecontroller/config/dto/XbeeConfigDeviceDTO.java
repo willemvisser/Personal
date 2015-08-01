@@ -18,6 +18,7 @@ public class XbeeConfigDeviceDTO implements Serializable {
 	public static final String TYPE_LIGHT = "Light";
 	public static final String TYPE_TEMPERATURE = "Temperature";
 	public static final String TYPE_INFRARED = "Infrared";
+	public static final String TYPE_SWITCH = "Switch";
 	
 	private String id;
 	private String name;
@@ -58,7 +59,11 @@ public class XbeeConfigDeviceDTO implements Serializable {
 		this.type = type;
 	}
 	public boolean isEnabled() {
-		return enabled;
+		if (getType().equals(TYPE_SWITCH)) {
+			return !enabled;
+		} else {
+			return enabled;
+		}
 	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
