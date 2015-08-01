@@ -53,25 +53,23 @@ public enum XbeeController {
 			xbee.open(port, baudRate);
 			xbee.addPacketListener(new XbeeControllerPacketHandler());
 		}
-							
+		
+		loadXbeeConfig(xbeeConfigsDTO);
+	}
+	
+	/**
+	 * @param xbeeConfigsDTO
+	 */
+	public void loadXbeeConfig(XbeeConfigsDTO xbeeConfigsDTO) {
 		xbeeAddressMapCache = new HashMap<String, XBeeAddress64>();		
 		for (XbeeConfigDTO xbeeConfigDTO : xbeeConfigsDTO.getXbeeList()) {
 			xbeeAddressMapCache.put(xbeeConfigDTO.getId(), new XBeeAddress64(xbeeConfigDTO.getAddress()));
 		}
-		
-		//xbeeAddressMapCache.put("4", ADDRESS_poolPump);
-		//xbeeAddressMapCache.put("3", ADDRESS_irrigationPump);
-		//xbeeAddressMapCache.put("1", ADDRESS_irrigationController);
-		
-		xbeeDeviceMap = new HashMap<XBeeAddress64, XbeeConfigDTO>();
-		//xbeeDeviceMap.put(ADDRESS_irrigationController, new XbeeDTO("Irrigation Controller", ADDRESS_irrigationController));
-		//xbeeDeviceMap.put(ADDRESS_irrigationPump, new XbeeDTO("Irrigation Pump", ADDRESS_irrigationPump));
-		//xbeeDeviceMap.put(ADDRESS_poolPump, new XbeeDTO("Pool Pump", ADDRESS_poolPump));
-		
+				
+		xbeeDeviceMap = new HashMap<XBeeAddress64, XbeeConfigDTO>();		
 		for (XbeeConfigDTO xbeeConfigDTO : xbeeConfigsDTO.getXbeeList()) {
 			xbeeDeviceMap.put(new XBeeAddress64(xbeeConfigDTO.getAddress()), xbeeConfigDTO);
 		}
-		
 	}
 	
 	public void shutdown() {

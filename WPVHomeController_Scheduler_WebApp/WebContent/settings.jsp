@@ -99,19 +99,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     	    
             <div class="column_right" id="divXbeeStatus">            	
 				
-  
-				   
+  				   
              </div>
              
-             <div id="myDiv">Hello world Again</div>
-		    	<script>
-		    	$("#myDiv").click(function(){
-				    //$.get("demo_test.asp", function(data, status){
-				    //    alert("Data: " + data + "\nStatus: " + status);
-				    //});
-				    alert("blah?");
-				});
-				</script>
+             
     	<div class="clear"></div>
  	 </div>
    </div>

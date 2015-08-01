@@ -43,6 +43,23 @@ public enum ConfigController {
 
 	}
 	
+	/**
+	 * Refresh the cached version of the XbeeConfig array from the remote source  
+	 */
+	public void reloadRemoteXbeeConfig() {				
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(XbeeConfigsDTO.class);
+			Unmarshaller um = jaxbContext.createUnmarshaller();
+			Object obj = loadXmlFromRemoteResource(um, XML_FILENAME_XBEECONFIG);
+			if (obj != null) {
+				this.xbeeConfigsDTO = (XbeeConfigsDTO)obj;
+			}
+		} catch (Exception e) {
+			log.error("Could not load resource from remote location", e);						
+		}
+				
+	}
+	
 	public String getHostName() {
 		StringBuffer hostNameBuffer = new StringBuffer();
 		try {
@@ -76,7 +93,7 @@ public enum ConfigController {
 		Unmarshaller um = jaxbContext.createUnmarshaller();
 		
 		try {
-			return loadXmlFromRemoteResource(um, context, fileName);			
+			return loadXmlFromRemoteResource(um, fileName);			
 		} catch (Exception e) {
 			log.error("Could not load resource from remote location", e);
 			
@@ -93,7 +110,7 @@ public enum ConfigController {
 	 * @throws JAXBException
 	 * @throws IOException
 	 */
-	private Object loadXmlFromRemoteResource(Unmarshaller um, ServletContext context, String fileName) throws JAXBException, IOException {										
+	private Object loadXmlFromRemoteResource(Unmarshaller um, String fileName) throws JAXBException, IOException {										
 		/* Attempt to download from remote server */
 		String remoteUrl = HTTP_PREFIX + remoteConfigHostAddress + 
 				"/config/" + 

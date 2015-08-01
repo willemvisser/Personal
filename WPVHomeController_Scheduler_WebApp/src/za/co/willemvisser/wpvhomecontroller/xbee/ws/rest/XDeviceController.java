@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.rapplogic.xbee.api.XBeeAddress64;
 
+import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO;
 import za.co.willemvisser.wpvhomecontroller.xbee.XbeeController;
@@ -22,6 +23,16 @@ public class XDeviceController {
 	static Logger log = Logger.getLogger(XDeviceController.class.getName());
 	
 	
+	
+	@GET
+	@Path("/refresh")
+	@Produces("text/plain")  
+    public String refresh(){
+		ConfigController.INSTANCE.reloadRemoteXbeeConfig();
+		XbeeController.INSTANCE.loadXbeeConfig(ConfigController.INSTANCE.getXbeeConfigsDTO());
+		
+		return "OK";
+	}
 	
 	/**
 	 * Given a device ID, find the Xbee device, and depending on 

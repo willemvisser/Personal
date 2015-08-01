@@ -63,28 +63,10 @@ public class SchedulerServletListener implements ServletContextListener {
 		
 		InputStream configXmlInputStream = context.getServletContext().getResourceAsStream(configXmlWarFilePath);
 		
-		//InputStream configGeneralPropsXmlInputStream = context.getServletContext().getResourceAsStream(GENERALPROPS_XML_LOCAL_PATH);
+		//
 		
 		try {
-			/*
-			JAXBContext jaxbContext = JAXBContext.newInstance(GeneralPropertiesDTO.class);
-			Unmarshaller um = jaxbContext.createUnmarshaller();
-			GeneralPropertiesDTO generalPropertiesDTO = (GeneralPropertiesDTO) um.unmarshal(configGeneralPropsXmlInputStream);
 			
-			System.out.println("********");
-			
-			for (GeneralPropertyDTO generalPropDTO : generalPropertiesDTO.getGeneralPropertyList()) {
-				System.out.println("GeneralProp:");
-				System.out.println("Descr: " + generalPropDTO.getDescription());
-			}
-			
-			System.out.println("********");
-			
-			XbeeConfigsDTO xbeeConfigsDTO = (XbeeConfigsDTO)loadXmlFromResource(XbeeConfigsDTO.class, context.getServletContext(), XML_FILENAME_XBEECONFIG );
-			System.out.println(xbeeConfigsDTO.toString());
-			
-			System.out.println("********");
-			*/
 		    
 			WPVHomeControllerScheduler.INSTANCE.startScheduler(ipAddress, configXmlInputStream);
 			
