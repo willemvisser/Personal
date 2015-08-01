@@ -78,6 +78,12 @@ public class XbeeConfigDTO implements Serializable {
 						} else if (!xbeeConfigDeviceDTO.isEnabled() && latestPortReadings.isDigitalOn(devicePort) ) {
 							log.info("Turning on Infrared for: " + xbeeConfigDeviceDTO.getName() );
 						}
+					} else if (xbeeConfigDeviceDTO.getType().equals(XbeeConfigDeviceDTO.TYPE_SWITCH)) {
+						if (xbeeConfigDeviceDTO.isEnabled() && !latestPortReadings.isDigitalOn(devicePort) ) {
+							log.info("Turning on Switch for: " + xbeeConfigDeviceDTO.getName() );
+						} else if (!xbeeConfigDeviceDTO.isEnabled() && latestPortReadings.isDigitalOn(devicePort) ) {
+							log.info("Turning off Switch for: " + xbeeConfigDeviceDTO.getName() );
+						}
 					}
 					
 					xbeeConfigDeviceDTO.setEnabled( latestPortReadings.isDigitalOn(devicePort) );

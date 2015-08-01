@@ -47,6 +47,11 @@
   		<level value="info"/> 
 	</logger>
 	
+	<logger name="za.co.willemvisser.wpvhomecontroller.xbee.XbeeController"
+			additivity="false">
+  		<appender-ref ref="console" />
+  		<level value="info"/> 
+	</logger>
 	
 	<logger name="za.co.willemvisser.wpvhomecontroller.scheduler.WPVHomeControllerScheduler"
 				additivity="false">

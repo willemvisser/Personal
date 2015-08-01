@@ -175,10 +175,11 @@ public enum XbeeController {
 	 */
 	public String swithXbeeDevice(String xbeeAddressID, String portName, String port, boolean on) {
 		try {
+			log.info("swithXbeeDevice: " + xbeeAddressID + ", " + portName + ", " + port + ", " + on);
 			RemoteAtResponse response = XbeeController.INSTANCE.remoteAtRequest(xbeeAddressID, portName + port, on ? new int[] {5} : new int[] {4});
 			
 			if (response.isOk()) {		 
-				log.info("COOL - success!!");
+				log.debug("COOL - success!!");
 				return "OK";
 			} else {
 				log.error("NOT ok: " + response.getStatus());
