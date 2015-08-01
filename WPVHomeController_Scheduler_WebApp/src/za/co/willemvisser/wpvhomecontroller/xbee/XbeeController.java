@@ -198,7 +198,7 @@ public enum XbeeController {
 	 * @return OK or ERROR: 
 	 */
 	public String switchXbeeDevice(XbeeConfigDeviceDTO xbeeConfigDeviceDTO, boolean on) {
-		return swithXbeeDevice(getXbeeWithDeviceID(xbeeConfigDeviceDTO.getId()).getAddress(), 
+		return swithXbeeDevice(getXbeeWithDeviceID(xbeeConfigDeviceDTO.getId()).getId(), 
 				xbeeConfigDeviceDTO.getPortAddress(), xbeeConfigDeviceDTO.getPort(), on );
 	}
 	
