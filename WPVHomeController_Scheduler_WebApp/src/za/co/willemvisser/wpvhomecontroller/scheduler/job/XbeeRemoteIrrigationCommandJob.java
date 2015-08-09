@@ -41,8 +41,7 @@ public class XbeeRemoteIrrigationCommandJob implements Job {
 		commandUrl.append("/").append(outputId).append("/").append(pin);
 		
 		log.debug("Executing: " + commandUrl);
-			
-		
+					
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		
 		try {

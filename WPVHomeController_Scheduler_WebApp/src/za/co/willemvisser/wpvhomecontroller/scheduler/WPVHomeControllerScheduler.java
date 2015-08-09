@@ -263,7 +263,11 @@ public enum WPVHomeControllerScheduler {
         	JobDTO jobDTO = new JobDTO(xPath, eElement);
         	addJob(jobDTO, generalJobPropertiesMap);
         	        	
-        	if (jobDTO.getGroupName().equals( JobDTO.GROUPNAME_IRRIGATION )) {
+        	//TODO - why limit this to these groups, why not all??
+        	
+        	if (jobDTO.getGroupName().equals( JobDTO.GROUPNAME_IRRIGATION ) || 
+        			jobDTO.getGroupName().equals( JobDTO.GROUPNAME_POOLPUMP)) {
+        		
         		//TODO - find out how to do cloning??
         		JobDTO jobDTOEnd = new JobDTO(
         					jobDTO.getClassName(),

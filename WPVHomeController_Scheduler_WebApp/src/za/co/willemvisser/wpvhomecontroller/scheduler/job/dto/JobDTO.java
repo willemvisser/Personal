@@ -30,6 +30,7 @@ public class JobDTO {
 	private HashMap<String, String> params;
 	
 	public static final String GROUPNAME_IRRIGATION = "Irrigation";
+	public static final String GROUPNAME_POOLPUMP = "PoolPump";
 	
 	public JobDTO() {
 		super();
