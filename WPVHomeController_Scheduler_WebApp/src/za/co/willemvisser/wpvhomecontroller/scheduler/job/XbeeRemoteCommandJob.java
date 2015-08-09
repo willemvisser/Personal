@@ -28,8 +28,8 @@ public class XbeeRemoteCommandJob implements Job {
 		String pin = data.getString("pin");					//0 to 9
 		
 		StringBuffer commandUrl = new StringBuffer();
-		commandUrl.append("http://").append(ip).append("/").append(command).append("/").append(boardID);
-		commandUrl.append("/").append(outputId).append("/").append(pin);
+		commandUrl.append("http://").append(ip).append(":8080/WPVHomeController_Scheduler_WebApp/xbee/").append(command).append("/").append(boardID);
+		commandUrl.append("/").append(outputId).append("/").append(pin);				
 		
 		log.debug("Executing: " + commandUrl);
 		
