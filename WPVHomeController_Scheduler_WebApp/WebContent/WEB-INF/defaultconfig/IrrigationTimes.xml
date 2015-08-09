@@ -1,6 +1,32 @@
 <?xml version="1.0"?>
 <jobsconfig>	
 	<job>
+		<class>za.co.willemvisser.wpvhomecontroller.scheduler.job.XbeeRemoteCommandJob</class>
+		<name>Pool Pump Morning</name>
+		<groupName>PoolPump</groupName>
+        <startTime>Now</startTime>
+        <cronStartExpression>0 25 16 * * ?</cronStartExpression>
+        <durationMin>10</durationMin>
+		<params>
+			<param>
+				<name>command</name>
+				<value>xon</value>
+			</param>
+            <param>
+                    <name>boardId</name>
+                    <value>8</value>
+            </param>
+            <param>
+                    <name>ouputId</name>
+                    <value>D</value>
+            </param>
+            <param>
+                    <name>pin</name>
+                    <value>5</value>
+            </param>
+    	</params>
+  	</job>
+	<job>
 		<class>za.co.willemvisser.wpvhomecontroller.scheduler.job.XbeeRemoteIrrigationCommandJob</class>
 		<name>Irrigation_Bottom_Wall_On_Morning</name>
 		<groupName>Irrigation</groupName>
