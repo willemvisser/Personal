@@ -5,8 +5,8 @@
 		<name>Pool Pump Morning</name>
 		<groupName>PoolPump</groupName>
         <startTime>Now</startTime>
-        <cronStartExpression>0 25 16 * * ?</cronStartExpression>
-        <durationMin>10</durationMin>
+        <cronStartExpression>0 25 10 * * ?</cronStartExpression>
+        <durationMin>300</durationMin>
 		<params>
 			<param>
 				<name>command</name>
