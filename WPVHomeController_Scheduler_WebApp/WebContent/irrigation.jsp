@@ -36,7 +36,9 @@
 		<%
 			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		String action = request.getParameter("action");
-		if (action != null && action.equals("irrigation_quickaddevent")) {
+		if (action != null && action.equals("irrigation_cleartoday")) {
+			WPVHomeControllerScheduler.INSTANCE.cancelGroupTriggersForToday("Irrigation");
+		} else if (action != null && action.equals("irrigation_quickaddevent")) {
 			out.println("<p><i>New irrigation event added!</i></p>");
 			JobDTO newJobDto = new JobDTO();
 			newJobDto.setClassName("za.co.willemvisser.wpvhomecontroller.scheduler.job.XbeeRemoteIrrigationCommandJob");
@@ -130,7 +132,7 @@
 							  		<li class="active"><a href="#" class="account_settings"><span>Today</span></a></li>
 							  		<li><a href="irrigationAddEvent.jsp" class="messages"><span>Add Event</span><div class="clear"></div></a></li>
 							  		<li><a href="#" class="invites"><span>Stop Current Event</span><div class="clear"></div></a></li>
-							  		<li><a href="#" class="events"><span>Clear Today</span><div class="clear"></div></a></li>							  		
+							  		<li><a href="irrigation.jsp?action=irrigation_cleartoday" class="events"><span>Clear Today</span><div class="clear"></div></a></li>							  		
 							  		<li><a href="irrigationDetail.jsp" class="statistics"><span>Detailed List</span></a></li>						  	
 					    		</ul>
 					      </div>
