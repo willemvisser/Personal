@@ -23,6 +23,13 @@
 		<appender-ref ref="console" />
 	</root>	
 	
+	
+	<logger name="za.co.willemvisser.wpvhomecontroller.util.StoreUtil"
+				additivity="false">
+  		<appender-ref ref="console" />
+  		<level value="info"/> 
+	</logger>
+	
 	<logger name="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO"
 				additivity="false">
   		<appender-ref ref="console" />

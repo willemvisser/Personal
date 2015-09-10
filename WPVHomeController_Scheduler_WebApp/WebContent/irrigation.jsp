@@ -34,7 +34,7 @@
 	<body>
 	
 		<%
-			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss (MM/dd)");
 		String action = request.getParameter("action");
 		if (action != null && action.equals("irrigation_cleartoday")) {
 			WPVHomeControllerScheduler.INSTANCE.cancelGroupTriggersForToday("Irrigation");
@@ -153,15 +153,15 @@
 				    	<ul>
 				    	
 				    	<%
-						List<JobTriggerDTO> jobTriggerList = WPVHomeControllerScheduler.INSTANCE.listJobTriggers();
+						List<JobTriggerDTO> jobTriggerList = WPVHomeControllerScheduler.INSTANCE.listJobTriggers(WPVHomeControllerScheduler.GROUP_NAME_IRRIGATION);
 						for (int i=0; i<jobTriggerList.size(); i++) {
 							JobTriggerDTO jobTriggerDTO = jobTriggerList.get(i);
 							JobTriggerDTO jobTriggerDTONext = null;
 							if (i+1 < jobTriggerList.size()) {
 								jobTriggerDTONext = jobTriggerList.get(i+1);
 								String nextCommand = jobTriggerDTONext.getJobDataMap().getString("command");
-								System.out.println(jobTriggerDTONext.getJobName() + " == " + jobTriggerDTO.getJobName());
-								System.out.println("nextCommand: " + nextCommand);								
+								//System.out.println(jobTriggerDTONext.getJobName() + " == " + jobTriggerDTO.getJobName());
+								//System.out.println("nextCommand: " + nextCommand);								
 								//if (jobTriggerDTONext.getJobName().equals(jobTriggerDTO.getJobName()) && nextCommand.equals("xoff")) {
 								if (jobTriggerDTO.getJobDataMap().getString("job.name").equals(jobTriggerDTONext.getJobDataMap().getString("job.name"))) {
 									i++;

@@ -14,6 +14,7 @@ public class GeneralPropertyDTO implements Serializable {
 	private static final long serialVersionUID = -905480048215959623L;
 	
 	public static final String PROP_XBEE_ENABLED = "XbeeEnabled";
+	public static final String PROP_STORE_EVENT_URL = "StoreEventHttpURL";
 	
 	private String key;
 	private String value;

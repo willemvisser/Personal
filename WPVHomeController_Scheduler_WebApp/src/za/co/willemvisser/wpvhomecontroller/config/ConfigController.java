@@ -27,6 +27,8 @@ public enum ConfigController {
 	private static final String XML_FILENAME_XBEECONFIG = "XbeeConfig.xml";
 	private static final String XML_FILENAME_GENERALPROPS = "GeneralProperties.xml";
 	
+	public static final String XML_FILENAME_SCHEDULE = "Schedule.xml";
+	
 	private String remoteConfigHostAddress;
 	private XbeeConfigsDTO xbeeConfigsDTO;
 	private GeneralPropertiesDTO generalPropertiesDTO;

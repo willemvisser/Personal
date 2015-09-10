@@ -1,5 +1,6 @@
 package za.co.willemvisser.wpvhomecontroller.xbee;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
@@ -9,6 +10,7 @@ import za.co.willemvisser.wpvhomecontroller.config.dto.GeneralPropertyDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigsDTO;
+import za.co.willemvisser.wpvhomecontroller.util.StoreUtil;
 import za.co.willemvisser.wpvhomecontroller.xbee.dto.XbeeDTO;
 
 import com.rapplogic.xbee.api.RemoteAtRequest;
@@ -97,9 +99,9 @@ public enum XbeeController {
 			throw new XBeeException("Xbee with ID '" + xbeeAddressID + "' not found.");
 		}
 		
-		log.debug("Xbee: " + xbeeAddressID);
 		
-		return remoteAtRequest(xbeeAddress, command, value);
+		
+		return remoteAtRequest(xbeeAddress, command, value);								
 				
 	}
 	
@@ -113,19 +115,32 @@ public enum XbeeController {
 	 */
 	public RemoteAtResponse remoteAtRequest(XBeeAddress64 xbeeAddress, String command, int[] value) throws XBeeTimeoutException, XBeeException {		
 		
-		log.info("XbeeAddress: " + xbeeAddress + " command: " + command + " value: " + value);
-		RemoteAtRequest request = new RemoteAtRequest(xbeeAddress, command, value);
+		log.debug("XbeeAddress: " + xbeeAddress + " command: " + command + " value: " + value);
 		
-		RemoteAtResponse response = (RemoteAtResponse) xbee.sendSynchronous(request, 5000);
-
-		if (response.isOk()) {
-			return response;
-		} else {
-			log.error("Xbee Remote response error: " + response.getStatus());
-			throw new XBeeException("Could not get remote Xbee response: " + response.getStatus());
+		
+		RemoteAtRequest request = new RemoteAtRequest(xbeeAddress, command, value);			
+		XbeeConfigDTO xbeeConfigDTO = xbeeDeviceMap.get(xbeeAddress);
+			
+		try {
+			RemoteAtResponse response = (RemoteAtResponse) xbee.sendSynchronous(request, 5000);		
+			
+			if (response.isOk()) {		 
+				StoreUtil.INSTANCE.logEvent(xbeeConfigDTO.getId(), command, Boolean.TRUE, "Turning " + (value[0] == 5 ? "on" : "off") + " port " + command + " for Xbee: " + xbeeConfigDTO.getName(), new Date());
+				return response;
+			} else {				
+				log.error("Xbee Remote response error: " + response.getStatus());
+				throw new XBeeException("Could not get remote Xbee response: " + response.getStatus());
+			}		
+		} catch (XBeeTimeoutException timeoutException) {
+			StoreUtil.INSTANCE.logEvent(xbeeConfigDTO.getId(), command, Boolean.FALSE, "Turning " + (value[0] == 5 ? "on" : "off") + " port " + command + " for Xbee: " + xbeeConfigDTO.getName(), new Date());
+			throw timeoutException;			
+		} catch (XBeeException xbeeException) {
+			StoreUtil.INSTANCE.logEvent(xbeeConfigDTO.getId(), command, Boolean.FALSE, "Turning " + (value[0] == 5 ? "on" : "off") + " port " + command + " for Xbee: " + xbeeConfigDTO.getName(), new Date());
+			throw xbeeException;
+		} catch (Exception e) {
+			StoreUtil.INSTANCE.logEvent(xbeeConfigDTO.getId(), command, Boolean.FALSE, "Turning " + (value[0] == 5 ? "on" : "off") + " port " + command + " for Xbee: " + xbeeConfigDTO.getName(), new Date());
+			throw e;
 		}
-		
-		
 	}
 		
 	
@@ -180,9 +195,11 @@ public enum XbeeController {
 			
 			if (response.isOk()) {		 
 				log.debug("COOL - success!!");
+				StoreUtil.INSTANCE.logEvent(xbeeAddressID, portName, Boolean.TRUE, "Turning " + (on ? "on" : "off") + " port " + port + " for Xbee with Address: " + xbeeAddressID, new Date());
 				return "OK";
 			} else {
 				log.error("NOT ok: " + response.getStatus());
+				StoreUtil.INSTANCE.logEvent(xbeeAddressID, portName, Boolean.FALSE, "Turning " + (on ? "on" : "off") + " port " + port + " for Xbee with Address: " + xbeeAddressID, new Date());
 				return "ERROR: " + response.getStatus();
 			}
 			

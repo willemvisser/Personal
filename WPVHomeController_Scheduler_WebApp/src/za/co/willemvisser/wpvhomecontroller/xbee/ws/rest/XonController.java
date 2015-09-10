@@ -47,7 +47,7 @@ public class XonController {
 			
 			if (response.isOk()) {
 		        // success
-				log.info("COOL - success!!");
+				log.debug("COOL - success!!");
 				return "OK";
 			} else {
 				log.error("NOT ok: " + response.getStatus());

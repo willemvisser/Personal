@@ -28,5 +28,12 @@
 		<description>
 			Config host directory for the server hosting the configuration
 		</description>
-	</generalproperty>			
+	</generalproperty>	
+	<generalproperty>
+		<key>StoreEventHttpURL</key>
+		<value>http://localhost:8080/WPVHomeController_Store/wpvhomecontroller/store/event/</value>
+		<description>
+			URL for Events
+		</description>
+	</generalproperty>		
 </generalproperties>

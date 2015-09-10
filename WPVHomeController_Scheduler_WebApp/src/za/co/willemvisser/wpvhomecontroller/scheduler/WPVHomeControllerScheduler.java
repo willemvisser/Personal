@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.client.utils.CloneUtils;
 import org.apache.log4j.Logger;
 import org.quartz.CronTrigger;
@@ -43,14 +44,19 @@ import static org.quartz.impl.matchers.GroupMatcher.*;
 import static org.quartz.impl.matchers.AndMatcher.*;   
 import static org.quartz.impl.matchers.OrMatcher.*;   
 import static org.quartz.impl.matchers.EverythingMatcher.*;
+import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.scheduler.job.XbeeRemoteCommandJob;
 import za.co.willemvisser.wpvhomecontroller.scheduler.job.dto.JobDTO;
 import za.co.willemvisser.wpvhomecontroller.scheduler.job.dto.JobTriggerDTO;
+import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -65,6 +71,8 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+
+import sun.misc.IOUtils;
 
 /*
  * Irrigation:
@@ -88,6 +96,7 @@ public enum WPVHomeControllerScheduler {
 	
 	private boolean isStarted = false;
 	
+	public static final String HTTP_PREFIX = "http://";
 	public static final String GROUP_NAME_IRRIGATION = "Irrigation";
 		
 	
@@ -131,6 +140,40 @@ public enum WPVHomeControllerScheduler {
 		}
 	}
 	
+	private InputStream loadRemoteScheduleConfig() throws Exception {
+		
+		/* Attempt to download from remote server */
+		try {
+			String remoteUrl = HTTP_PREFIX + 
+								"54.68.136.170/config/" +
+								ConfigController.INSTANCE.getGeneralProperty(ConfigController.XML_FILENAME_SCHEDULE);
+					 					
+			
+			HttpResponse response = HttpUtil.INSTANCE.doHttpGet(remoteUrl);
+			if (response.getStatusLine().getStatusCode() == 200) {
+				return response.getEntity().getContent();				
+			
+			} else {
+				throw new IOException("Could not load Remote XML file: " + remoteUrl);
+			}
+			
+			
+		} catch (Exception e) {
+			log.error("Failed to download remote file: " + e);
+			throw (e);
+		}
+	}
+	
+	public void reloadSchedule() {		
+		try {			
+			InputStream newConfigStream = loadRemoteScheduleConfig();
+			scheduler.clear();
+        	processXmlConfig( newConfigStream );          	
+        } catch (Exception e) {
+        	log.error("Could not process xml: " + e.toString());        	
+        }
+	}
+	
 	public LinkedList<String> getCurrentlyExecutingJobs() {
 		LinkedList<String> jobList = new LinkedList<String>();
 		try {
@@ -148,17 +191,19 @@ public enum WPVHomeControllerScheduler {
 	 * @throws SchedulerException
 	 */
 	public List<JobTriggerDTO> listJobTriggers() throws SchedulerException {
+		return listJobTriggers(null);
+	}
+	
+	public List<JobTriggerDTO> listJobTriggers(String groupNameFilter) throws SchedulerException {
 		              
         //TODO - retrieve XML Config from remote location again?
-
-        /* Print out next events */
-        //scheduler.getListenerManager().getTriggerListeners();
-        //scheduler.getCurrentlyExecutingJobs()
-        
-        log.debug("Listing Jobs...");
-        
+ 
         LinkedList<JobTriggerDTO> jobTriggerDTOList = new LinkedList<JobTriggerDTO>();
         for (String groupName : scheduler.getJobGroupNames()) {
+        	
+        	if (groupNameFilter != null && !groupNameFilter.equals(groupName)) {
+        		break;
+        	}
         	 
             for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
         
@@ -172,10 +217,6 @@ public enum WPVHomeControllerScheduler {
 	       	  	for (Trigger trigger : triggers) {
 	       	  		jobTriggerDTOList.add(new JobTriggerDTO(jobName, groupName, trigger, jobDataMap) );
 	       	  	}
-	       	  	//Date nextFireTime = triggers.get(0).getNextFireTime(); 
-	        
-	       		//System.out.println("[jobName] : " + jobName + " [groupName] : "
-	       		//	+ jobGroup + " - " + nextFireTime);
 	        
 	       }
         
@@ -186,47 +227,9 @@ public enum WPVHomeControllerScheduler {
                 return m1.getTrigger().getNextFireTime().compareTo(m2.getTrigger().getNextFireTime());
             }
         });
-        
-        /*
-        final int first = 0;
-        Collections.sort(jobTriggerDTOList, new Comparator() {		
-            public int compare (Object o1, Object o2){
-                Date d1 = ((JobTriggerDTO)o1).getTrigger().getNextFireTime();
-                Date d2 = ((JobTriggerDTO)o2).getTrigger().getNextFireTime();
-                if(d1.before(d2)){
-                	jobTriggerDTOList.set(1, (JobTriggerDTO)o1);
-                	jobTriggerDTOList.set(2, (JobTriggerDTO)o2);
-                }
-                return first;
-            }
-        });
-        */
-        
+           
         return jobTriggerDTOList;
-       /*
-        Set<String> jobsList=jobMap.keySet();
-        Iterator<String> jobsIterator=jobsList.iterator();
-
-        while (jobsIterator.hasNext()) {
-        	String jobName = jobsIterator.next();
-        	log.info("*** Job Name: " + jobName );
-        	JobKey jobKey = jobMap.get(jobName);
-        	
-        	
-        	List<Trigger> triggers = (List<Trigger>) scheduler.getTriggersOfJob(jobKey);
-      	  	if (triggers.size() > 0) {
-      	  		Date nextFireTime = triggers.get(0).getNextFireTime(); 
-       
-      	  		log.info("[jobName] : " + jobName + " [groupName] : "
-      	  				+ " - " + nextFireTime);
-      	  	} else {
-      	  		log.info("[jobName]  " + jobName + " has no triggers");
-      	  	}
-       
-      	          	
-        }
-        */
-        
+ 
 	}
 	
 	
@@ -351,6 +354,17 @@ public enum WPVHomeControllerScheduler {
 	
 	
 	public List<JobTriggerDTO> cancelGroupTriggersForToday(String groupNameToCancel) throws SchedulerException {
+		log.info("cancelGroupTriggersForToday: " + groupNameToCancel);
+		Date today = new Date();
+		
+		Calendar newTriggerStartTimeCal = GregorianCalendar.getInstance();
+		newTriggerStartTimeCal.setTime(today);					
+		newTriggerStartTimeCal.add(Calendar.DATE, 1);
+		newTriggerStartTimeCal.set(Calendar.HOUR_OF_DAY, 0);
+		newTriggerStartTimeCal.set(Calendar.MINUTE, 0);
+		newTriggerStartTimeCal.set(Calendar.SECOND, 0);
+		newTriggerStartTimeCal.set(Calendar.MILLISECOND, 0);
+		
 		for (String groupName : scheduler.getJobGroupNames()) {
        	 
             for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupNameToCancel))) {        
@@ -358,8 +372,11 @@ public enum WPVHomeControllerScheduler {
             	String jobName = jobKey.getName();
             	String jobGroup = jobKey.getGroup();
             	
-            	
-            	
+            	log.debug("JobName: " + jobName + " group: " + jobGroup);
+            	if (!jobGroup.equals(groupNameToCancel)) {
+            		log.debug("Groupname for this job does not match the group to cancel");
+            		break;
+            	}
             	
             	JobDataMap jobDataMap = scheduler.getJobDetail(jobKey).getJobDataMap();
         
@@ -367,22 +384,24 @@ public enum WPVHomeControllerScheduler {
 	       	  	List<Trigger> triggers = (List<Trigger>) scheduler.getTriggersOfJob(jobKey);
 	       	  	
 	       	  	for (Trigger trigger : triggers) {
-	       	  		Date triggerStartTime = trigger.getStartTime();
+	       	  		Date triggerStartTime = trigger.getNextFireTime();
 	       	  		
-		       	  	Calendar cal = GregorianCalendar.getInstance();
-					cal.setTime(triggerStartTime);					
-					cal.add(Calendar.DATE, 1);
-					
+		       	  	if (triggerStartTime.getDate() != today.getDate() || triggerStartTime.getYear() != today.getYear() ||
+		       	  			triggerStartTime.getMonth() != today.getMonth()) {
+		       	  		break;
+		       	  	}
+		       	  	
+	
 					CronTrigger cTrigger = (CronTrigger)trigger;
 					
-					log.info("Right, Job: " + jobName + " with trigger start: " + cTrigger.getStartTime() + " now " + cal.getTime());
+					log.info("Right, Job: " + jobName + " with trigger start: " + cTrigger.getStartTime() + " now " + newTriggerStartTimeCal.getTime());
 	       	  		
 //					Trigger trigger1 = (Trigger) ((Object) trigger).clone();
 //					
 					CronTrigger trigger1 = newTrigger()    
 						    //.withIdentity("trigger_" + jobDTO.getName(), jobDTO.getGroupName())
 							.withIdentity(jobName, groupName)
-						    .startAt(cal.getTime())   
+						    .startAt(newTriggerStartTimeCal.getTime())   
 						    .withSchedule(cronSchedule( cTrigger.getCronExpression() ) )   
 						    .build();
 					

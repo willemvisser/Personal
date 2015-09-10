@@ -86,7 +86,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	    <div class="wrap">  		 
 	    	<div class="column_left">	          
 	    
-	    		
+	    		<div class="menu_box">
+		    		 	 <h3>Actions</h3>
+		    		 	   <div class="menu_box_list">
+					      		<ul>
+							  		<li class="active"><a href="#" class="account_settings"><span>All Devices</span></a></li>
+							  		<li><a href="eventLog.jsp" class="messages"><span>Event Log</span><div class="clear"></div></a></li>
+							  								  	
+					    		</ul>
+					      </div>
+		    	</div>
 	    		 
 	  		</div> <!-- column_left -->
 	  		
