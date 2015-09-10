@@ -7,56 +7,31 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
-
 import org.apache.http.HttpResponse;
-import org.apache.http.client.utils.CloneUtils;
 import org.apache.log4j.Logger;
 import org.quartz.CronTrigger;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobKey;
-import org.quartz.JobListener;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
-import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
-import org.quartz.TriggerListener;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.matchers.GroupMatcher;
-
 import static org.quartz.JobBuilder.*;   
-import static org.quartz.TriggerBuilder.*;   
-import static org.quartz.SimpleScheduleBuilder.*;   
+import static org.quartz.TriggerBuilder.*;     
 import static org.quartz.CronScheduleBuilder.*;   
-import static org.quartz.CalendarIntervalScheduleBuilder.*;   
-import static org.quartz.JobKey.*;   
-import static org.quartz.TriggerKey.*;   
-import static org.quartz.DateBuilder.*;   
-import static org.quartz.impl.matchers.KeyMatcher.*;   
-import static org.quartz.impl.matchers.GroupMatcher.*;   
-import static org.quartz.impl.matchers.AndMatcher.*;   
-import static org.quartz.impl.matchers.OrMatcher.*;   
-import static org.quartz.impl.matchers.EverythingMatcher.*;
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
-import za.co.willemvisser.wpvhomecontroller.scheduler.job.XbeeRemoteCommandJob;
 import za.co.willemvisser.wpvhomecontroller.scheduler.job.dto.JobDTO;
 import za.co.willemvisser.wpvhomecontroller.scheduler.job.dto.JobTriggerDTO;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
-
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -72,7 +47,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import sun.misc.IOUtils;
 
 /*
  * Irrigation:
