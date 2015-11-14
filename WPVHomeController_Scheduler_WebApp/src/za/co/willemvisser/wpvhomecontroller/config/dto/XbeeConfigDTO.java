@@ -84,10 +84,11 @@ public class XbeeConfigDTO implements Serializable {
 						xbeeConfigDeviceDTO.setEnabled( latestPortReadings.isDigitalOn(devicePort) );
 						
 					} else if (xbeeConfigDeviceDTO.getType().equals(XbeeConfigDeviceDTO.TYPE_TOGGLESWITCH)) {
-						log.debug("toggleswitch: " + xbeeConfigDeviceDTO.getId() + ", Port=" + xbeeConfigDeviceDTO.getPort() + 
-								", Address=" + xbeeConfigDeviceDTO.getPortAddress());
+						
 						if (!xbeeConfigDeviceDTO.isEnabled() && !latestPortReadings.isDigitalOn(devicePort)) {
 							//OK button pressed, we should toggle the state now of the linked device
+							log.debug("toggleswitch Pressed: " + xbeeConfigDeviceDTO.getId() + ", Port=" + xbeeConfigDeviceDTO.getPort() + 
+									", Address=" + xbeeConfigDeviceDTO.getPortAddress());
 							if (xbeeConfigDeviceDTO.getLinkedDeviceId() != null) {
 								XbeeConfigDeviceDTO linkedXbeeDeviceDTP = XbeeController.INSTANCE.getDeviceWithID(xbeeConfigDeviceDTO.getLinkedDeviceId());								
 								if (linkedXbeeDeviceDTP.isEnabled()) {
