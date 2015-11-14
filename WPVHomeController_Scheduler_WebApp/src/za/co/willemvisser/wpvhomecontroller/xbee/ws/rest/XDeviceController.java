@@ -47,11 +47,14 @@ public class XDeviceController {
 			
 		log.info("XDeviceController taking action on device: " + deviceId);
 
-		try {
+		try {			
 			XbeeConfigDeviceDTO xbeeConfigDeviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);
+			log.info(": " + xbeeConfigDeviceDTO.getName() + ", Port=" + xbeeConfigDeviceDTO.getPort() + ", PortAddress=" + xbeeConfigDeviceDTO.getPortAddress());;
 			if (xbeeConfigDeviceDTO != null) {
-				return takeAction(xbeeConfigDeviceDTO);
-			} else {
+				String result = takeAction(xbeeConfigDeviceDTO);
+				log.info("Result: " + result);
+				return result;
+			} else {				
 				return "ERROR: Device not found";
 			}
 			
