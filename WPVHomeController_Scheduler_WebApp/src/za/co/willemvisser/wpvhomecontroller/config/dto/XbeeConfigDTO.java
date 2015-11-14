@@ -71,7 +71,7 @@ public class XbeeConfigDTO implements Serializable {
 			int devicePort = Integer.parseInt(xbeeConfigDeviceDTO.getLogicalPort());
 			//log.debug("devicePort for Digital Setting: " + devicePort);
 			if (xbeeConfigDeviceDTO.isDigital()) {	
-				//log.debug("latestPortReadings.isDigitalOn(devicePort):  " + (latestPortReadings.isDigitalOn(devicePort) )); 
+				log.debug("latestPortReadings.isDigitalOn(devicePort):  " + (latestPortReadings.isDigitalOn(devicePort) )); 
 				if (latestPortReadings.isDigitalOn(devicePort) != null) {
 					//Start with check if this device is infrared
 					if (xbeeConfigDeviceDTO.getType().equals(XbeeConfigDeviceDTO.TYPE_INFRARED)) {
@@ -84,7 +84,7 @@ public class XbeeConfigDTO implements Serializable {
 						xbeeConfigDeviceDTO.setEnabled( latestPortReadings.isDigitalOn(devicePort) );
 						
 					} else if (xbeeConfigDeviceDTO.getType().equals(XbeeConfigDeviceDTO.TYPE_TOGGLESWITCH)) {
-						
+						log.debug("toggleswitch!");
 						if (!xbeeConfigDeviceDTO.isEnabled() && !latestPortReadings.isDigitalOn(devicePort)) {
 							//OK button pressed, we should toggle the state now of the linked device
 							if (xbeeConfigDeviceDTO.getLinkedDeviceId() != null) {
