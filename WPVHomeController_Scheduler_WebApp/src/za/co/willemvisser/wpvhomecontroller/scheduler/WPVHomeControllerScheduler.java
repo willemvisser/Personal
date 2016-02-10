@@ -316,6 +316,8 @@ public enum WPVHomeControllerScheduler {
 			log.error("Could not add job with name " + jobDTO.getName() + " : " + cnfe.toString());
 		} catch (SchedulerException se) {
 			log.error("Could not add job with name " + jobDTO.getName() + " : " + se.toString());
+		} catch (Exception ge) {
+			log.error("Unexpected: " + ge.toString());
 		}
 	}
 

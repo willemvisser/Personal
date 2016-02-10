@@ -39,13 +39,17 @@
 		if (action != null && action.equals("irrigation_cleartoday")) {
 			WPVHomeControllerScheduler.INSTANCE.cancelGroupTriggersForToday("Irrigation");
 		} else if (action != null && action.equals("irrigation_quickaddevent")) {
+			Calendar cal = GregorianCalendar.getInstance();
+			Date now = new Date();			
+			long timeStamp = cal.getTime().getTime();
+			String jobName = "OnceOff QuickEvent (" + request.getParameter("zone") + ") " + (timeStamp);
+			
 			out.println("<p><i>New irrigation event added!</i></p>");
 			JobDTO newJobDto = new JobDTO();
 			newJobDto.setClassName("za.co.willemvisser.wpvhomecontroller.scheduler.job.XbeeRemoteIrrigationCommandJob");
 			newJobDto.setGroupName("Irrigation");
-			Calendar cal = GregorianCalendar.getInstance();
-			Date now = new Date();
-			newJobDto.setName("OnceOff_QuickEvent_On_" + (cal.getTime().getTime()) );				
+			
+			newJobDto.setName(jobName);				
 			newJobDto.setStartTime( cal.getTime() );
 			
 			cal.add(Calendar.SECOND, 30);
@@ -74,9 +78,8 @@
 			WPVHomeControllerScheduler.INSTANCE.addJob(newJobDto, WPVHomeControllerScheduler.INSTANCE.getGeneralJobPropertiesMap());
 			
 			//Adding the stop event
-			newJobDto.setName("OnceOff_QuickEvent_Off_" + (cal.getTime().getTime()) );
-			params.put("command", "xoff");
-			//out.println("<br/>Min: " + Integer.valueOf(request.getParameter("time")) + "<br/>");
+			newJobDto.setName(jobName );
+			params.put("command", "xoff");			
 			
 			cal.add(Calendar.MINUTE,  Integer.valueOf(request.getParameter("time")) );
 			strBuff = new StringBuffer();

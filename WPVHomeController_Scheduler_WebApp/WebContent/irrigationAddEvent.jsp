@@ -17,6 +17,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 		<link href="css/nav.css" rel="stylesheet" type="text/css" media="all"/>
+		 
+		<link href="css/wpvstyle.css" rel="stylesheet" type="text/css" media="all"/>
+				 
 		<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic+SC' rel='stylesheet' type='text/css'>
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/login.js"></script>
@@ -28,7 +31,9 @@
 		  <script src="js/underscore-min.js"></script>
 		  <script src= "js/moment-2.2.1.js"></script>
 		  <script src="js/clndr.js"></script>
-		  <script src="js/site.js"></script>
+		  <script src="js/site.js"></script>		   
+		  <script src="js/wpvpushbuttons.js"></script>
+		  
 		  <!----End Calender -------->
 	</head>
 	<body>
@@ -105,7 +110,7 @@
 					  <div class="menu">
 						  <a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
 							<ul class="nav">
-								<li><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
+								<li><a class="original" href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
 								<li class="active"><a href="irrigation.jsp"><i><img src="images/user.png" alt="" /></i>Irrigation</a></li>
 								<li><a href="lights.jsp"><i><img src="images/mail.png" alt="" /></i>Lights</a></li>
 								<li><a href="settings.jsp"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>
@@ -143,48 +148,34 @@
               	<div class="column_middle_grid1">
 	    				      
 	    			<div class="column_right_grid sign-in">
-				 	<div class="sign_in">
-				       <h3>Add New Irrigation Event</h3>
-					    
-					    <table>
-					    <tr>
-					    	<td>
-							    <form action="irrigation.jsp" method="POST">
-							    	<input type="hidden" name="action" value="irrigation_quickaddevent"/>
-							    	<input type="hidden" name="time" value="15"/>
-							    	<input type="hidden" name="valve" value="3"/>
-							    	<input type="submit" class="my-button" value="15m Driveway">
-							    </form>
-					    	</td>
-					    	<td>
-							    <form action="irrigation.jsp" method="POST">
-							    	<input type="hidden" name="action" value="irrigation_quickaddevent"/>
-							    	<input type="hidden" name="time" value="15"/>
-							    	<input type="hidden" name="valve" value="2"/>
-							    	<input type="submit" class="my-button" value="15m Gate">
-							    </form>
-							</td>
-					    </tr>
-					    </table>
+				 	<div class="sign_in">					    					    
 					    
 					    <form action="irrigation.jsp" method="POST">					    	
-					 	    
-					 	    <input type="hidden" name="action" value="irrigation_quickaddevent"/>
-							<span>
-							Duration: <input type="text" name="time" value="5"/>							
-							</span>
+					 	    					 	    														
 							
+							<div class="button-group-navigation">							
+							  <li><a id="btnTime1" class="btnTime" href="#">1</a></li>
+							  <li><a id="btnTime5" class="btnTime" href="#">5</a></li>
+							  <li><a id="btnTime10" class="btnTime" href="#">10</a></li>
+							  <li><a id="btnTime15" class="btnTime" href="#">15</a></li>
+							  <li><a id="btnTime20" class="btnTime" href="#">20</a></li>
+							</div>	
+							
+							<br/>	
+									
+							<div class="button-group-navigation">							
+							  <li><a id="btnZone4" class="btnZone" href="#" value="">Bottom - House</a></li>
+							  <li><a id="btnZone6" class="btnZone" href="#">Bottom - Wall</a></li>
+							  <li><a id="btnZone3" class="btnZone" href="#">Top - Driveway</a></li>
+							  <li><a id="btnZone2" class="btnZone" href="#">Top - Gate</a></li>
+							  <li><a id="btnZone5" class="btnZone" href="#">Outside</a></li>
+							</div>		
+							
+							<input type="hidden" name="action" value="irrigation_quickaddevent"/>
 							<span>
-							Zone: <br/>
-							<input type="radio" name="valve" value="4" checked>Bottom - House
-							<br/>
-							<input type="radio" name="valve" value="6">Bottom - Wall
-							<br/>
-							<input type="radio" name="valve" value="3">Top - Driveway
-							<br/>
-							<input type="radio" name="valve" value="2">Top - Gate
-							<br/>
-							<input type="radio" name="valve" value="5">Outside
+							Duration: <input type="text" name="time" id="time" value="5"/>  <br/> 							 
+							Zone: <input type="text" name="zone" id="zone" value=""/> <br/> 
+							Valve: <input type="text" name="valve" id="valve" value=""/>
 							</span>
 			
 					 		<input type="submit" class="my-button" value="Add Event">

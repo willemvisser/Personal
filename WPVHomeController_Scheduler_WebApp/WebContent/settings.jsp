@@ -5,6 +5,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE HTML>
+<%@page import="za.co.willemvisser.wpvhomecontroller.config.ConfigController"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO"%>
 <%@page import="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO"%>
@@ -39,9 +40,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 <body>	
 
+	<%		
+		String action = request.getParameter("action");
+		if (action != null && action.equals("reload")) {
+			ConfigController.INSTANCE.reloadRemoteXbeeConfig();
+			XbeeController.INSTANCE.loadXbeeConfig(ConfigController.INSTANCE.getXbeeConfigsDTO());	
+		}
+
+	%>
+	
 	<script type="text/javascript">
-		setInterval('updateXbeeStatusDiv()', 1000); // refresh div after 5 secs
-		setInterval('updateDeviceStatusDiv()', 1000); // refresh div after 5 secs
+		setInterval('updateXbeeStatusDiv()', 1000); // refresh div after 1 secs
+		setInterval('updateDeviceStatusDiv()', 1000); // refresh div after 1 secs
 	   
 		function updateXbeeStatusDiv() {			
 			$.get('./inc/xbeeStatusDiv.jsp', function(data) {
@@ -58,9 +68,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		updateDeviceStatusDiv();
 		updateXbeeStatusDiv();
 	</script>
-
-
-
 	     
 	    <div class="wrap">	 
 	      <div class="header">
@@ -92,7 +99,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					      		<ul>
 							  		<li class="active"><a href="#" class="account_settings"><span>All Devices</span></a></li>
 							  		<li><a href="eventLog.jsp" class="messages"><span>Event Log</span><div class="clear"></div></a></li>
-							  								  	
+							  		<li><a href="settings.jsp?action=reload" class="statistics"><span>Reload Config</span><div class="clear"></div></a></li>					  	
 					    		</ul>
 					      </div>
 		    	</div>
