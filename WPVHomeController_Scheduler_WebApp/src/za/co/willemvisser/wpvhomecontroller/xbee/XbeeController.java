@@ -13,6 +13,7 @@ import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigsDTO;
 import za.co.willemvisser.wpvhomecontroller.util.StoreUtil;
 import za.co.willemvisser.wpvhomecontroller.xbee.dto.XbeeDTO;
 
+import com.rapplogic.xbee.api.AtCommand;
 import com.rapplogic.xbee.api.RemoteAtRequest;
 import com.rapplogic.xbee.api.RemoteAtResponse;
 import com.rapplogic.xbee.api.XBee;
@@ -112,19 +113,21 @@ public enum XbeeController {
 		//NT
 		//ND
 		log.info("Sending NT command...");
-		try {
-			RemoteAtRequest request = new RemoteAtRequest(XBeeAddress64.BROADCAST, "NT");
-			RemoteAtResponse response = (RemoteAtResponse) xbee.sendSynchronous(request, 15000);
-			log.info("NT Response: " + response.toString());
+		try {			
+			xbee.sendAtCommand(new AtCommand("NT"));
+			//RemoteAtRequest request = new RemoteAtRequest(XBeeAddress64.BROADCAST, "NT");
+			//RemoteAtResponse response = (RemoteAtResponse) xbee.sendSynchronous(request, 15000);
+			//log.info("NT Response: " + response.toString());
 		} catch (Exception e) {
 			log.error("NT Command error: " + e.toString());
 		}
 		
 		log.info("Sending ND command...");
 		try {
-			RemoteAtRequest request = new RemoteAtRequest(XBeeAddress64.BROADCAST, "ND");
-			RemoteAtResponse response = (RemoteAtResponse) xbee.sendSynchronous(request, 15000);
-			log.info("ND Response: " + response.toString());
+			xbee.sendAtCommand(new AtCommand("ND"));
+			//RemoteAtRequest request = new RemoteAtRequest(XBeeAddress64.BROADCAST, "ND");
+			//RemoteAtResponse response = (RemoteAtResponse) xbee.sendSynchronous(request, 15000);
+			//log.info("ND Response: " + response.toString());
 		} catch (Exception e) {
 			log.error("ND Command error: " + e.toString());
 		}
