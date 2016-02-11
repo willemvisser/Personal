@@ -18,6 +18,7 @@ import com.rapplogic.xbee.api.RemoteAtResponse;
 import com.rapplogic.xbee.api.XBee;
 import com.rapplogic.xbee.api.XBeeAddress64;
 import com.rapplogic.xbee.api.XBeeException;
+import com.rapplogic.xbee.api.XBeeRequest;
 import com.rapplogic.xbee.api.XBeeTimeoutException;
 
 
@@ -57,6 +58,8 @@ public enum XbeeController {
 		}
 		
 		loadXbeeConfig(xbeeConfigsDTO);
+		
+		discoverXbeeRing();
 	}
 	
 	/**
@@ -103,6 +106,28 @@ public enum XbeeController {
 		
 		return remoteAtRequest(xbeeAddress, command, value);								
 				
+	}
+	
+	public void discoverXbeeRing() {
+		//NT
+		//ND
+		log.info("Sending NT command...");
+		try {
+			RemoteAtRequest request = new RemoteAtRequest(XBeeAddress64.BROADCAST, "NT");
+			RemoteAtResponse response = (RemoteAtResponse) xbee.sendSynchronous(request, 15000);
+			log.info("NT Response: " + response.toString());
+		} catch (Exception e) {
+			log.error("NT Command error: " + e.toString());
+		}
+		
+		log.info("Sending ND command...");
+		try {
+			RemoteAtRequest request = new RemoteAtRequest(XBeeAddress64.BROADCAST, "ND");
+			RemoteAtResponse response = (RemoteAtResponse) xbee.sendSynchronous(request, 15000);
+			log.info("ND Response: " + response.toString());
+		} catch (Exception e) {
+			log.error("ND Command error: " + e.toString());
+		}
 	}
 	
 	/**
