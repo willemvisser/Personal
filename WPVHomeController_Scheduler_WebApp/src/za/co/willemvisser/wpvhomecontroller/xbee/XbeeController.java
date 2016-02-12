@@ -14,13 +14,16 @@ import za.co.willemvisser.wpvhomecontroller.util.StoreUtil;
 import za.co.willemvisser.wpvhomecontroller.xbee.dto.XbeeDTO;
 
 import com.rapplogic.xbee.api.AtCommand;
+import com.rapplogic.xbee.api.AtCommandResponse;
 import com.rapplogic.xbee.api.RemoteAtRequest;
 import com.rapplogic.xbee.api.RemoteAtResponse;
 import com.rapplogic.xbee.api.XBee;
 import com.rapplogic.xbee.api.XBeeAddress64;
 import com.rapplogic.xbee.api.XBeeException;
 import com.rapplogic.xbee.api.XBeeRequest;
+import com.rapplogic.xbee.api.XBeeResponse;
 import com.rapplogic.xbee.api.XBeeTimeoutException;
+import com.rapplogic.xbee.util.ByteUtils;
 
 
 public enum XbeeController {
@@ -112,25 +115,31 @@ public enum XbeeController {
 	public void discoverXbeeRing() {
 		//NT
 		//ND
-		log.info("Sending NT command...");
-		try {			
-			xbee.sendAtCommand(new AtCommand("NT"));
-			//RemoteAtRequest request = new RemoteAtRequest(XBeeAddress64.BROADCAST, "NT");
-			//RemoteAtResponse response = (RemoteAtResponse) xbee.sendSynchronous(request, 15000);
-			//log.info("NT Response: " + response.toString());
+		
+		try {						
+			// get the Node discovery timeout
+			log.info("Sending NT command...");
+			xbee.sendAsynchronous(new AtCommand("NT"));
+			AtCommandResponse nodeTimeout = (AtCommandResponse) xbee.getResponse();
+			
+			// default is 6 seconds
+			int nodeDiscoveryTimeout = ByteUtils.convertMultiByteToInt(nodeTimeout.getValue()) * 100;			
+			log.info("Node discovery timeout is " + nodeDiscoveryTimeout + " milliseconds");
+						
+			log.info("Sending Node Discover (ND) command");
+			xbee.sendAsynchronous(new AtCommand("ND"));
+			
+			// wait for nodeDiscoveryTimeout milliseconds
+			Thread.sleep(nodeDiscoveryTimeout);
+			
+			log.info("Time is up!  You should have heard back from all nodes by now.  If not make sure all nodes are associated and/or try increasing the node timeout (NT)");
+			
 		} catch (Exception e) {
-			log.error("NT Command error: " + e.toString());
+			log.error("NT/ND Command error: " + e.toString());
 		}
 		
-		log.info("Sending ND command...");
-		try {
-			xbee.sendAtCommand(new AtCommand("ND"));
-			//RemoteAtRequest request = new RemoteAtRequest(XBeeAddress64.BROADCAST, "ND");
-			//RemoteAtResponse response = (RemoteAtResponse) xbee.sendSynchronous(request, 15000);
-			//log.info("ND Response: " + response.toString());
-		} catch (Exception e) {
-			log.error("ND Command error: " + e.toString());
-		}
+		
+		
 	}
 	
 	/**

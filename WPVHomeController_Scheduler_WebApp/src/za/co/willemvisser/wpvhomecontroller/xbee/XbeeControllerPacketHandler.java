@@ -8,6 +8,7 @@ import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO;
 import za.co.willemvisser.wpvhomecontroller.xbee.dto.XbeeDTO;
 
+import com.rapplogic.xbee.api.AtCommandResponse;
 import com.rapplogic.xbee.api.PacketListener;
 import com.rapplogic.xbee.api.XBeeResponse;
 import com.rapplogic.xbee.api.zigbee.ZNetNodeIdentificationResponse;
@@ -52,6 +53,18 @@ public class XbeeControllerPacketHandler implements PacketListener {
 					XbeeController.INSTANCE.getXbeeDeviceMap().put(ioResponse.getRemoteAddress64(), 
 							newXbeeConfigDTO);
 				}
+			} else if (response instanceof AtCommandResponse) {
+				AtCommandResponse atResponse = (AtCommandResponse) response;				
+				if (atResponse.getCommand().equals("ND") && atResponse.getValue() != null && atResponse.getValue().length > 0) {
+					//ZBNodeDiscover nd = ZBNodeDiscover.parse((AtCommandResponse)response);
+					//log.info("Node Discover is " + nd);					
+					log.info("Node discovered: " + atResponse.getValue() + " -> " + atResponse.toString() );
+				} else {
+					log.debug("Unknown Command Response: " + atResponse.toString() );
+				}
+				
+			} else {
+				log.debug("Unknown Response: API_ID=" + response.getApiId().toString() + " -> " + response.toString());
 			}
 			
 			//log.debug("D6: (" + ioResponse.isD6On() + ")  D7: (" + (ioResponse.isD7On()) + ")  D7:  (" + ioResponse.isDigitalOn(7) + ")");
