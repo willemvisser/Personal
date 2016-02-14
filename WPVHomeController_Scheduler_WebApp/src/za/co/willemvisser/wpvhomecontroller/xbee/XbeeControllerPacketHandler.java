@@ -10,6 +10,7 @@ import za.co.willemvisser.wpvhomecontroller.xbee.dto.XbeeDTO;
 
 import com.rapplogic.xbee.api.AtCommandResponse;
 import com.rapplogic.xbee.api.PacketListener;
+import com.rapplogic.xbee.api.RemoteAtResponse;
 import com.rapplogic.xbee.api.XBeeResponse;
 import com.rapplogic.xbee.api.zigbee.ZNetNodeIdentificationResponse;
 import com.rapplogic.xbee.api.zigbee.ZNetRxIoSampleResponse;
@@ -67,8 +68,11 @@ public class XbeeControllerPacketHandler implements PacketListener {
 				} else {
 					log.error("Unknown Command Response: " + atResponse.toString() );
 				}							
+			} else if (response instanceof RemoteAtResponse) {
+				RemoteAtResponse remoteResponse = (RemoteAtResponse) response;
+				log.info("Remote Response OK: " + remoteResponse.isOk() + ", " + remoteResponse.toString() ); 
 			} else {
-				log.error("Unknown Response: API_ID=" + response.getApiId().toString() + " -> " + response.toString() + " type=" + response.getClass());
+				log.info("TODO: Unknown Response: API_ID=" + response.getApiId().toString() + " -> " + response.toString() + " type=" + response.getClass());
 			}
 			
 			//log.debug("D6: (" + ioResponse.isD6On() + ")  D7: (" + (ioResponse.isD7On()) + ")  D7:  (" + ioResponse.isDigitalOn(7) + ")");

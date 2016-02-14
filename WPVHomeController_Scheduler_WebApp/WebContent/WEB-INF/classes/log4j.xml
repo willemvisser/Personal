@@ -102,6 +102,12 @@
   		<appender-ref ref="console" />
   		<level value="ERROR"/> 
 	</logger>
+	
+	<logger name="com.rapplogic.xbee.api.Xbee"
+				additivity="false">
+  		<appender-ref ref="console" />
+  		<level value="ERROR"/> 
+	</logger>
 		
  	 
  	<logger name="com.rapplogic.xbee.api.zigbee.ZNetRxIoSampleResponse"
