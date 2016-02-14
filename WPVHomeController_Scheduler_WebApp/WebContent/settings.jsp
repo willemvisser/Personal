@@ -45,7 +45,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		if (action != null && action.equals("reload")) {
 			ConfigController.INSTANCE.reloadRemoteXbeeConfig();
 			XbeeController.INSTANCE.loadXbeeConfig(ConfigController.INSTANCE.getXbeeConfigsDTO());	
-		} else if (action != null && action.equals("reload")) {
+		} else if (action != null && action.equals("discover")) {
 			XbeeController.INSTANCE.discoverXbeeRing();
 		}
 
