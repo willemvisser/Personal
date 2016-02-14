@@ -45,6 +45,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		if (action != null && action.equals("reload")) {
 			ConfigController.INSTANCE.reloadRemoteXbeeConfig();
 			XbeeController.INSTANCE.loadXbeeConfig(ConfigController.INSTANCE.getXbeeConfigsDTO());	
+		} else if (action != null && action.equals("reload")) {
+			XbeeController.INSTANCE.discoverXbeeRing();
 		}
 
 	%>
@@ -99,7 +101,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					      		<ul>
 							  		<li class="active"><a href="#" class="account_settings"><span>All Devices</span></a></li>
 							  		<li><a href="eventLog.jsp" class="messages"><span>Event Log</span><div class="clear"></div></a></li>
-							  		<li><a href="settings.jsp?action=reload" class="statistics"><span>Reload Config</span><div class="clear"></div></a></li>					  	
+							  		<li><a href="settings.jsp?action=reload" class="statistics"><span>Reload Config</span><div class="clear"></div></a></li>
+							  		<li><a href="settings.jsp?action=discover" class="statistics"><span>Discover Network</span><div class="clear"></div></a></li>					  	
 					    		</ul>
 					      </div>
 		    	</div>
