@@ -61,10 +61,9 @@ public class XbeeControllerPacketHandler implements PacketListener {
 					log.info("Node discovered: " + atResponse.getValue() + " -> " + atResponse.toString() );
 				} else {
 					log.error("Unknown Command Response: " + atResponse.toString() );
-				}
-				
+				}							
 			} else {
-				log.error("Unknown Response: API_ID=" + response.getApiId().toString() + " -> " + response.toString());
+				log.error("Unknown Response: API_ID=" + response.getApiId().toString() + " -> " + response.toString() + " type=" + response.getClass());
 			}
 			
 			//log.debug("D6: (" + ioResponse.isD6On() + ")  D7: (" + (ioResponse.isD7On()) + ")  D7:  (" + ioResponse.isDigitalOn(7) + ")");

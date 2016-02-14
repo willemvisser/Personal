@@ -119,18 +119,17 @@ public enum XbeeController {
 		try {						
 			// get the Node discovery timeout
 			log.info("Sending NT command...");
-			xbee.sendAsynchronous(new AtCommand("NT"));
-			AtCommandResponse nodeTimeout = (AtCommandResponse) xbee.getResponse();
+			xbee.sendAsynchronous(new AtCommand("NT"));			
 			
 			// default is 6 seconds
-			int nodeDiscoveryTimeout = ByteUtils.convertMultiByteToInt(nodeTimeout.getValue()) * 100;			
-			log.info("Node discovery timeout is " + nodeDiscoveryTimeout + " milliseconds");
+			//int nodeDiscoveryTimeout = ByteUtils.convertMultiByteToInt(nodeTimeout.getValue()) * 100;			
+			//log.info("Node discovery timeout is " + nodeDiscoveryTimeout + " milliseconds");
 						
 			log.info("Sending Node Discover (ND) command");
 			xbee.sendAsynchronous(new AtCommand("ND"));
 			
 			// wait for nodeDiscoveryTimeout milliseconds
-			Thread.sleep(nodeDiscoveryTimeout);
+			Thread.sleep(12000);
 			
 			log.info("Time is up!  You should have heard back from all nodes by now.  If not make sure all nodes are associated and/or try increasing the node timeout (NT)");
 			
