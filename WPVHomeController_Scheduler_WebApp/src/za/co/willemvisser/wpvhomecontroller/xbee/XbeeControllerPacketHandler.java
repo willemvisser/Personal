@@ -13,6 +13,7 @@ import com.rapplogic.xbee.api.PacketListener;
 import com.rapplogic.xbee.api.XBeeResponse;
 import com.rapplogic.xbee.api.zigbee.ZNetNodeIdentificationResponse;
 import com.rapplogic.xbee.api.zigbee.ZNetRxIoSampleResponse;
+import com.rapplogic.xbee.util.ByteUtils;
 
 public class XbeeControllerPacketHandler implements PacketListener {
 
@@ -59,6 +60,10 @@ public class XbeeControllerPacketHandler implements PacketListener {
 					//ZBNodeDiscover nd = ZBNodeDiscover.parse((AtCommandResponse)response);
 					//log.info("Node Discover is " + nd);					
 					log.info("Node discovered: " + atResponse.getValue() + " -> " + atResponse.toString() );
+				} else if (atResponse.getCommand().equals("NT")){ 										
+					// default is 6 seconds
+					int nodeDiscoveryTimeout = ByteUtils.convertMultiByteToInt(atResponse.getValue()) * 100;			
+					log.info("Node discovery timeout is " + nodeDiscoveryTimeout + " milliseconds");
 				} else {
 					log.error("Unknown Command Response: " + atResponse.toString() );
 				}							

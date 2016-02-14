@@ -129,9 +129,9 @@ public enum XbeeController {
 			xbee.sendAsynchronous(new AtCommand("ND"));
 			
 			// wait for nodeDiscoveryTimeout milliseconds
-			Thread.sleep(12000);
+			//Thread.sleep(12000);
 			
-			log.info("Time is up!  You should have heard back from all nodes by now.  If not make sure all nodes are associated and/or try increasing the node timeout (NT)");
+			//log.info("Time is up!  You should have heard back from all nodes by now.  If not make sure all nodes are associated and/or try increasing the node timeout (NT)");
 			
 		} catch (Exception e) {
 			log.error("NT/ND Command error: " + e.toString());
