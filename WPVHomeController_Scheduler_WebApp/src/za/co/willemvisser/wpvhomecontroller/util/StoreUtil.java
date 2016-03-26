@@ -17,7 +17,7 @@ public enum StoreUtil {
 	static Logger log = Logger.getLogger(StoreUtil.class.getName());
 	
 	public void logEvent(String deviceId, String command, Boolean success, String description, Date timestamp) {
-		log.info("logEvent: " + description);
+		log.debug("logEvent: " + description);
 		
 		GeneralPropertyDTO propStoreEventURL = ConfigController.INSTANCE.getGeneralProperty(GeneralPropertyDTO.PROP_STORE_EVENT_URL);
 		if (propStoreEventURL == null) {
@@ -44,7 +44,7 @@ public enum StoreUtil {
 			if (responseStr.toString().equals("OK")) {
 				log.info("Posted successfully.");
 			} else {
-				log.error("Failure.");
+				log.error("Failure: " + responseStr);
 				//TODO - we should add this to the log and retry later
 			}
 		} catch (Exception e) {
