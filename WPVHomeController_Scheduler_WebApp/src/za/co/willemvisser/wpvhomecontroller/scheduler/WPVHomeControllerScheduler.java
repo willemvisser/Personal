@@ -396,6 +396,83 @@ public enum WPVHomeControllerScheduler {
 		
 		return listJobTriggers();
 	}
+	
+	public List<JobTriggerDTO> cancelGroupTriggersForTomorrow(String groupNameToCancel) throws SchedulerException {
+		log.info("cancelGroupTriggersForTomorrow: " + groupNameToCancel);
+		Date today = new Date();
+		
+		Calendar tomorrowCal = GregorianCalendar.getInstance();
+		tomorrowCal.setTime(today);					
+		tomorrowCal.add(Calendar.DATE, 1);
+		tomorrowCal.set(Calendar.HOUR_OF_DAY, 0);
+		tomorrowCal.set(Calendar.MINUTE, 0);
+		tomorrowCal.set(Calendar.SECOND, 0);
+		tomorrowCal.set(Calendar.MILLISECOND, 0);
+		Date tomorrow = tomorrowCal.getTime();
+		
+		Calendar newTriggerStartTimeCal = GregorianCalendar.getInstance();
+		newTriggerStartTimeCal.setTime(today);					
+		newTriggerStartTimeCal.add(Calendar.DATE, 2);
+		newTriggerStartTimeCal.set(Calendar.HOUR_OF_DAY, 0);
+		newTriggerStartTimeCal.set(Calendar.MINUTE, 0);
+		newTriggerStartTimeCal.set(Calendar.SECOND, 0);
+		newTriggerStartTimeCal.set(Calendar.MILLISECOND, 0);
+		
+		for (String groupName : scheduler.getJobGroupNames()) {
+       	 
+            for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupNameToCancel))) {        
+            	
+            	String jobName = jobKey.getName();
+            	String jobGroup = jobKey.getGroup();
+            	
+            	log.debug("JobName: " + jobName + " group: " + jobGroup);
+            	if (!jobGroup.equals(groupNameToCancel)) {
+            		log.debug("Groupname for this job does not match the group to cancel");
+            		break;
+            	}
+            	
+            	JobDataMap jobDataMap = scheduler.getJobDetail(jobKey).getJobDataMap();
+        
+	       	  	//get job's trigger
+	       	  	List<Trigger> triggers = (List<Trigger>) scheduler.getTriggersOfJob(jobKey);
+	       	  	
+	       	  	for (Trigger trigger : triggers) {
+	       	  		Date triggerStartTime = trigger.getNextFireTime();
+	       	  		
+		       	  	if (triggerStartTime.getDate() != tomorrow.getDate() || triggerStartTime.getYear() != tomorrow.getYear() ||
+		       	  			triggerStartTime.getMonth() != tomorrow.getMonth()) {
+		       	  		break;
+		       	  	}
+		       	  	
+	
+					CronTrigger cTrigger = (CronTrigger)trigger;
+					
+					log.info("Right, Job: " + jobName + " with trigger start: " + cTrigger.getStartTime() + " now " + newTriggerStartTimeCal.getTime());
+	       	  		
+//					Trigger trigger1 = (Trigger) ((Object) trigger).clone();
+//					
+					CronTrigger trigger1 = newTrigger()    
+						    //.withIdentity("trigger_" + jobDTO.getName(), jobDTO.getGroupName())
+							.withIdentity(jobName, groupName)
+						    .startAt(newTriggerStartTimeCal.getTime())   
+						    .withSchedule(cronSchedule( cTrigger.getCronExpression() ) )   
+						    .build();
+					
+					scheduler.rescheduleJob(trigger.getKey(), trigger1);
+	       	  	}
+
+	       	  	//Date nextFireTime = triggers.get(0).getNextFireTime(); 
+	        
+	       		//System.out.println("[jobName] : " + jobName + " [groupName] : "
+	       		//	+ jobGroup + " - " + nextFireTime);
+	        
+	       }
+        
+        }
+		
+		
+		return listJobTriggers();
+	}
 
 
 }

@@ -38,6 +38,8 @@
 		String action = request.getParameter("action");
 		if (action != null && action.equals("irrigation_cleartoday")) {
 			WPVHomeControllerScheduler.INSTANCE.cancelGroupTriggersForToday("Irrigation");
+		} else if (action != null && action.equals("irrigation_cleartomorrow")) {
+			WPVHomeControllerScheduler.INSTANCE.cancelGroupTriggersForTomorrow("Irrigation");
 		} else if (action != null && action.equals("irrigation_quickaddevent")) {
 			Calendar cal = GregorianCalendar.getInstance();
 			Date now = new Date();			
@@ -136,6 +138,7 @@
 							  		<li><a href="irrigationAddEvent.jsp" class="messages"><span>Add Event</span><div class="clear"></div></a></li>
 							  		<li><a href="#" class="invites"><span>Stop Current Event</span><div class="clear"></div></a></li>
 							  		<li><a href="irrigation.jsp?action=irrigation_cleartoday" class="events"><span>Clear Today</span><div class="clear"></div></a></li>							  		
+							  		<li><a href="irrigation.jsp?action=irrigation_cleartomorrow" class="events"><span>Clear Tomorrow</span><div class="clear"></div></a></li>
 							  		<li><a href="irrigationDetail.jsp" class="statistics"><span>Detailed List</span></a></li>						  	
 					    		</ul>
 					      </div>
