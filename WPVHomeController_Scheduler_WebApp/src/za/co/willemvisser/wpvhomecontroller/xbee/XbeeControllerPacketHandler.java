@@ -55,6 +55,9 @@ public class XbeeControllerPacketHandler implements PacketListener {
 					XbeeController.INSTANCE.getXbeeDeviceMap().put(ioResponse.getRemoteAddress64(), 
 							newXbeeConfigDTO);
 				}
+			} else if (response instanceof RemoteAtResponse) {
+				RemoteAtResponse remoteResponse = (RemoteAtResponse) response;
+				log.info("Remote Response OK: " + remoteResponse.isOk() + ", " + remoteResponse.toString() ); 
 			} else if (response instanceof AtCommandResponse) {
 				AtCommandResponse atResponse = (AtCommandResponse) response;				
 				if (atResponse.getCommand().equals("ND") && atResponse.getValue() != null && atResponse.getValue().length > 0) {
@@ -68,9 +71,6 @@ public class XbeeControllerPacketHandler implements PacketListener {
 				} else {
 					log.error("Unknown Command Response: " + atResponse.toString() );
 				}							
-			} else if (response instanceof RemoteAtResponse) {
-				RemoteAtResponse remoteResponse = (RemoteAtResponse) response;
-				log.info("Remote Response OK: " + remoteResponse.isOk() + ", " + remoteResponse.toString() ); 
 			} else {
 				log.info("TODO: Unknown Response: API_ID=" + response.getApiId().toString() + " -> " + response.toString() + " type=" + response.getClass());
 			}
