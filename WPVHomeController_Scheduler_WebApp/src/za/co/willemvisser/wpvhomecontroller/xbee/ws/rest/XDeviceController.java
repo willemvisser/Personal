@@ -73,6 +73,7 @@ public class XDeviceController {
 	private String takeAction(XbeeConfigDeviceDTO xbeeConfigDeviceDTO) {
 		if (xbeeConfigDeviceDTO.getType().equals( XbeeConfigDeviceDTO.TYPE_LIGHT) 
 				|| xbeeConfigDeviceDTO.getType().equals( XbeeConfigDeviceDTO.TYPE_PUMP)
+				|| xbeeConfigDeviceDTO.getType().equals( XbeeConfigDeviceDTO.TYPE_TOGGLESWITCH)
 				//) {
 				|| xbeeConfigDeviceDTO.getType().equals( XbeeConfigDeviceDTO.TYPE_IRRIGATION)) {
 			return takeSwitchAction(xbeeConfigDeviceDTO);
