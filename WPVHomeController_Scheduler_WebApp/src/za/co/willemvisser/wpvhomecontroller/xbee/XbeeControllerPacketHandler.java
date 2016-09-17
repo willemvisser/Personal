@@ -48,7 +48,7 @@ public class XbeeControllerPacketHandler implements PacketListener {
 				} else {
 					log.info("New XBee found: " + ioResponse.getRemoteAddress64());
 					XbeeConfigDTO newXbeeConfigDTO = new XbeeConfigDTO();
-					newXbeeConfigDTO.setName("Unknown XBee: " + ioResponse.getRemoteAddress64().getAddress().toString());					
+					newXbeeConfigDTO.setName("Unknown XBee: " + ioResponse.getRemoteAddress64() );					
 					newXbeeConfigDTO.setAddress(ioResponse.getRemoteAddress64().getAddress().toString());
 					newXbeeConfigDTO.setDeviceList(new ArrayList<XbeeConfigDeviceDTO>());
 					newXbeeConfigDTO.setLatestPortReadings(ioResponse);					
