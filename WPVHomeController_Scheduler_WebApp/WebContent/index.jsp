@@ -48,6 +48,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			});
 		}
 		
+		function updateQuickSwitchDiv() {			
+			$.get('./inc/quickSwitchDiv.jsp', function(data) {
+			  $('#divQuickSwitch').html(data);
+			});
+		}
+		
+		
+		
 		function updateDeviceActiveDiv() {			
 			$.get('./inc/deviceActiveDiv.jsp', function(data) {
 			  $('#divDeviceActive').html(data);
@@ -63,6 +71,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		//updateDeviceStatusDiv();
 		updateDeviceActiveDiv();
 		updateDeviceTempDiv();
+		updateQuickSwitchDiv();
 		
 	</script>
      
@@ -152,7 +161,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		         <div id="divDeviceTemp">            	
 												   				  
 				   
-             	</div>	
+             	 </div>	
+             	 
+             	 <div id="divQuickSwitch">            	
+												   				  
+				   
+             	 </div>
 		         
 		     <!--     
 		       </div>
