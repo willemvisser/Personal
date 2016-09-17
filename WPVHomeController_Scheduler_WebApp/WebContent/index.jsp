@@ -41,7 +41,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		//setInterval('updateDeviceStatusDiv()', 1000); // refresh div after 5 secs
 		setInterval('updateDeviceActiveDiv()', 1000); // refresh div after 1 secs
 		setInterval('updateDeviceTempDiv()', 1000); // refresh div after 1 secs
-	   
+		setInterval('updateQuickSwitchDiv()', 1000); // refresh div after 1 secs
+		
 		function updateDeviceStatusDiv() {			
 			$.get('./inc/deviceStatusDiv.jsp', function(data) {
 			  $('#divDeviceStatus').html(data);
@@ -162,6 +163,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 												   				  
 				   
              	 </div>	
+             	 
+             	 <div class="clear"></div>
              	 
              	 <div id="divQuickSwitch">            	
 												   				  
