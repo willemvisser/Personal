@@ -35,15 +35,12 @@ public class XbeeControllerPacketHandler implements PacketListener {
 			} else if (response instanceof ZNetRxIoSampleResponse) {
 												
 				ZNetRxIoSampleResponse ioResponse = (ZNetRxIoSampleResponse)response;
-				
-				log.debug("Address: " + ioResponse.getRemoteAddress64() + " - " + ioResponse.getRemoteAddress64().getAddress());
-				log.debug("Analog Sample 0: " + ioResponse.getAnalog0() );				
-				
-				//XbeeController.INSTANCE.getXbeeIOOnOffMap().put("Irrigation Pump", Boolean.valueOf(ioResponse.isD7On()));
+												
+								
 				
 				XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeDeviceMap().get(ioResponse.getRemoteAddress64());
 				if (xbeeConfigDTO != null) {
-					log.debug("Awesome, found Xbee entry for: " + xbeeConfigDTO.getName() + " - " + ioResponse.getRemoteAddress64());
+					//log.debug("Awesome, found Xbee entry for: " + xbeeConfigDTO.getName() + " - " + ioResponse.getRemoteAddress64());
 					xbeeConfigDTO.setLatestPortReadings(ioResponse);
 				} else {
 					log.info("New XBee found: " + ioResponse.getRemoteAddress64());
