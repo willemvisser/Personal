@@ -151,7 +151,7 @@ public enum XbeeController {
 	 */
 	public RemoteAtResponse remoteAtRequest(XBeeAddress64 xbeeAddress, String command, int[] value) throws XBeeTimeoutException, XBeeException {		
 		
-		log.debug("XbeeAddress: " + xbeeAddress + " command: " + command + " value: " + value);
+		log.info("XbeeAddress: " + xbeeAddress + " command: " + command + " value: " + value);
 		
 		
 		RemoteAtRequest request = new RemoteAtRequest(xbeeAddress, command, value);			
