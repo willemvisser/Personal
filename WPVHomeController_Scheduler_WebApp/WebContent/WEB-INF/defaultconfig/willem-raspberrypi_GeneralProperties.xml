@@ -31,7 +31,7 @@
 	</generalproperty>	
 	<generalproperty>
 		<key>StoreEventHttpURL</key>
-		<value>http://localhost:8080/WPVHomeController_Store/wpvhomecontroller/store/event/</value>
+		<value>http://192.168.1.200:8010/WPVHomeController_Store/wpvhomecontroller/store/event/</value>
 		<description>
 			URL for Events
 		</description>
