@@ -46,7 +46,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		setInterval('updateDeviceActiveDiv()', 1000); // refresh div after 1 secs
 		setInterval('updateDeviceTempDiv()', 1000); // refresh div after 1 secs
 		setInterval('updateQuickSwitchDiv()', 1000); // refresh div after 1 secs
-		setInterval('updateWeatherDiv()', 60000); // refresh div after 1 secs
+		setInterval('updateWeatherDiv()', 300000); // refresh div after 5 mins
 		
 		function updateWeatherDiv() {			
 			$.get('./inc/weatherDiv.jsp', function(data) {
