@@ -21,6 +21,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 <link href="css/nav.css" rel="stylesheet" type="text/css" media="all"/>
 <link href='http://fonts.googleapis.com/css?family=Carrois+Gothic+SC' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="css/wxug_core.css">		  
+<link rel="stylesheet" href="css/wxug_omnibus.css">
+
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/login.js"></script>
 <script type="text/javascript" src="js/Chart.js"></script>
@@ -42,6 +46,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		setInterval('updateDeviceActiveDiv()', 1000); // refresh div after 1 secs
 		setInterval('updateDeviceTempDiv()', 1000); // refresh div after 1 secs
 		setInterval('updateQuickSwitchDiv()', 1000); // refresh div after 1 secs
+		setInterval('updateWeatherDiv()', 60000); // refresh div after 1 secs
+		
+		function updateWeatherDiv() {			
+			$.get('./inc/weatherDiv.jsp', function(data) {
+			  $('#divWeather').html(data);
+			});
+		}
+		
 		
 		function updateDeviceStatusDiv() {			
 			$.get('./inc/deviceStatusDiv.jsp', function(data) {
@@ -70,13 +82,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		}
 		
 		//updateDeviceStatusDiv();
+		updateWeatherDiv();
 		updateDeviceActiveDiv();
 		updateDeviceTempDiv();
 		updateQuickSwitchDiv();
 		
+		
 	</script>
      
-	    <div class="wrap">	 
+	<div class="wrap">	 
 	      <div class="header">
 	      	  <div class="header_top">
 					  <div class="menu">
@@ -94,60 +108,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		 		      <div class="clear"></div>				 
 				   </div>
 			</div>	  					     
-	</div>
+	</div>		
 	
 	  <div class="main">  
 	    <div class="wrap">  		 
-	    	<div class="column_left">	          
+	    	 
+	    	<div class="column_left" id="divWeather">	
+	    	 	    	          	    	    				    		 
+			</div>
+	
+	
 	    
-	    		<div class="weather" style="margin-top:0px">
-		        	<h3><i><img src="images/location.png" alt="" /> </i> Melkbosstrand</h3>
-		            <!-- 
-		            <div class="today_temp">
-		            	<div class="temp">
-							<figure>Fri 29/06<span>24<em>o</em></span></figure>
-						</div>
-						<img src="images/sun.png" alt="" />
-					</div>
-					 -->
-					 
-					<div class="temp_list">
-				    	<ul>
-				    	<%
-							Forecast10DayDTO forecast10DayDTO = WeatherService.INSTANCE.get10DayForecast();
-				    		if (forecast10DayDTO != null) {
-							for (int i=0; i<12; i++) {
-								ForecastDayDTO forecast = forecast10DayDTO.getForecasts().get(i);
-								if (!forecast.getTitle().endsWith("Night")) {
-							%>								
-								<li><a href="#"><span class="day_name"><%=forecast.getTitle() %></span>&nbsp; <!-- 29/06  --> 
-					  			<!-- <label class="digits">25<em>o</em>  --> <p><%=forecast.getFcText() %></p></label><div class="clear"></div></a>
-					  			
-					  			</li>
-							<%	
-								}
-							}
-				    		}
-						%>
-						<!-- 
-						  		    <li><a href="#"><span class="day_name">Sat</span>&nbsp; 29/06 
-						  			<label class="digits">25<em>o</em> <i><img src="images/sun_icon1.png" alt="" /></i></label><div class="clear"></div></a></li>
-						  			<li class="active"><a href="#"><span class="day_name">Sun</span>&nbsp; 30/06 
-						  			<label class="digits">22<em>o</em> <i><img src="images/clouds.png" alt="" /></i></label><div class="clear"></div></a></li>
-						  			<li><a href="#"><span class="day_name">Mon</span>&nbsp; 01/07 
-						  			<label class="digits">24<em>o</em> <i><img src="images/clouds.png" alt="" /></i></label><div class="clear"></div></a></li>
-						  			<li><a href="#"><span class="day_name">Tue</span>&nbsp; 02/07 
-						  			<label class="digits">26<em>o</em> <i><img src="images/sun_icon1.png" alt="" /></i></label><div class="clear"></div></a></li>
-						  			<li><a href="#"><span class="day_name">Wed</span>&nbsp; 03/07 
-						  			<label class="digits">27<em>o</em> <i><img src="images/sun_icon2.png" alt="" /></i></label><div class="clear"></div></a></li>
-						  			<li><a href="#"><span class="day_name">Thu</span>&nbsp; 04/07
-						  			<label class="digits">29<em>o</em> <i><img src="images/sun_icon2.png" alt="" /></i></label><div class="clear"></div></a></li>
-						   -->
-				    	</ul>
-				      </div>
-		          </div>
+	    		
 	    		 
-	  		</div> <!-- column_left -->
+	  		 <!--  </div> column_left -->
 	  		
             <div class="column_middle">
              <!-- 
@@ -163,8 +137,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 												   				  
 				   
              	 </div>	
+             	              	 
              	 
-             	 <div class="clear"></div>
+             	 <br/>
              	 
              	 <div id="divQuickSwitch">            	
 												   				  
@@ -187,7 +162,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
    </div>
    
   		 <div class="copy-right">
-				<p>© 2015 Willem Visser, Version 1.41</p>
+				<p>© 2016 Willem Visser, Version 1.50</p>
 	 	 </div>   
 </body>
 </html>

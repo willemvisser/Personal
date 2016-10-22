@@ -29,6 +29,9 @@ public enum ConfigController {
 	
 	public static final String XML_FILENAME_SCHEDULE = "Schedule.xml";
 	
+	public static final String PROPERTY_OUTSIDE_TEMPID = "OutsideTempID";
+	public static final String PROPERTY_INSIDE_TEMPID = "InsideTempID";
+	
 	private String remoteConfigHostAddress;
 	private XbeeConfigsDTO xbeeConfigsDTO;
 	private GeneralPropertiesDTO generalPropertiesDTO;
