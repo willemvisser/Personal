@@ -15,7 +15,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <%@page import="za.co.willemvisser.wpvhomecontroller.weather.WeatherService"%>
 <%@page import="za.co.willemvisser.wpvhomecontroller.weather.dto.Forecast10DayDTO"%>
 <head>
-<title>WPV Home Controller | Home</title>
+<title>WPV Home Controller | Temperatures</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
@@ -42,9 +42,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <body>			  
 
 	<script type="text/javascript">
-		//setInterval('updateDeviceStatusDiv()', 1000); // refresh div after 5 secs
-		setInterval('updateDeviceActiveDiv()', 1000); // refresh div after 1 secs
-		setInterval('updateQuickSwitchDiv()', 1000); // refresh div after 1 secs
+		
+		setInterval('updateDeviceTempDiv()', 1000); // refresh div after 1 secs		
 		setInterval('updateWeatherDiv()', 300000); // refresh div after 5 mins
 		
 		function updateWeatherDiv() {			
@@ -52,33 +51,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			  $('#divWeather').html(data);
 			});
 		}
+						
 		
-		
-		function updateDeviceStatusDiv() {			
-			$.get('./inc/deviceStatusDiv.jsp', function(data) {
-			  $('#divDeviceStatus').html(data);
+		function updateDeviceTempDiv() {			
+			$.get('./inc/deviceTempDiv.jsp', function(data) {
+			  $('#divDeviceTemp').html(data);
 			});
 		}
 		
-		function updateQuickSwitchDiv() {			
-			$.get('./inc/quickSwitchDiv.jsp', function(data) {
-			  $('#divQuickSwitch').html(data);
-			});
-		}
+		updateWeatherDiv();		
+		updateDeviceTempDiv();
 		
-		
-		
-		function updateDeviceActiveDiv() {			
-			$.get('./inc/deviceActiveDiv.jsp', function(data) {
-			  $('#divDeviceActive').html(data);
-			});
-		}
-		
-		
-		
-		updateWeatherDiv();
-		updateDeviceActiveDiv();		
-		updateQuickSwitchDiv();
 		
 		
 	</script>
@@ -89,9 +72,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					  <div class="menu">
 						  <a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
 							<ul class="nav">
-								<li class="active"><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
+								<li><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
 								<li><a href="irrigation.jsp"><i><img src="images/user.png" alt="" /></i>Irrigation</a></li>
-								<li><a href="temperatures.jsp"><i><img src="images/mail.png" alt="" /></i>Temperatures</a></li>
+								<li class="active"><a href="temperatures.jsp"><i><img src="images/mail.png" alt="" /></i>Temperatures</a></li>
 								<li><a href="lights.jsp"><i><img src="images/mail.png" alt="" /></i>Lights</a></li>
 								<li><a href="settings.jsp"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>
 							<div class="clear"></div>
@@ -118,39 +101,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	  		 <!--  </div> column_left -->
 	  		
             <div class="column_middle">
-             <!-- 
-              <div class="column_middle_grid1">
-		      -->
-		         <!--  
-		         <div class="column_right_grid calender"  style="margin-top:0px">
-                      <div class="cal1"> </div>
-				 </div>
-		         -->
+            
 		         
-             
-             	 
-             	 <div id="divQuickSwitch">            	
+		         <div id="divDeviceTemp">            	
 												   				  
 				   
-             	 </div>
+             	 </div>	
+             	              	 
+             	 
+             	 
 		         
-		     <!--     
-		       </div>
-			 -->		         	          
+		    		         	          
 		         	           
 		       
     	    </div>
     	    
-            <div class="column_right" id="divDeviceActive">            	
-												   				  
-				   
-             </div>
+           
     	<div class="clear"></div>
  	 </div>
    </div>
    
-   <br/>
-  		 <div class="copy-right" style="float: right;">
+  		 <div class="copy-right">
 				<p>© 2016 Willem Visser, Version 1.50</p>
 	 	 </div>   
 </body>

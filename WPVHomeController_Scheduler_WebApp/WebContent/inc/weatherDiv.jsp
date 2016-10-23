@@ -1,6 +1,7 @@
 <%@page import="za.co.willemvisser.wpvhomecontroller.weather.WeatherService"%>
-<div id="location"></div>
-			
+	<!-- 
+	<div id="location"></div>
+		 -->	
 			<div class="row">
 				<div class="small-12 columns">
 		

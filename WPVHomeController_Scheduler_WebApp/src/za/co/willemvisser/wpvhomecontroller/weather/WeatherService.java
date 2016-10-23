@@ -143,6 +143,7 @@ public enum WeatherService {
     		XbeeConfigDeviceDTO deviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);    		
     		return Double.toString( deviceDTO.getAnalogValue().intValue()/10.0 );    	    	
     	} catch (Exception e) {
+    		log.error("Could not return outside temperature: ", e);
     		return "n.a.";
     	}
     }
@@ -156,6 +157,7 @@ public enum WeatherService {
     		XbeeConfigDeviceDTO deviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);    		
     		return Double.toString( deviceDTO.getAnalogValue().intValue()/10.0 );    	    	
     	} catch (Exception e) {
+    		log.error("Could not return inside temperature: ", e);
     		return "n.a.";
     	}
     }

@@ -39,7 +39,7 @@ body{
 	position:relative;
 }
 .wrap{
-	width:95%;
+	width:98%;
 	margin:0 auto;
 	transition:all .2s linear;
 	-moz-transition:all .2s linear;/* firefox */
@@ -178,10 +178,15 @@ fieldset#body {
 }
 .column_left,.column_middle,.column_right{
 	float:left;
-	width:31.3%;
+	width:37%;
+}
+.column_right{
+	float:left;
+	width:27%;
 }
 .column_middle{
 	margin:0 3%;
+	width:27%;
 }
 .column_paragraph_heading {
 	color: #feae3c;
