@@ -92,7 +92,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<li class="active"><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
 								<li><a href="irrigation.jsp"><i><img src="images/user.png" alt="" /></i>Irrigation</a></li>
 								<li><a href="temperatures.jsp"><i><img src="images/mail.png" alt="" /></i>Temperatures</a></li>
+								<!-- 
 								<li><a href="lights.jsp"><i><img src="images/mail.png" alt="" /></i>Lights</a></li>
+								 -->
 								<li><a href="settings.jsp"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>
 							<div class="clear"></div>
 						    </ul>
