@@ -85,14 +85,20 @@ public class ForecastDayDTO {
 		
 	    Date date = new Date();        
 	    
-	    Calendar cal = Calendar.getInstance();
-	    cal.setTime(new Date());
-	    cal.set(Calendar.HOUR_OF_DAY, 19);
-	    cal.set(Calendar.MINUTE, 30);
-	    cal.set(Calendar.SECOND, 0);
+	    Calendar calEvening = Calendar.getInstance();
+	    calEvening.setTime(new Date());
+	    calEvening.set(Calendar.HOUR_OF_DAY, 19);
+	    calEvening.set(Calendar.MINUTE, 30);
+	    calEvening.set(Calendar.SECOND, 0);
+	    
+	    Calendar calMorning = Calendar.getInstance();
+	    calMorning.setTime(new Date());
+	    calMorning.set(Calendar.HOUR_OF_DAY, 7);
+	    calMorning.set(Calendar.MINUTE, 0);
+	    calMorning.set(Calendar.SECOND, 0);
 	    
 	    try {
-	    	if (date.after(cal.getTime())){
+	    	if (date.after(calEvening.getTime()) || date.before(calMorning.getTime()) ){
 	    		return "nt_" + icon;
 	    	} else {
 	    		return icon;
