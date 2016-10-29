@@ -14,6 +14,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <%@page import="za.co.willemvisser.wpvhomecontroller.weather.dto.ForecastDayDTO"%>
 <%@page import="za.co.willemvisser.wpvhomecontroller.weather.WeatherService"%>
 <%@page import="za.co.willemvisser.wpvhomecontroller.weather.dto.Forecast10DayDTO"%>
+<html>
 <head>
 <title>WPV Home Controller | Home</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -96,7 +97,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<li><a href="lights.jsp"><i><img src="images/mail.png" alt="" /></i>Lights</a></li>
 								 -->
 								<li><a href="settings.jsp"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>
-							<div class="clear"></div>
+							
 						    </ul>
 							<script type="text/javascript" src="js/responsive-nav.js"></script>
 				        </div>	
