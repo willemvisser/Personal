@@ -31,6 +31,7 @@
 							      						$.get( "xbee/xdevice/<%=xbeeConfigDeviceDTO.getId()%>", function( data ) {
 							      							//For now do nothing as the update will happen on the next refresh
 							      						});
+							      						this.disabled = true;
 	   												});
 							      				</script>
 							      			<%
