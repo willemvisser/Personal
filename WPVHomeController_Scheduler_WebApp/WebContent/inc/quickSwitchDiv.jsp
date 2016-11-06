@@ -29,9 +29,9 @@
 							      				<script>
 							      					$( "#<%=xbeeConfigDeviceDTO.getId()%>" ).click(function() {
 							      						$.get( "xbee/xdevice/<%=xbeeConfigDeviceDTO.getId()%>", function( data ) {
-							      							//For now do nothing as the update will happen on the next refresh
-							      						});
-							      						this.disabled = true;
+							      							//For now do nothing as the update will happen on the next refresh							      							
+							      						});							      						
+							      						document.getElementById("<%=xbeeConfigDeviceDTO.getId()%>").className = "simplemenu_pushed"
 	   												});
 							      				</script>
 							      			<%

@@ -174,7 +174,7 @@ fieldset#body {
 }
 /********* Main ************/
 .main{
-	padding:30px 0;
+	padding:15px 0;
 }
 .column_left,.column_middle,.column_right{
 	float:left;
@@ -965,7 +965,23 @@ fieldset#body {
 	-moz-border-radius:5px 5px 5px 5px;
 	-o-border-radius:5px 5px 5px 5px;
 }
-
+.simplemenu_pushed{
+	background:#000000;
+	padding:10px 0 11px 0;
+	text-align:center;
+	border-radius:10px 10px 10px 10px;
+	border-bottom:1px solid #1f253d;
+	-webkit-border-radius:5px 5px 5px 5px;
+	-moz-border-radius:5px 5px 5px 5px;
+	-o-border-radius:5px 5px 5px 5px;
+}
+.simplemenu_pushed h4{
+	font-size:0.9em;
+	color: #FFFFFF;
+}
+.simplemenu_pushed a > i > img{
+	margin:0 5px -10px 0;
+}
 .simplemenu_green{
 	background:#5DFC0A;
 	padding:10px 0 11px 0;
