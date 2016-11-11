@@ -976,7 +976,7 @@ fieldset#body {
 	-o-border-radius:5px 5px 5px 5px;
 }
 .simplemenu_pushed h4{
-	font-size:0.9em;
+	font-size:1.3em;
 	color: #FFFFFF;
 }
 .simplemenu_pushed a > i > img{
@@ -993,7 +993,7 @@ fieldset#body {
 	-o-border-radius:5px 5px 5px 5px;
 }
 .simplemenu_green h4{
-	font-size:0.9em;
+	font-size:1.3em;
 	color: #000;
 }
 .simplemenu_green a > i > img{
@@ -1010,7 +1010,7 @@ fieldset#body {
 	-o-border-radius: 5px 5px 5px 5px;
 }
 .simplemenu_black h4{
-	font-size:0.9em;
+	font-size:1.3em;
 	color: #FFF;
 }
 /******** Downloading And Uploading Status bar ***********/
