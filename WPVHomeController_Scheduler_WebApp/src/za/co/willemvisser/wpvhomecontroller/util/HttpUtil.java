@@ -34,12 +34,13 @@ public enum HttpUtil {
         return response;
 	}
 	
-	public StringBuffer getResponseContent(HttpResponse httpResponse) throws IOException {
-		//HttpEntity entity = httpResponse.getEntity();
-		
-//		if (entity != null) {
-//        	EntityUtils.consume(entity);
-//        }
+	/**
+	 * Parse the HttpResponse and return a StringBuffer containing the response as text
+	 * @param httpResponse
+	 * @return
+	 * @throws IOException
+	 */
+	public StringBuffer getResponseContent(HttpResponse httpResponse) throws IOException {		
 		
 		BufferedReader rd = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
 		StringBuffer buffer = new StringBuffer();
