@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+
 import org.apache.http.HttpResponse;
 import org.apache.log4j.Logger;
 import org.quartz.CronTrigger;
@@ -23,15 +24,21 @@ import org.quartz.SchedulerFactory;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.matchers.GroupMatcher;
+
 import static org.quartz.JobBuilder.*;   
 import static org.quartz.TriggerBuilder.*;     
 import static org.quartz.CronScheduleBuilder.*;   
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.scheduler.job.dto.JobDTO;
+import za.co.willemvisser.wpvhomecontroller.scheduler.job.dto.JobParamDTO;
 import za.co.willemvisser.wpvhomecontroller.scheduler.job.dto.JobTriggerDTO;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
+import za.co.willemvisser.wpvhomecontroller.util.S3Util;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -45,6 +52,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 
@@ -73,6 +81,7 @@ public enum WPVHomeControllerScheduler {
 	public static final String HTTP_PREFIX = "http://";
 	public static final String GROUP_NAME_IRRIGATION = "Irrigation";
 		
+	private static final String S3_KEY_SCHEDULE = "Schedule.xml";
 	
 	private WPVHomeControllerScheduler() {}
 	
@@ -82,7 +91,7 @@ public enum WPVHomeControllerScheduler {
 	 * @param hostIPAddress
 	 * @throws SchedulerException
 	 */
-	public synchronized void startScheduler(String hostIPAddress, InputStream configXmlInputStream) throws SchedulerException {
+	public synchronized void startScheduler(String hostIPAddress) throws SchedulerException {
 		if (!isStarted) {
 			log.debug("Starting scheduler ...");			
 			
@@ -105,7 +114,7 @@ public enum WPVHomeControllerScheduler {
 			scheduler.start();
 			
 			try {
-	        	processXmlConfig(configXmlInputStream);          	
+	        	processXmlConfig();          	
 	        } catch (Exception e) {
 	        	log.error("Could not process xml: " + e.toString());
 	        	throw new SchedulerException(e);
@@ -142,7 +151,7 @@ public enum WPVHomeControllerScheduler {
 		try {			
 			InputStream newConfigStream = loadRemoteScheduleConfig();
 			scheduler.clear();
-        	processXmlConfig( newConfigStream );          	
+        	processXmlConfig( );          	
         } catch (Exception e) {
         	log.error("Could not process xml: " + e.toString());        	
         }
@@ -216,7 +225,7 @@ public enum WPVHomeControllerScheduler {
 		Thread.sleep(1000);
 	}
 	
-	protected void processXmlConfig(InputStream configXmlInputStream) 
+	protected void processXmlConfig() 
 			throws ParserConfigurationException, SAXException, IOException, XPathExpressionException, 
 			DOMException, ParseException, CloneNotSupportedException {
 		log.debug("processXmlConfig");		
@@ -226,8 +235,11 @@ public enum WPVHomeControllerScheduler {
         DocumentBuilder dBuilder;
 
         dBuilder = dbFactory.newDocumentBuilder();
+        
+        InputSource is = new InputSource(
+        		new StringReader(S3Util.INSTANCE.getBucketAsString(S3Util.BUCKET_WPVHOMESCHEDULER, S3_KEY_SCHEDULE) ));
 
-        Document doc = dBuilder.parse(configXmlInputStream);
+        Document doc = dBuilder.parse(is);
         doc.getDocumentElement().normalize();
 
         XPath xPath =  XPathFactory.newInstance().newXPath();
@@ -276,7 +288,7 @@ public enum WPVHomeControllerScheduler {
         		newCronBuffer.append( jobDTOEnd.getCronExpression().substring(spaceIndex3) );        		        		
         		
         		jobDTOEnd.setCronExpression(newCronBuffer.toString());
-        		jobDTOEnd.getParams().put("command", "xoff");
+        		jobDTOEnd.getParams().add(new JobParamDTO("command", "xoff"));
         		
         		addJob(jobDTOEnd, generalJobPropertiesMap);
         	}
@@ -294,7 +306,9 @@ public enum WPVHomeControllerScheduler {
 				    .build(); 			
 			
 			job1.getJobDataMap().putAll(jobPropertiesMap);  
-			job1.getJobDataMap().putAll( jobDTO.getParams() );
+			for (JobParamDTO jobParamDTO : jobDTO.getParams()) {
+				job1.getJobDataMap().put(jobParamDTO.getName(), jobParamDTO.getValue());
+			}			
 			job1.getJobDataMap().put("job.name", jobDTO.getName() );
 			
 			

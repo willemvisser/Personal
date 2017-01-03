@@ -24,16 +24,35 @@ public class ForecastDayDTO {
 	private String windSpeed;
 	private String windDirection;
 	private String precipitation;
-	private String precipitationChance;
-		
+	private String precipitationChance;				
 
 	public ForecastDayDTO() {
 		super();
-	}
+	}		
 	
 	public ForecastDayDTO(XPath xPath, Element eElement) throws DOMException, ParseException, XPathExpressionException {
 	
 	}
+	
+	/**
+	 * @return a statis "No Data" DTO
+	 */
+	public static ForecastDayDTO buildNoDataAvailableDTO() {
+		ForecastDayDTO dto = new ForecastDayDTO();
+		dto.setFcText("n.a.");
+		dto.setHigh("n.a.");
+		dto.setIcon("n.a.");
+		dto.setIconUrl("n.a.");
+		dto.setLow("n.a");
+		dto.setPeriod(0);
+		dto.setPrecipitation("n.a");
+		dto.setPrecipitationChance("n.a");
+		dto.setTitle("n.a");
+		dto.setWindDirection("n.a.");
+		dto.setWindSpeed("n.a.");
+		return dto;
+	}
+	
 	
 	public String getHigh() {
 		return high;

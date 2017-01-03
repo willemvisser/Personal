@@ -14,6 +14,7 @@ import com.rapplogic.xbee.api.RemoteAtResponse;
 import com.rapplogic.xbee.api.XBeeResponse;
 import com.rapplogic.xbee.api.zigbee.ZNetNodeIdentificationResponse;
 import com.rapplogic.xbee.api.zigbee.ZNetRxIoSampleResponse;
+import com.rapplogic.xbee.api.zigbee.ZNetRxResponse;
 import com.rapplogic.xbee.util.ByteUtils;
 
 public class XbeeControllerPacketHandler implements PacketListener {
@@ -66,8 +67,22 @@ public class XbeeControllerPacketHandler implements PacketListener {
 					int nodeDiscoveryTimeout = ByteUtils.convertMultiByteToInt(atResponse.getValue()) * 100;			
 					log.info("Node discovery timeout is " + nodeDiscoveryTimeout + " milliseconds");
 				} else {
-					log.error("Unknown Command Response: " + atResponse.toString() );
+					log.error("Unknown Command Response: getCommand=" + atResponse.getCommand() + 
+							" - String: " + atResponse.toString() );
 				}							
+			} else if (response instanceof ZNetRxResponse) {
+				log.info("ZNetRxResponse (response): " + response);
+				ZNetRxResponse rxResponse = (ZNetRxResponse)response;
+				log.info("ZNetRxResponse (casted): " + rxResponse);
+				log.info("ZNetRxResponse (Data): " + rxResponse.getData() );
+				if (rxResponse.getData() != null) {
+					if (rxResponse.getData().length >= 1) {
+						log.info("ZNetRxResponse (Data 0): " + rxResponse.getData()[0] );
+					}
+					if (rxResponse.getData().length >= 2) {
+						log.info("ZNetRxResponse (Data 1): " + rxResponse.getData()[0] );
+					}
+				}
 			} else {
 				log.info("TODO: Unknown Response: API_ID=" + response.getApiId().toString() + " -> " + response.toString() + " type=" + response.getClass());
 			}

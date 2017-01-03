@@ -1,370 +1,2255 @@
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE HTML>
-<head>
-<title>Ui kits Website Template | Home :: w3layouts</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
-<link href="css/nav.css" rel="stylesheet" type="text/css" media="all"/>
-<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic+SC' rel='stylesheet' type='text/css'>
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/login.js"></script>
-<script type="text/javascript" src="js/Chart.js"></script>
- <script type="text/javascript" src="js/jquery.easing.js"></script>
- <script type="text/javascript" src="js/jquery.ulslide.js"></script>
- <!----Calender -------->
-  <link rel="stylesheet" href="css/clndr.css" type="text/css" />
-  <script src="js/underscore-min.js"></script>
-  <script src= "js/moment-2.2.1.js"></script>
-  <script src="js/clndr.js"></script>
-  <script src="js/site.js"></script>
-  <!----End Calender -------->
-</head>
-<body>			       
-	    <div class="wrap">	 
-	      <div class="header">
-	      	  <div class="header_top">
-					  <div class="menu">
-						  <a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
-							<ul class="nav">
-								<li><a href="#"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>
-								<li class="active"><a href="#"><i><img src="images/user.png" alt="" /></i>Account</a></li>
-								<li><a href="#"><i><img src="images/mail.png" alt="" /></i>Messages <span class="messages">5</span></a></li>
-								<li><a href="#"><i><img src="images/favourite.png" alt="" /></i>Favorites</a></li>
-							<div class="clear"></div>
-						    </ul>
-							<script type="text/javascript" src="js/responsive-nav.js"></script>
-				        </div>	
-					  <div class="profile_details">
-				    		   <div id="loginContainer">
-				                  <a id="loginButton" class=""><span>Me</span></a>   
-				                    <div id="loginBox">                
-				                      <form id="loginForm">
-				                        <fieldset id="body">
-				                            <div class="user-info">
-							        			<h4>Hello,<a href="#"> Username</a></h4>
-							        			<ul>
-							        				<li class="profile active"><a href="#">Profile </a></li>
-							        				<li class="logout"><a href="#"> Logout</a></li>
-							        				<div class="clear"></div>		
-							        			</ul>
-							        		</div>			                            
-				                        </fieldset>
-				                    </form>
-				                </div>
-				            </div>
-				             <div class="profile_img">	
-				             	<a href="#"><img src="images/profile_img40x40.jpg" alt="" />	</a>
-				             </div>		
-				             <div class="clear"></div>		  	
-					    </div>	
-		 		      <div class="clear"></div>				 
-				   </div>
-			</div>	  					     
-	</div>
-	  <div class="main">  
-	    <div class="wrap">  		 
-	       <div class="column_left">	          
-	    		 <div class="menu_box">
-	    		 	 <h3>Menu Box</h3>
-	    		 	   <div class="menu_box_list">
-				      		<ul>
-						  		<li><a href="#" class="messages"><span>Messages</span><label class="digits">24</label><div class="clear"></div></a></li>
-						  		<li class="active"><a href="#" class="invites"><span>Invites</span><label class="digits active">3</label><div class="clear"></div></a></li>
-						  		<li><a href="#" class="events"><span>Events</span><label class="digits">5</label><div class="clear"></div></a></li>
-						  		<li><a href="#" class="account_settings"><span>Account Settings</span></a></li>
-						  		<li><a href="#" class="statistics"><span>Statistics</span></a></li>						  	
-				    		</ul>
-				      </div>
-	    		 </div>
-	    		 <div class="chart">
-		               <h3>Os Audience Stats</h3>
-		                <div class="diagram">
-		                  <canvas id="canvas" height="220" width="220"> </canvas>
-		                  <h4><span>June</span><br />2013</h4>   
-		                 </div>
-		                     
-		               <!----		              
-						<span><img src="images/chart.png" alt="" /></span>
-						----->					
-						<div class="chart_list">
-			           	  <ul>
-			           	  	<li><a href="#" class="red">ios<p class="percentage">21<em>%</em></p></a></li>
-			           	  	<li><a href="#" class="purple">Mac<p class="percentage">48<em>%</em></p></a></li>
-			           	  	<li><a href="#" class="yellow">Linux<p class="percentage">9<em>%</em></p></a></li>
-			           	  	<li><a href="#" class="blue">Win<p class="percentage">32<em>%</em></p></a></li>
-			           	  	<div class="clear"></div>	
-			           	  </ul>
-			           </div>
-			           <script>
-						var doughnutData = [
-								{
-									value: 21,
-									color:"#E64C65"
-								},
-								{
-									value : 48,
-									color : "#11A8AB"
-								},							
-								{
-									value : 32,
-									color : "#4FC4F6"
-								},	
-								{
-									value : 9,
-									color : "#FCB150"
-								},							
-							
-							];				
-							var myDoughnut = new Chart(document.getElementById("canvas").getContext("2d")).Doughnut(doughnutData);					
-					</script>
-		          </div>
-		             <div class="graph">
-		             	<canvas id="line-chart"> </canvas>
-		             	<script>
-							var lineChartData = {
-								labels : ["Apr","May","Jun"],
-								datasets : [									
-									{
-										fillColor : "rgba(255, 255, 255, 0)",
-										strokeColor : "#FFF",
-										pointColor : "#11a8ab",
-										pointStrokeColor : "#FFF",
-										data : [21,48,35]
-									}
-								]
-								
-							}
-					
-						var myLine = new Chart(document.getElementById("line-chart").getContext("2d")).Line(lineChartData);
-						
-						</script>
-		             	<!---
-		             	<img src="images/graph.png" alt="" />
-		             	------->
-		             	<div class="graph_list">
-		             		 <div class="week-month-year">
-		             		 	<p><a href="#">Week</a></p>
-		             		 	<p><a href="#" class="active">Month</a></p>
-		             		 	<p><a href="#">year</a></p>
-		             		 	<div class="clear"></div>
-		             		 </div>
-				      			<ul>
-						  		    <li><a href="#"><span class="day_name">Apr</span> 2013 
-						  			<label class="digits"><span>+</span>21<em>%</em></label><div class="clear"></div></a></li>
-						  			<li class="active"><a href="#"><span class="day_name">May</span> 2013 
-						  			<label class="digits"><span>+</span>48<em>%</em></label><div class="clear"></div></a></li>
-						  			<li><a href="#"><span class="day_name">Jun</span> 2013 
-						  			<label class="digits"><span>+</span>35<em>%</em> </label><div class="clear"></div></a></li>						  			
-				    		</ul>
-				      </div>
-		             </div>
-		                 <div class="video_palyer">
-								<iframe src="//player.vimeo.com/video/24363983" width="100%" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe> 
-		                </div>        
-		            
-		          
-		          		<div class="social_network_likes">
-				      		<ul>
-				      			<li><a href="#" class="facebook"><i><img src="images/facebook_icon.png" alt=""></i> <span>248k</span></a></li>
-				      			<li><a href="#" class="twitter"><i><img src="images/tweets.png" alt=""></i> <span>30k</span></a></li>
-				      			<li><a href="#" class="googleplus"><i><img src="images/google+.png" alt=""></i> <span>124k</span></a></li>
-				      			<li><a href="#" class="mail"><i><img src="images/mail-hover.png" alt=""></i> <span>89k</span></a></li>
-				      			<div class="clear"></div>
-				    		</ul>
-		          		</div>
-	  		</div> 
-	  		
-            <div class="column_middle">
-              <div class="column_middle_grid1">
-		         <div class="profile_picture">
-		        	<a href=""><img src="images/profile_img150x150.jpg" alt="" />	</a>		         
-		            <div class="profile_picture_name">
-		            	<h2>Anne Hathaway</h2>
-		            	<p>Lorem ipsum dolor sit amet consectetur adipisicing </p>
-		            </div>
-		             <span><a href="#"> <img src="images/follow_user.png" alt="" /> </a></span>
-		          </div>
-		           <div class="articles_list">
-		           	  <ul>
-		           	  	<li><a href="#" class="red"> <img src="images/comments.png" alt="" /> 23</a></li>
-		           	  	<li><a href="#" class="purple"> <img src="images/views.png" alt="" /> 841</a></li>
-		           	  	<li><a href="#" class="yellow"> <img src="images/likes.png" alt="" /> 49</a></li>
-		           	  	<div class="clear"></div>	
-		           	  </ul>
-		           </div>
-		       </div>
-		         <div class="weather">
-		               <h3><i><img src="images/location.png" alt="" /> </i> Cluj-Napoca / Ro</h3>
-		              <div class="today_temp">
-		                <div class="temp">
-							<figure>Fri 29/06<span>24<em>o</em></span></figure>
-						</div>
-						<img src="images/sun.png" alt="" />
-					</div>
-						<div class="temp_list">
-				      			<ul>
-						  		    <li><a href="#"><span class="day_name">Sat</span>&nbsp; 29/06 
-						  			<label class="digits">25<em>o</em> <i><img src="images/sun_icon1.png" alt="" /></i></label><div class="clear"></div></a></li>
-						  			<li class="active"><a href="#"><span class="day_name">Sun</span>&nbsp; 30/06 
-						  			<label class="digits">22<em>o</em> <i><img src="images/clouds.png" alt="" /></i></label><div class="clear"></div></a></li>
-						  			<li><a href="#"><span class="day_name">Mon</span>&nbsp; 01/07 
-						  			<label class="digits">24<em>o</em> <i><img src="images/clouds.png" alt="" /></i></label><div class="clear"></div></a></li>
-						  			<li><a href="#"><span class="day_name">Tue</span>&nbsp; 02/07 
-						  			<label class="digits">26<em>o</em> <i><img src="images/sun_icon1.png" alt="" /></i></label><div class="clear"></div></a></li>
-						  			<li><a href="#"><span class="day_name">Wed</span>&nbsp; 03/07 
-						  			<label class="digits">27<em>o</em> <i><img src="images/sun_icon2.png" alt="" /></i></label><div class="clear"></div></a></li>
-						  			<li><a href="#"><span class="day_name">Thu</span>&nbsp; 04/07
-						  			<label class="digits">29<em>o</em> <i><img src="images/sun_icon2.png" alt="" /></i></label><div class="clear"></div></a></li>
-				    		</ul>
-				      </div>
-		          </div>	           
-		         <div class="tweets">
-		               <h3><i><img src="images/tweets.png" alt="" /> </i> Latest Tweets</h3>		              
-						<div class="tweets_list">
-				      		<ul>
-						  		<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore <a href="#">@Neque</a>
-						  			<span>10 minutes ago</span></li>
-						  	   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore eiusmod <a href="#">#Creative Cloud</a>
-						  			<span>2 hours ago</span></li>
-				    		</ul>
-				      </div>
-		          </div>
-		          <div class="social_networks">
-				      		<ul>
-				      			<li><a href="#" class="facebook"><i><img src="images/facebook_icon.png" alt="" /></i> <span>Share to Facebook</span><div class="clear"></div></a></li>
-				      			<li><a href="#" class="twitter"><i><img src="images/tweets.png" alt="" /></i> <span>Share to Twitter</span><div class="clear"></div></a></li>
-				      			<li><a href="#" class="googleplus"><i><img src="images/google+.png" alt="" /></i> <span>Share to Google+</span><div class="clear"></div></a></li>
-				    		</ul>
-		          </div>	           
-		       
-    	    </div>
-    	    
-            <div class="column_right">
-            	<div class="column_right_grid">
-                 <div class="newsletter">
-				   <h3>Join the newsletter</h3>
-					    <form>
-					    	<span>
-					 	     <i><img src="images/mail.png" alt="" /></i>
-					 	     <input type="text" value="Enter your email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email';}">
-					 	    </span>			 	    
-					 		<input type="submit" class="my_button" value="Subscribe">
-					 	</form>
-				   </div>
-			   </div>
-				 <div class="column_right_grid sign-in">
-				 	<div class="sign_in">
-				       <h3>Sign in to your account</h3>
-					    <form>
-					    	<span>
-					 	    <i><img src="images/mail.png" alt="" /></i><input type="text" value="Enter your email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email';}">
-					 	    </span>
-					 	    <span>
-					 	     <i><img src="images/lock.png" alt="" /></i>
-					 	     <input type="password" placeholder="password">
-					 	    </span>
-					 		<input type="submit" class="my-button" value="Sign In">
-					 	</form>
-					       <h4><a href="#">Forget Password?</a></h4>				   
-          		       </div>
-          		 	  <div class="signin_facebook">
-					   	 <p><a href="#">  <i> <img src="images/facebook.png" alt="" /></i>Sign in with facebook</a></p>
-				      </div>
-				   </div>
-				   <div class="column_right_grid downloading_uploading">
-                      <ul>
-					      <li>                              
-                            <div class="progress">
-                              <div class="progress-bar" style="width:81%"> </div>
-                            </div>
-                            <div class="clearfix">
-                                <p class="downloading"> <i><img src="images/download.png" alt="" /></i> Downloading...</p>
-                                <p class="percentage">81<em>%</em></p>
-                                <div class="clear"></div>
-                            </div>
-                           </li>
-                           <li>                              
-                            <div class="progress">
-                              <div class="progress-bar uploading" style="width:43%"> </div>
-                            </div>
-                            <div class="clearfix">
-                                <p class="downloading"><i><img src="images/upload.png" alt="" /></i> Uploading...</p>
-                                <p class="percentage">43<em>%</em></p>
-                                <div class="clear"></div>
-                            </div>
-                           </li>
-                        </ul>
-				   </div>
-				   <div class="column_right_grid date_events">
-				     	  <h3><a href="#" id="slide_prev"><img src="images/arrow-left.png" alt="" /></a> Wednesday <a href="#" id="slide_next"><img src="images/arrow-right.png" alt="" /></a></h3>
-				     	 		<ul id="slide" class="event_dates">					            
-						            <li>26</li>
-						            <li>25</li>
-						            <li>24</li>
-						            <li>23</li>
-						            <li>22</li>
-						            <li>21</li>
-						            <li>20</li>
-						            <li>19</li>
-						            <li>18</li>
-						            <li>17</li>
-						            <li>16</li>
-						            <li>15</li>
-						            <li>14</li>
-						            <li>13</li>
-						            <li>12</li>
-						            <li>11</li>
-						            <li>10</li>
-						            <li>9</li>
-						            <li>8</li>
-						            <li>7</li>
-						            <li>6</li>
-						            <li>5</li>
-						            <li>4</li>
-						            <li>3</li>
-						            <li>2</li>
-						            <li>1</li>
-						            <li>31</li>
-						            <li>30</li>
-						            <li>29</li>
-						            <li>28</li>
-						            <li>27</li>
-						        </ul>
-						         <div class="button"><a href="#">Add Event</a></div>											 				
-				           <script type="text/javascript">
-				            $(function() {						
-				                $('#slide').ulslide({
-				                   
-									effect: {
-										type: 'carousel', // slide or fade
-				                        axis: 'x',        // x, y
-										showCount:1
-									},
-				                    nextButton: '#slide_next',
-				                    prevButton: '#slide_prev',
-				                    duration: 800,
-				                    /*autoslide: 2000,*/
-									easing: 'easeOutBounce'
-				                });
-				            });
-				        </script>
-				    </div>
-				   <div class="column_right_grid calender">
-                      <div class="cal1"> </div>
-				   </div>
-             </div>
-    	<div class="clear"></div>
- 	 </div>
-   </div>
-  		 <div class="copy-right">
-				<p>© 2013 Designed by <a href="http://graphicburger.com/flat-design-ui-components/" target="_blank">GraphicBurger</a>  • Template by <a href="http://w3layouts.com" target="_blank">w3layouts</a> </p>
-	 	 </div>   
-</body>
-</html>
 
+
+<!DOCTYPE html>
+<!--[if IE 9]><html class="no-js ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js "> <!--<![endif]-->
+	<head>
+		<title>Robben Island, South Africa Forecast | Weather Underground</title>
+		<link href="https://icons.wxug.com/" rel="dns-prefetch" />
+		<link href="https://api-ak.wunderground.com/" rel="dns-prefetch" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Weather Underground provides local & long range Weather Forecast, weather reports, maps & tropical weather conditions for locations worldwide." />
+		<meta name="keywords" content="Weather, Weather Underground, Robben Island, South Africa Forecast, forecasts, current conditions, rain, snow, hurricane, tornado, storm, thunderstorm, tropical storm, wundermap, ski conditions, ski report, surfing, marine, aviation, photographs, photos, severe weather" />
+	<meta property="og:site_name" content="Weather Underground" />
+	<meta property="og:type" content="article" />
+		<meta property="og:url" content="https://www.wunderground.com/za/robben-island" />
+	<meta property="og:image" content="https://icons.wxug.com/i/c/k2/partlycloudy.png" />
+	<meta property="og:title" content="Robben Island, South Africa | 18&deg; | Partly Cloudy" />
+	<meta name="apple-itunes-app" content="app-id=955957721" />
+<meta name="fb-app-id" content="325331260891611" />
+<meta name="fb-channel-url" content="//www.wunderground.com/php/lib/fb_sdk/channel.php" />
+<meta name="wui-member-logged-in" content="true" />
+		<meta http-equiv="Refresh" content="900;URL=/q/zmw:00000.1.68813?sp=IWESTERN457&MR=1" />
+		<link rel="canonical" href="https://www.wunderground.com/za/robben-island" />
+		<link rel="alternate" type="application/rss+xml" title="Robben Island, South Africa RSS" href="https://rss.wunderground.com/auto/rss_full/global/stations/68813.xml" />
+	<link rel="apple-touch-icon" href="https://icons.wxug.com/favicon.png"/>
+	<link rel="shortcut icon" type="image/png" href="//icons.wxug.com/favicon.png"/>
+	<link rel="stylesheet" href="https://icons.wxug.com/css/wu4/core.css?v=2016042501">
+	<link rel="stylesheet" href="https://icons.wxug.com/css/wu4/omnibus.css?v=2016082201">
+	
+	</head>
+	<body class="standard CityPage-IntlCity city-page  ">
+		
+		
+
+		
+
+
+		<section id="inner-content" class="inner-content" role="main">
+
+		
+	<div id="location">
+		<h1 class="city-nav-header">
+		Robben Island, South Africa
+		<i class="fi-star favorite-star " data-zmw="00000.1.68813"></i>
+		<dfn data-definition="Add/Remove home city location." class="no-decoration">
+		<i class="fi-home homecity-button notHomepage" onclick="wui.favorites.home.toggle('00000.1.68813', this, 'isHomepage', 'notHomepage', 'Robben Island, ZA');return false;"></i>
+		</dfn>
+		<i class="fi-list favorite-menu right-off-canvas-toggle none"></i>
+		</h1>
+		<div class="local-time"><i class="fi-clock"></i> <span>12:26 PM SAST on October 15, 2016</span> (GMT +0200)</div>
+	<span id="station-label">
+		<span class="station-type is-pws"></span>
+		<a href="/personal-weather-station/dashboard?ID=#history">
+		</a>
+	</span>
+		
+		<div class="submit-button">
+		<button id="flagstationbutton" class="radius">Send Report</button>
+		</div>
+		</div>
+		</div>
+		<div ng-controller="twc_wu_station_select_controller" id="twc_wu_station_select_controller">
+	 <a id="station-select-button-ng" ng-show="stationSelectActive"
+		ng-click="onChangeStationTrigger()"
+		ng-class="{open: stationSelectVisible}">
+	</a>
+  <div id="stationselector" class="ng-cloak" ng-class="{open: selectionActive}">
+	<span class="close hide">
+		<span>Close</span>
+		<i class="fi-x"></i>
+	</span>
+	<div id="stationselector_loading" ng-class="selectionLoading? 'loading' : ''"></div>
+	
+</div>
+</div>
+		<!--<div id="stationselector">
+	<span class="close hide">
+		CLOSE <i class="fi-x"></i>
+	</span>
+	<div id="stationselector_loading"></div>
+	<div id="stationselector_content" class="row collapse">
+		<div class="small-12 medium-6 large-4 columns">
+		<div id="stationselector_map"></div>
+		<div id="stationselector_toomany"></div>
+		</div>
+		<div class="small-12 medium-6 large-8 columns">
+		<div class="row collapse">
+		<div class="small-12 medium-12 large-4 large-push-8 columns">
+		<div class="current-container">
+		<div class="title">Current Station</div>
+		<div id="stationselector_current">
+		<div class="station-type is-pws">Personal Weather Station</div>
+		<div class="station-name">
+		<a href="/personal-weather-station/dashboard?ID=">
+		<span class="station-id"></span>
+		</a>
+		</div>
+		<div class="station-location">
+		Location:
+		<strong><span class="station-city"></span>, <span class="station-state"></span></strong>
+		<div class="wx-data">
+		Elevation:
+		<span class="wx-value">-3047</span>
+		<span class="wx-unit">m</span>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		<div class="small-12 medium-12 large-8 large-pull-4 columns">
+		<div class="list-container">
+		<div class="title">Nearby Weather Stations</div>
+		<div id="stationselector_nostations"></div>
+		<div id="stationselector_list">
+		<table id="stationselector_table">
+		</table>
+		</div>
+		<div id="stationselector_list_footer"></div>
+		</div>
+		</div>
+		</div>
+		</div>
+	</div>
+</div>
+<script type="text/template" id="stationselector_table_template">
+	<tbody>
+	<% _.each(stations, function(station) { %>
+		<%
+			var isPWS = (station.type == 'PWS');
+			var query = (isPWS ? 'pws:' : '') + station.id;
+			var isExternal = (radius && station._distance > radius);
+		var classNames = [];
+		classNames.push(isPWS ? 'is-pws' : 'is-airport');
+		if (isExternal) { classNames.push('ext-link'); }
+		var classNamesStr = classNames.join(' ');
+		var title = station._title + ' (' + station.id + ')';
+		%>
+		<tr class="<%= classNamesStr %>">
+		<td><span class="station-icon"></span></td>
+		<td><a class="stationselectorRowPWS" data-station="<%= station.id %>" href="/cgi-bin/findweather/getForecast?query=<%= query %>" title=""><%= title %></a></td>
+		<td><span class="temp"><%= station.temperature %></span>&deg;</td>
+		</tr>
+	<% }); %>
+	</tbody>
+</script>
+<script type="text/template" id="stationselector_list_footer_template">
+	<div class="scroll-fade"></div>
+	<span>Showing <%= stations.length %> Stations</span>
+	<span class="list-scroll-arrow list-scroll-up"></span>
+	<span class="list-scroll-arrow list-scroll-down"></span>
+</script>
+<script type="text/template" id="stationselector_nostations_template">
+	<p>There are no personal weather stations in this area.</p>
+	<p><a href="javascript:void(0);" class="map-reset">Reset the map</a>, or <a href="/weatherstation/setup.asp">add your own Personal Weather Station</a>.</p>
+	<a href="javascript:void(0);" class="hide map-zoom-out">zoom out</a>
+</script>
+<script type="text/template" id="stationselector_toomany_template">
+	<% var querystring = jQuery.param({lat: mapOptions.center.lat(), lon: mapOptions.center.lng(), zoom: mapOptions.zoom, wxsn: 1}); %>
+	<p><a href="/wundermap/?<%= querystring %>">See more weather stations with the WunderMap!</a></p>
+	<p>(<a href="javascript:void(0);" class="map-reset">Reset the Map</a>)</p>
+</script>
+<script type="text/template" id="stationselector_current_template">
+	<%
+		var current_observation = weather.current_observation;
+		var station = current_observation.station;
+		var isPWS = (current_observation.source == 'PWS');
+	%>
+	<% if (isPWS) { %>
+		<div class="station-type is-pws"><%= labels.pws.label %></div>
+	<% } else { %>
+		<div class="station-type is-airport"><%= labels.airport.label %></div>
+	<% } %>
+	<div class="station-name">
+		<a href="<%= current_observation.history_url %>">
+		<% if (isPWS && station.name) { %>
+		<%= station.name %> <span class="station-id">(<%= station.id %>)</span>
+		<% } else if (isPWS) { %>
+		<span class="station-id"><%= station.id %></span>
+		<% } else { %>
+		<%= station.name || station.city %> <span class="station-id">(<%= station.id %>)</span>
+		<% } %>
+		</a>
+	</div>
+	<div class="station-location">
+		Location:
+		<strong><span class="station-city"><%= station.city %></span>, <span class="station-state"><%= station.state || station.country_name%></span></strong>
+		<div class="wx-data">
+		<%= labels.elevation.label %>:
+		<span class="wx-value"><%= station.elevation %></span>
+		<span class="wx-unit"><%= labels.elevation.units %></span>
+		</div>
+	</div>
+</script>
+-->
+</div>
+<div class="row collapse city-nav">
+  <div class="columns">
+  <div class="subnav-contain">
+  <ul class="subnav">
+  <li><a href="/za/robben-island/zmw:00000.1.68813" id="city-nav-forecast" class="selected">Forecast</a></li>
+  <li><a href="/history/airport/FACT/2016/10/15/DailyHistory.html?req_city=Robben Island&req_statename=South Africa&reqdb.zip=00000&reqdb.magic=1&reqdb.wmo=68813" id="city-nav-history" >History</a></li>
+  <li><a href="/history/airport/FACT/2016/10/15/MonthlyCalendar.html?req_city=Robben Island&req_statename=South Africa&reqdb.zip=00000&reqdb.magic=1&reqdb.wmo=68813#calendar" id="city-nav-calendar" >Calendar</a></li>
+  <li><a href="/za/robben-island/zmw:00000.1.68813/precipitation" id="city-nav-precipitation" >Rain / Snow</a></li>
+  <li><a href="/za/robben-island/zmw:00000.1.68813/health" id="city-nav-health" >Health</a></li>
+  </ul>
+  </div>
+  <div class="subnav">
+  <a href="#" data-dropdown="subnav-dropdown" class="button split radius">
+  Forecast
+  <span data-dropdown="subnav-dropdown"><i class="fi-list"></i></span>
+  </a>
+  <ul id="subnav-dropdown" class="f-dropdown" data-dropdown-content>
+  <li><a href="/za/robben-island/zmw:00000.1.68813" id="city-nav-forecast" class="selected">Forecast</a></li>
+  <li><a href="/history/airport/FACT/2016/10/15/DailyHistory.html?req_city=Robben Island&req_statename=South Africa&reqdb.zip=00000&reqdb.magic=1&reqdb.wmo=68813" id="city-nav-history" >History</a></li>
+  <li><a href="/history/airport/FACT/2016/10/15/MonthlyCalendar.html?req_city=Robben Island&req_statename=South Africa&reqdb.zip=00000&reqdb.magic=1&reqdb.wmo=68813#calendar" id="city-nav-calendar" >Calendar</a></li>
+  <li><a href="/za/robben-island/zmw:00000.1.68813/precipitation" id="city-nav-precipitation" >Rain / Snow</a></li>
+  <li><a href="/za/robben-island/zmw:00000.1.68813/health" id="city-nav-health" >Health</a></li>
+  </ul>
+  </div>
+  </div>
+</div>
+<div id="current" class="row">
+	<div class="small-12 medium-6 large-4 columns cc1" id="cc1">
+		<div class="row">
+		<div class="small-12 columns">
+		<h2>
+		<span class="wx-data" data-station="" data-variable="station.elevation">
+		Elev
+		<span class="wx-value">-3047</span>
+		<span class="wx-unit">m</span>
+		</span>
+		<span class="wx-data" data-station="" data-variable="station.latitude">
+		<span class="wx-data"><span class="wx-value">0.00</span>
+		<span class="wx-unit">&deg;N</span></span>,
+		</span>
+		<span class="wx-data" data-station="" data-variable="station.longitude">
+		<span class="wx-data"><span class="wx-value">0.00</span>
+		<span class="wx-unit">&deg;E</span></span>
+		</span>
+		<span class="split">|</span>
+		Updated
+		<span id="update-time" class="offline"></span>
+		</h2>
+		</div>
+		<div class="small-3 columns">
+		<div id="curIcon"><img src="//icons.wxug.com/i/c/v4/partlycloudy.svg" alt="Partly Cloudy" class="wx-data" data-station="" data-variable="icon_url" /></div>
+		<div id="curCond" class="wx-data" data-station="" data-variable="condition"><span class="wx-value">Partly Cloudy</span></div>
+		</div>
+		<div class="small-6 columns">
+		<div id="curTemp" style="color: #feae3c;">
+	<span class="wx-data" data-station="" data-variable="temperature">
+		<span class="wx-value">18</span>
+		<span class="wx-unit">&deg;C</span>
+	</span>
+		</div>
+		<div id="curFeel">
+		<span class="wx-label">Feels Like</span>
+		<span style="color: #feae3c;">
+	<span class="wx-data" data-station="" data-variable="feelslike">
+		<span class="wx-value">18</span>
+		<span class="wx-unit">&deg;C</span>
+	</span>
+		</span>
+		</div>
+		</div>
+		<div class="small-3 columns">
+		<div id="curWind">
+		<div id="windCompassContainer">
+		<div id="windCompass" class="wx-data" data-station="" data-variable="wind_dir_degrees" data-update-effect="wind-compass" style="transform:rotate(220deg);-ms-transform:rotate(220deg);-webkit-transform:rotate(220deg);">
+		<div class="dial">
+		<div class="arrow-direction"></div>
+		</div>
+		</div>
+		<div id="windN">N</div>
+		<div id="windCompassSpeed" class="wx-data" data-station="" data-variable="wind_speed">
+		<span class="wx-value">24</span>
+		</div>
+		</div>
+		</div>
+		<div id="windDir">
+		<span class="wx-data wind-dir-vrb" data-station="" data-variable="wind_dir">
+		<span class="is-variable">Wind Variable</span>
+		<span class="not-variable">Wind from <span class="wx-value">SW</span></span>
+		</span>
+		<span class="wx-data" data-station="" data-variable="wind_gust_speed"><br />Gusts
+	<span class="wx-data" data-station="" data-variable="wind_gust_speed">
+		<span class="wx-value"></span>
+		<span class="wx-unit">km/h</span>
+	</span>
+</span>
+		</div>
+		</div>
+		</div>
+<div id="wx-quickie" class="wx-data" data-station="" data-variable="weather_quickie">
+	<p id="precip-inline"></p>
+	<p class="wx-value">
+	</p>
+</div>
+		<div class="row collapse" id="todaySummary">
+		<div class="small-6 columns">
+		<span class="today" title="Today's weather summary for <%= station.name %>">Today<span>
+		<div>High -- <span class="split">|</span> Low -- &deg;C</div>
+		<div>--% Chance of Precip.</div>
+		</div>
+		<div class="small-6 columns">
+		<a href="/personal-weather-station/dashboard?ID=<%= station.id %>#history/s<%= yesterday_datestr %>/e<%= yesterday_datestr %>/mdaily" title="Yesterday's weather summary for <%= station.name %>">Yesterday</a>
+		<div>High -- <span class="split">|</span> Low -- &deg;C</div>
+		<div>
+		Precip. -- mm
+		</div>
+		</div>
+		</div>
+		<div id="precip-above" class="row hook-wrap hook-test">
+		</div>
+		<div id="pollen-hook" class="row hook-wrap hook-test">
+		</div>
+		<div id="uv-hook" class="row hook-wrap hook-test">
+		</div>
+		<div class="ccDetails">
+		<input type="checkbox" id="condition-table-state" class="show-more-state">
+<table cellpadding="0" cellspacing="0" class="cc3">
+	<tr>
+		<td><dfn>Pressure</dfn></td>
+		<td>
+		<span class="pSteady">
+	<span class="wx-data" data-station="" data-variable="pressure">
+		<span class="wx-value">1013</span>
+		<span class="wx-unit">hPa</span>
+	</span>
+		</span>
+		</td>
+	</tr>
+	<tr>
+		<td><dfn>Visibility</dfn></td>
+		<td>
+	<span class="wx-data" data-station="" data-variable="visibility">
+		<span class="wx-value">10.0</span>
+		<span class="wx-unit">kilometers</span>
+	</span>
+</td>
+	</tr>
+	<tr>
+		<td>Clouds</td>
+		<td>
+	<span class="wx-data-BUGBUG-NOT-DONE" data-station="" data-variable="cloud_description">
+		<span class="wx-value">
+		Mostly Cloudy
+		762
+		</span>
+		<span class="wx-unit">m</span>
+	</span>
+<br /></td>
+	</tr>
+	<tr>
+		<td><dfn>Dew Point</dfn></td>
+		<td>
+	<span class="wx-data" data-station="" data-variable="dewpoint">
+		<span class="wx-value">12</span>
+		<span class="wx-unit">&deg;C</span>
+	</span>
+</td>
+	</tr>
+	<tr>
+		<td><dfn>Humidity</dfn></td>
+		<td>
+	<span class="wx-data" data-station="" data-variable="humidity">
+		<span class="wx-value">68</span><span class="wx-unit">%</span>
+	</span>
+</td>
+	</tr>
+	<tr>
+		<td>Rainfall</td>
+		<td>
+	<span class="wx-data" data-station="" data-variable="precip_today">
+		<span class="wx-value"> -- </span>
+		<span class="wx-unit"></span>
+	</span>
+</td>
+	</tr>
+	<tr>
+		<td><dfn>Snow Depth</dfn></td>
+		<td>
+		<span class="wx-na">Not available.</span>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<div class="row collapse astronomy-data" id="curAstronomy">
+		<div class="columns">
+		<a href="/sky/ShowSky.asp?CurDir=Up&TheLat=-33.79999924&TheLon=18.37000084&TimeZoneName=Africa/Johannesburg" title="Sunrise, sunset, and astronomy for Robben Island">Sun &amp; Moon</a>
+		</div>
+		<div class="small-6 columns sun">
+		<span class="rise"><span class="astro-data" id="cc-sun-rise">6:04</span> <span class="ampm">AM</span></span>
+		<span class="set"><span class="astro-data" id="cc-sun-set">7:00</span> <span class="ampm">PM</span></span>
+		</div>
+		<div class="small-6 columns moon">
+		<div class="moonSouth">
+		<span class="astro-data p-waxinggibbous" id="cc-moon-phase"></span>
+		<strong>Waxing Gibbous,</strong>
+		<span class="nobr"><strong>99</strong>% visible</span>
+		</div>
+		</div>
+		</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><code>METAR FACT 151000Z 17009KT 130V200 9999 BKN025 20/12 Q1013 NOSIG</code></td>
+	</tr>
+</table>
+
+		</div>
+	</div>
+	<div class="show-for-large-up large-3 columns cc2">
+		<input type="checkbox" id="condition-table-state" class="show-more-state">
+<table cellpadding="0" cellspacing="0" class="cc3">
+	<tr>
+		<td><dfn>Pressure</dfn></td>
+		<td>
+		<span class="pSteady">
+	<span class="wx-data" data-station="" data-variable="pressure">
+		<span class="wx-value">1013</span>
+		<span class="wx-unit">hPa</span>
+	</span>
+		</span>
+		</td>
+	</tr>
+	<tr>
+		<td><dfn>Visibility</dfn></td>
+		<td>
+	<span class="wx-data" data-station="" data-variable="visibility">
+		<span class="wx-value">10.0</span>
+		<span class="wx-unit">kilometers</span>
+	</span>
+</td>
+	</tr>
+	<tr>
+		<td>Clouds</td>
+		<td>
+	<span class="wx-data-BUGBUG-NOT-DONE" data-station="" data-variable="cloud_description">
+		<span class="wx-value">
+		Mostly Cloudy
+		762
+		</span>
+		<span class="wx-unit">m</span>
+	</span>
+<br /></td>
+	</tr>
+	<tr>
+		<td><dfn>Dew Point</dfn></td>
+		<td>
+	<span class="wx-data" data-station="" data-variable="dewpoint">
+		<span class="wx-value">12</span>
+		<span class="wx-unit">&deg;C</span>
+	</span>
+</td>
+	</tr>
+	<tr>
+		<td><dfn>Humidity</dfn></td>
+		<td>
+	<span class="wx-data" data-station="" data-variable="humidity">
+		<span class="wx-value">68</span><span class="wx-unit">%</span>
+	</span>
+</td>
+	</tr>
+	<tr>
+		<td>Rainfall</td>
+		<td>
+	<span class="wx-data" data-station="" data-variable="precip_today">
+		<span class="wx-value"> -- </span>
+		<span class="wx-unit"></span>
+	</span>
+</td>
+	</tr>
+	<tr>
+		<td><dfn>Snow Depth</dfn></td>
+		<td>
+		<span class="wx-na">Not available.</span>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<div class="row collapse astronomy-data" id="curAstronomy">
+		<div class="columns">
+		<a href="/sky/ShowSky.asp?CurDir=Up&TheLat=-33.79999924&TheLon=18.37000084&TimeZoneName=Africa/Johannesburg" title="Sunrise, sunset, and astronomy for Robben Island">Sun &amp; Moon</a>
+		</div>
+		<div class="small-6 columns sun">
+		<span class="rise"><span class="astro-data" id="cc-sun-rise">6:04</span> <span class="ampm">AM</span></span>
+		<span class="set"><span class="astro-data" id="cc-sun-set">7:00</span> <span class="ampm">PM</span></span>
+		</div>
+		<div class="small-6 columns moon">
+		<div class="moonSouth">
+		<span class="astro-data p-waxinggibbous" id="cc-moon-phase"></span>
+		<strong>Waxing Gibbous,</strong>
+		<span class="nobr"><strong>99</strong>% visible</span>
+		</div>
+		</div>
+		</div>
+		</td>
+	</tr>
+	
+</table>
+<label for="condition-table-state" class="show-more-trigger">
+	<span class="toggle-show">More Conditions</span>
+	<span class="toggle-hide">Fewer Conditions</span>
+</label>
+	</div>
+	<div class="small-12 medium-6 large-5 columns ccMap" id="ccMap">
+	</div>
+</div>
+<script type="text/template" id="today_summary_template">
+	<% var today = weather.forecast.days[0];
+		var current_observation = weather.current_observation;
+		var station = current_observation.station;
+		var yesterday_datestr = wui.date.strftime('%Y%m%d', yesterday_date, true);
+		var valueOrDash = function(value) {
+			return ($.isNumeric(value) ? value : '--');
+		}
+	%>
+	<div class="small-6 columns">
+		<span class="today" title="Today's weather summary for <%= station.name %>">Today</span>
+		<div>High <strong class="high"><%= valueOrDash(today.summary.high) %></strong> <span class="split">|</span> Low <strong class="low"><%= valueOrDash(today.summary.low) %></strong> <%= labels.temperature.units %></div>
+		<div id="precip-link">
+		<% if (weather.response && weather.response.location) { %><a href="<%= cityUrl %>/precipitation" class="precip-link"><% } %>
+		<span class="pop<% if (today.summary.precip_type === 'snow') {%> snow<% } if(today.summary.pop >= 30) {%> wet<%}%>" title="chance of precipitation"></span><strong><%= valueOrDash(today.summary.pop) %></strong><%= labels.pop.units %> Chance of Precip.
+		<% if (weather.response && weather.location) { %></a><% } %>
+		</div>
+	</div>
+	<div class="small-6 columns">
+		<a href="/personal-weather-station/dashboard?ID=<%= station.id %>#history/s<%= yesterday_datestr %>/e<%= yesterday_datestr %>/mdaily" title="Yesterday's weather summary for <%= station.name %>">Yesterday</a>
+		<div>High <strong class="high"><%= valueOrDash(current_observation.yesterday_max_temperature) %></strong> <span class="split">|</span> Low <strong class="low"><%= valueOrDash(current_observation.yesterday_min_temperature) %></strong> <%= labels.temperature.units %></div>
+		<div>
+		Precip. <strong><%= valueOrDash(current_observation.yesterday_precip_total) %></strong> <%= labels.rainfall.units %>
+		<% if (current_observation.yesterday_precip_total>0 && current_observation.station.country==='US') { %>(<a href="/weather-radar/united-states//robben-island/xxx/history/?date=" class="radar-loop" title="Robben Island Radar Loop">Radar Loop</a>)<% } %>
+		</div>
+	</div>
+</script>
+		
+<script type="text/template" id="plotgroup-header-daily-template">
+	<div class="cond-highlow">
+		<span class="cond-high"><%= condition.high %>&deg;</span>
+		<span class="split">|</span>
+		<span class="cond-low"><%= condition.low %>&deg;</span>
+	</div>
+	<div class="cond-icon-auto">
+		<img src="//icons.wxug.com/i/c/v4/<%= condition.icon %>.svg" alt="<%= condition.icon %>" />
+	</div>
+	<div class="cond-text"><%= condition.condition %></div>
+	<div class="cond-qpf">
+		<span class="icon-qpf <% if (condition.precip_type === 'snow') { %> snow<% } if (condition.liquid_precip>0) { %> wet<% } %>"></span>
+		<% if (condition.precip_type === 'snow') { %>
+		<%
+				var snowRange = condition.snow_range;
+                var showUnits = true;
+
+                if (snowRange == null) {
+                     if (opts.source === 'bestfct') {
+                        snowRange = opts.units === 'metric' ? '< 2' : '< 1';
+                     } else {
+                        snowRange = '--';
+                        showUnits = false;
+                     }
+                }
+            %>
+		<%= snowRange %> <% if (showUnits) { %><%= labels.snow_depth.units %><% } %>
+		<% } else { %>
+		<% var liquidPrecip = condition.liquid_precip || 0; %>
+		<%= liquidPrecip %> <%= labels.rainfall.units %>
+		<% } %>
+	</div>
+</script>
+<script type="text/template" id="plotgroup-header-hourly-template">
+	<div class="cond-icon-auto">
+		<img src="//icons.wxug.com/i/c/v4/<%= condition.icon %>.svg" alt="<%= condition.icon %>" />
+	</div>
+	<div class="cond-text"><%= condition.condition %></div>
+</script>
+<script type="text/template" id="plotgroup-legend-template">
+	<ul class="inline-list right">
+	<% _.each(variables, function(variable) { %>
+		<% if (variable.show !== false && variable.legend !== false && variable.enabled !== false) { %>
+		<li>
+		<span class="legend-swatch" style="background-color: <%= variable.legendFillColor || variable.color || variable.options.color %>; border-color: <%= variable.legendBorderColor || variable.color || variable.options.color %>;"></span>
+		<%
+					var units = '';
+					var legendUnits = variable.legendUnits;
+					if (legendUnits === false) {
+						// no units shown in the legend label
+					} else if (_.isString(legendUnits)) {
+						units = $.trim(legendUnits);
+					} else {
+						units = $.trim(variable.units);
+					}
+				%>
+		<span class="legend-label">
+		<%= variable.options.label %>
+		<% if (units) { %> (<%= units %>)<% } %>
+		</span>
+		</li>
+		<% } %>
+	<% }); %>
+	</ul>
+</script>
+<script type="text/template" id="plotgroup-variables-menu-template">
+	<ul class="no-bullet">
+	<% var isNWS = (forecastSource == 'nws'); %>
+	<% _.each(plots, function(plot) { %>
+		<% _.each(plot.variables, function(variable) { %>
+		<% if (variable.checkbox !== false) { %>
+		<% var disabled = (isNWS && variable.missingFromNWS); %>
+		<li>
+		<input type="checkbox" id="cp_var_<%= variable.id %>" data-variable-id="<%= variable.id %>" <% if (variable.show !== false && !disabled) { %>checked="checked"<% } %> <% if (disabled) { %>disabled="disabled"<% } %> />
+		<label for="cp_var_<%= variable.id %>" <% if (disabled) { %>class="disabled"<% } %>>
+		<%= variable.options.label %>
+		<% if (disabled) { %>*<% } %>
+		</label>
+		</li>
+		<% } %>
+		<% }); %>
+	<% }); %>
+	</ul>
+	<% if (isNWS) { %><p>* Not available with NWS</p><% } %>
+</script>
+<script type="text/template" id="plotgroup-needle-now-template">
+	<div class="needle-label">Forecast &rarr;</div>
+</script>
+		</div>
+		<div class="content hidden-tab" id="forecast-table">
+<script type="text/template" id="table-vertical-template">
+	<% for (var index = 0; index < weather.forecast.days.length; index++) { %>
+		<% var day = weather.forecast.days[index]; %>
+		<% var astronomyDay = weather.astronomy && weather.astronomy.days.length ? weather.astronomy.days[index] : null; %>
+		<% var latitude = weather.response && weather.response.location && typeof weather.response.location.latitude !== 'undefined' ? weather.response.location.latitude : null; %>
+		<% var moonDirection = 'moonNorth'; %>
+		<% var errorString = 'Not Available'; %>
+		<% var current_observation = weather.current_observation; %>
+		<% var station = current_observation.station; %>
+		<dd id="fctDay-<%= day.summary.date.year %><%= wui.date.pad(day.summary.date.month) %><%= wui.date.pad(day.summary.date.day) %>" class="accordion-navigation <% if (index === 0) { %>active<% } %>">
+		<a href="#vertical-day-<%= day.summary.date.yday %>">
+		<span class="date"><span class="b"><%= day.summary.date.weekday_short %></span> <%= day.summary.date.month %>/<%= day.summary.date.day %></span>
+		<span class="temps"><span class="b"><%= day.summary.high %></span><%= labels.temperature.units %> | <%= day.summary.low %><%= labels.temperature.units %></span>
+		<span class="conds"><img src="<%= day.summary.icon_url %>" alt="<%= day.summary.condition %>" /><span class="conds-label"><%= day.summary.condition %></span></span>
+		<span class="pop<% if (day.summary.day.precip_type === 'snow') {%> snow<% } if(day.summary.pop >= 30) {%> wet<%}%>"><span title="<%= labels.pop.label %>"></span><%= day.summary.pop %><%= labels.pop.units %></span>
+		<span class="arrow"></span>
+		</a>
+		<div id="vertical-day-<%= day.summary.date.yday %>" class="content<% if (index === 0) { %> active<% } %>">
+		<% if (index === 0) { %>
+		<div class="columns hide-for-medium-up">
+		<div class="precip-message">
+		<div class="precip-icon">
+		<% if (precip.eventType !== 'noprecip') { %><img src="//icons.wxug.com/i/o/precip/light<%= precip.eventType %>.svg" alt="<%= precip.eventType %>" width="50" height="50"><% } %>
+		</div>
+		<p><a href="<%= cityUrl %>/precipitation" class="precip-link-table"><span class="statement-text"><%= precip.statement %></span></a></p>
+		</div>
+		</div>
+		<% } %>
+		<div class="fctText row astronomy-data">
+		<div class="fct-item sun small-4 columns">
+		<div class="fct-content">
+		<h5>Sun</h5>
+		<span class="rise">
+		<span class="astro-data sunrise-icon">
+		<% if (astronomyDay.sunrise.date.hour !== null) { %>
+		<%= wui.date.strftime("%l:%M", astronomyDay.sunrise.date) %>
+		<% } else { %>
+		<%= errorString %>
+		<% } %>
+		</span>
+		<span class="ampm">
+		<% if (astronomyDay.sunrise.date.hour !== null) { %>
+		<%= wui.date.strftime("%p", astronomyDay.sunrise.date) %>
+		<% } %>
+		</span>
+		</span>
+		<br />
+		<span class="set">
+		<span class="astro-data sunset-icon">
+		<% if (astronomyDay.sunset.date.hour !== null) { %>
+		<%= wui.date.strftime("%l:%M", astronomyDay.sunset.date) %>
+		<% } else { %>
+		<%= errorString %>
+		<% } %>
+		</span>
+		<span class="ampm">
+		<% if (astronomyDay.sunset.date.hour !== null) { %>
+		<%= wui.date.strftime("%p", astronomyDay.sunset.date) %>
+		<% } %>
+		</span>
+		</span>
+		</div>
+		</div>
+		<div class="fct-item moon small-4 columns">
+		<div class="fct-content">
+		<h5>Moon</h5>
+		<% if (latitude !== null) { %>
+		<% if (latitude < 0) { %>
+		<% moonDirection = 'moonSouth'; %>
+		<% } %>
+		<span class="<%= moonDirection %> moon-phase">
+		<span class="astro-data p-<%= astronomyDay.moon_icon %>"></span>
+		</span>
+		<% } %>
+		<span class="rise">
+		<span class="astro-data moonrise-icon">
+		<% if(astronomyDay.moonrise.date.hour !== null) { %>
+		<%= wui.date.strftime("%l:%M", astronomyDay.moonrise.date) %>
+		<% } else { %>
+		<%= errorString %>
+		<% } %>
+		</span>
+		<span class="ampm">
+		<% if(astronomyDay.moonrise.date.hour !== null) { %>
+		<%= wui.date.strftime("%p", astronomyDay.moonrise.date) %>
+		<% } %>
+		</span>
+		</span>
+		<br />
+		<span class="set">
+		<span class="astro-data moonset-icon">
+		<% if(astronomyDay.moonset.date.hour !== null) { %>
+		<%= wui.date.strftime("%l:%M", astronomyDay.moonset.date) %>
+		<% } else { %>
+		<%= errorString %>
+		<% } %>
+		</span>
+		<span class="ampm">
+		<% if(astronomyDay.moonset.date.hour !== null) { %>
+		<%= wui.date.strftime("%p", astronomyDay.moonset.date) %>
+		<% } %>
+		</span>
+		</span>
+		</div>
+		</div>
+		<div class="fct-item precip small-4 columns">
+		<div class="fct-content">
+		<h5 class="nowrap">Precip. Accum.</h5>
+		<p class="precip-table-accum">
+		<a href="<%= cityUrl %>/precipitation" class="precip-link-table">
+		<strong>
+		<% if (day.summary.precip_type === 'snow') {%>
+		<span class="pop snow wet">
+		<span title="snow"></span>
+		<%= day.summary.snow %> <%= labels.snow_depth.units %>
+		</span>
+		<% } else {%>
+		<span class="pop wet">
+		<span title="rain"></span>
+		<%= day.summary.liquid_precip %> <%= labels.rainfall.units %>
+		</span>
+		<% } %>
+		</strong>
+		</a>
+		</p>
+		</div>
+		</div>
+		</div>
+		<table cellspacing="0" cellpadding="0" class="vertFctTable responsive">
+		<thead>
+		<tr>
+		<th><%= labels.time.label %></th>
+		<th><%= labels.temperature.abbrev %></th>
+		<th><%= labels.feelslike.label %></th>
+		<th><%= labels.dewpoint.label %></th>
+		<th><%= labels.humidity.label %></th>
+		<th colspan="2"><%= labels.conditions.label %></th>
+		<th><%= labels.precipitation.abbrev %></th>
+		<th>Liquid Precip.</th>
+		<th class="nobr"><%= labels.wind.label %> <span>(<%= labels.wind_speed.units %>)</span></th>
+		<th><%= labels.cloudcover.label %></th>
+		<th><%= labels.pressure.label %></th>
+		</tr>
+		</thead>
+		<tbody>
+		<% _.each(day.hours, function(hour, index) { %>
+		<tr>
+		<td><%= wui.date.strftime("%l %P",hour.date) %></td>
+		<td class="nobr"><%= hour.temperature %> <%= labels.temperature.units %></td>
+		<td class="nobr"><%= hour.feelslike %> <%= labels.feelslike.units %></td>
+		<td class="nobr"><%= hour.dewpoint %> <%= labels.dewpoint.units %></td>
+		<td><%= hour.humidity %><%= labels.humidity.units %></td>
+		<td><img src="<%= hour.icon_url %>" alt="<%= hour.condition %>" class="no-scale" /></td>
+		<td><%= hour.condition %></td>
+		<td><% if (index < 6) { %><a href="<%= cityUrl %>/precipitation" class="precip-link-table"><% } %><%= hour.pop %><%= labels.pop.units %><% if (index < 6) { %></a><% } %></td>
+		<td>
+		<% if (index < 6) { %><a href="<%= cityUrl %>/precipitation" class="precip-link-table"><% } %>
+		<% if (hour.precip_type === 'snow') { %>
+		<%
+												var defaultSnow = weather.response.units === 'metric' ? '2' : '1';
+												var hourSnow = Math.round(hour.snow);
+
+												if (hourSnow >= defaultSnow) {
+		hourSnow = '~ ' + hourSnow;
+		} else {
+		hourSnow = '< ' + defaultSnow;
+												}
+											%>
+		<%= hourSnow %> <%= labels.snow_depth.units %>
+		<% } else { %>
+		<%= hour.liquid_precip %> <%= labels.rainfall.units %>
+		<% } %>
+		<% if (index < 6) { %></a><% } %>
+		</td>
+		<td><span class="nobr"><%= hour.wind_speed %></span> <%= hour.wind_dir %></td>
+		<td><%= hour.cloudcover %><%= labels.cloudcover.units %></td>
+		<td><%= hour.pressure %><%= labels.pressure.units %></td>
+		</tr>
+		<% }); %>
+		</tbody>
+		</table>
+		</div>
+		</dd>
+	<% } %>
+</script>
+<div id="hourly-vertical" class="show-for-small hide-for-medium-up">
+	<dl class="accordion" data-accordion>
+		<!-- fct day nodes will be inserted here -->
+	</dl>
+</div>
+<script type="text/template" id="table-horizontal-day-template">
+	<div id="fctDayScroll">
+		<div class="fctDayArrow" id="fctDayLeftArrow">
+		</div>
+		<div class="fctDayArrow" id="fctDayRightArrow">
+		</div>
+		<ul id="fctDaySelect">
+		<% _.each(weather.forecast.days, function(day, index) { %>
+		<% if (day.summary) { %>
+		<%
+						var snowRange = day.summary.snow_range;
+						var showUnits = true;
+						var isSnow = day.summary.precip_type === 'snow';
+
+						if (snowRange == null) {
+							 if (weather.forecast.source === 'nws') {
+							 	snowRange = '--';
+							 	showUnits = false;
+							 } else {
+							 	snowRange = weather.response.units === 'metric' ? '< 2' : '< 1';
+							 }
+						}
+
+						var precipAmount = isSnow ? snowRange : (day.summary.liquid_precip || 0);
+						var precipUnits = isSnow ? labels.snow_depth.units : labels.rainfall.units;
+					%>
+		<li id="fctDay-<%= day.summary.date.year %><%= wui.date.pad(day.summary.date.month) %><%= wui.date.pad(day.summary.date.day) %>">
+		<a href="#horizontal-day-<%= day.summary.date.yday %>">
+		<div class="day-title"><%= day.summary.date.weekday %> <%= wui.date.strftime("%m/%d",day.summary.date) %></div>
+		<div class="temps"><span class="hi"><%= day.summary.high %>&deg;</span> <span class="split">|</span> <span class="lo"><%= day.summary.low %>&deg;</span></div>
+		<div><img src="<%= day.summary.icon_url %>" alt="<%= day.summary.condition %>" /></div>
+		<div class="cond-text"><%= day.summary.condition %></div>
+		<div>
+		<span class="pop<% if (day.summary.precip_type === 'snow') {%> snow<% } if(day.summary.pop >= 30) {%> wet<%}%>" title="<%= labels.pop.label %>"></span><strong><%= day.summary.pop %></strong><%= labels.pop.units %> / <strong><%= precipAmount %></strong> <% if (showUnits || !isSnow) { %><%= precipUnits %><% } %>
+		</div>
+		</a>
+		</li>
+		<% } %>
+		<% }); %>
+		</ul>
+	</div>
+</script>
+<script type="text/template" id="table-horizontal-details-template">
+	<% for (var index = 0; index < weather.forecast.days.length; index++) { %>
+		<%
+			var day = weather.forecast.days[index];
+			var astronomyDay = weather.astronomy && weather.astronomy.days.length ? weather.astronomy.days[index] : null;
+			var latitude = weather.response && weather.response.location && typeof weather.response.location.latitude !== 'undefined' ? weather.response.location.latitude : null;
+			var moonDirection = 'moonNorth';
+			var errorString = 'Not Available';
+			var current_observation = weather.current_observation;
+			var station = current_observation.station;
+		%>
+		<% if (day.summary) { %>
+		<div id="horizontal-day-<%= day.summary.date.yday %>" class="fctDetails">
+		<div class="fctText row">
+		<% _.each([day.summary.day, day.summary.night], function(period, time) { %>
+		<% if (period.title !== null) { %>
+		<%
+								var snowRange = period.snow_range;
+								var showUnits = true;
+								var isSnow = period.precip_type === 'snow';
+
+								if (snowRange == null) {
+		                             if (weather.forecast.source === 'nws') {
+		                                snowRange = '--';
+		                                showUnits = false;
+		                             } else {
+		                                snowRange = weather.response.units === 'metric' ? '< 2' : '< 1';
+		                             }
+		                        }
+
+								var precipAmount = isSnow ? snowRange : (period.liquid_precip || 0);
+								var precipUnits = isSnow ? labels.snow_depth.units : labels.rainfall.units;
+							%>
+		<div class="small-12 medium-6 large-6 columns">
+		<div class="fct-icon">
+		<img src="<%= period.icon_url %>" class="no-scale" />
+		</div>
+		<div class="fct-content">
+		<span class="fct-title"><%= period.title %></span>
+		<span class="fct-date"><%= wui.date.strftime("%m/%d",day.summary.date) %></span>
+		<span class="precip-wrap">
+		<% if (index === 0 && ((showPrecipDay && time === 0) || (showPrecipNight && time === 1))) { %><a href="<%= cityUrl %>/precipitation"><% } %>
+		<span class="pop<% if (period.precip_type === 'snow') {%> snow<% } if(period.pop >= 30) {%> wet<%}%>" title="<%= labels.pop.label %>"></span><strong><%= period.pop %></strong><%= labels.pop.units %> / <strong><%= precipAmount %></strong> <% if (showUnits || !isSnow) { %><%= precipUnits %><% } %>
+		<% if (index === 0 && ((showPrecipDay && time === 0) || (showPrecipNight && time === 1))) { %></a><% } %>
+		</span>
+		<p><%= period.text %></p>
+		</div>
+		</div>
+		<% } %>
+		<% }); %>
+		</div>
+		<% if (astronomyDay) { %>
+		<div class="fctText row astronomy-data">
+		<div class="fct-item sun small-12 medium-6 large-6 columns">
+		<div class="fct-icon">
+		<span class="sun-icon"></span>
+		</div>
+		<div class="fct-content">
+		<h5>Sun</h5>
+		<span class="rise">
+		<span class="astro-data sunrise-icon">
+		<% if(astronomyDay.sunrise.date.hour !== null) { %>
+		<%= wui.date.strftime("%l:%M", astronomyDay.sunrise.date) %>
+		<% } else { %>
+		<%= errorString %>
+		<% } %>
+		</span>
+		<span class="ampm">
+		<% if(astronomyDay.sunrise.date.hour !== null) { %>
+		<%= wui.date.strftime("%p", astronomyDay.sunrise.date) %>
+		<% } %>
+		</span>
+		</span>
+		<span class="set">
+		<span class="astro-data sunset-icon">
+		<% if(astronomyDay.sunset.date.hour !== null) { %>
+		<%= wui.date.strftime("%l:%M", astronomyDay.sunset.date) %>
+		<% } else { %>
+		<%= errorString %>
+		<% } %>
+		</span>
+		<span class="ampm">
+		<% if(astronomyDay.sunset.date.hour !== null) { %>
+		<%= wui.date.strftime("%p", astronomyDay.sunset.date) %>
+		<% } %>
+		</span>
+		</span>
+		</div>
+		</div>
+		<div class="fct-item moon small-12 medium-6 large-6 columns">
+		<div class="fct-icon">
+		<span class="moon-icon"></span>
+		</div>
+		<div class="fct-content">
+		<h5>Moon</h5>
+		<% if (latitude !== null) { %>
+		<% if (latitude < 0) { %>
+		<% moonDirection = 'moonSouth'; %>
+		<% } %>
+		<span class="<%= moonDirection %> moon-phase">
+		<span class="astro-data p-<%= astronomyDay.moon_icon %>"></span>
+		<span><strong><%= astronomyDay.moon_phase %>, <%= astronomyDay.moon_percent_illuminated %></strong>% visible</span>
+		</span>
+		<% } %>
+		<span class="rise-set">
+		<span class="rise">
+		<span class="astro-data moonrise-icon">
+		<% if(astronomyDay.moonrise.date.hour !== null) { %>
+		<%= wui.date.strftime("%l:%M", astronomyDay.moonrise.date) %>
+		<% } else { %>
+		<%= errorString %><% } %>
+		</span>
+		<span class="ampm">
+		<% if(astronomyDay.moonrise.date.hour !== null) { %>
+		<%= wui.date.strftime("%p", astronomyDay.moonrise.date) %>
+		<% } %>
+		</span>
+		</span>
+		<span class="set">
+		<span class="astro-data moonset-icon">
+		<% if(astronomyDay.moonset.date.hour !== null) { %>
+		<%= wui.date.strftime("%l:%M", astronomyDay.moonset.date) %>
+		<% } else { %>
+		<%= errorString %>
+		<% } %>
+		</span>
+		<span class="ampm">
+		<% if(astronomyDay.moonset.date.hour !== null) { %>
+		<%= wui.date.strftime("%p", astronomyDay.moonset.date) %>
+		<% } %>
+		</span>
+		</span>
+		</span>
+		</div>
+		</div>
+		</div>
+		<% } %>
+		<div class="fctHourly">
+		<table cellspacing="0" cellpadding="0">
+		<thead>
+		<tr>
+		<th><%= labels.time.label %></th>
+		<th><%= labels.temperature.abbrev %></th>
+		<th><%= labels.feelslike.label %></th>
+		<th><%= labels.dewpoint.label %></th>
+		<th><%= labels.humidity.label %></th>
+		<th colspan="2"><%= labels.conditions.label %></th>
+		<th><%= labels.precipitation.abbrev %></th>
+		<th>Liquid Precip.</th>
+		<th><%= labels.wind.label %></th>
+		<th><%= labels.cloudcover.label %></th>
+		<th><%= labels.pressure.label %></th>
+		</tr>
+		</thead>
+		<tbody>
+		<% _.each(day.hours, function(hour, index) { %>
+		<tr>
+		<td class="nobr"><%= wui.date.strftime("%l:00 %P",hour.date) %></td>
+		<td class="nobr"><%= hour.temperature %> <%= labels.temperature.units %></td>
+		<td class="nobr"><%= hour.feelslike %> <%= labels.feelslike.units %></td>
+		<td class="nobr"><%= hour.dewpoint %> <%= labels.dewpoint.units %></td>
+		<td><%= hour.humidity %><%= labels.humidity.units %></td>
+		<td><img src="<%= hour.icon_url %>" alt="<%= hour.condition %>" class="no-scale" /></td>
+		<td><%= hour.condition %></td>
+		<td><% if (index < 6) { %><a href="<%= cityUrl %>/precipitation" class="precip-link-table"><% } %><%= hour.pop %><%= labels.pop.units %><% if (index < 6) { %></a><% } %></td>
+		<td>
+		<% if (index < 6) { %><a href="<%= cityUrl %>/precipitation" class="precip-link-table"><% } %>
+		<% if (hour.precip_type === 'snow') { %>
+		<%
+													var defaultSnow = weather.response.units === 'metric' ? '2' : '1';
+													var hourSnow = Math.round(hour.snow);
+
+													if (hourSnow >= defaultSnow) {
+		hourSnow = '~ ' + hourSnow;
+		} else {
+		hourSnow = '< ' + defaultSnow;
+													}
+												%>
+		<%= hourSnow %> <%= labels.snow_depth.units %>
+		<% } else { %>
+		<%= hour.liquid_precip %> <%= labels.rainfall.units %>
+		<% } %>
+		<% if (index < 6) { %></a><% } %>
+		</td>
+		<td><span class="nobr"><%= hour.wind_speed %> <%= labels.wind_speed.units %></span> <%= hour.wind_dir %></td>
+		<td><%= hour.cloudcover %><%= labels.cloudcover.units %></td>
+		<td><%= hour.pressure %><%= labels.pressure.units %></td>
+		</tr>
+		<% }); %>
+		</tbody>
+		</table>
+		</div>
+		</div>
+		<% } %>
+	<% } %>
+</script>
+<div id="hourly-horizontal" class="show-for-medium-up hide-for-small">
+	<!-- fct day nodes will be inserted here -->
+	<!-- fct detail nodes will be inserted here -->
+</div>
+		</div>
+		<div class="content hidden-tab" id="forecast-extended">
+<script type="text/template" id="extended-template">
+	<div id="extended-forecast">
+  <% var current_observation = weather.current_observation; %>
+  <% var station = current_observation.station; %>
+		<% _.each(weather.forecast.days, function(period,periodindex) { %>
+		<% if (period.summary.day.text !== null) { %>
+		<%
+					var snowRangeDay = period.summary.day.snow_range;
+					var showUnitsDay = true;
+					var isSnowDay = period.summary.day.precip_type === 'snow';
+
+                    if (snowRangeDay == null) {
+                         if (weather.forecast.source === 'nws') {
+                            snowRangeDay = '--';
+                            showUnitsDay = false;
+                         } else {
+                            snowRangeDay = weather.response.units === 'metric' ? '< 2' : '< 1';
+                         }
+                    }
+
+					var precipAmountDay = isSnowDay ? snowRangeDay : (period.summary.day.liquid_precip || 0);
+					precipUnitsDay = isSnowDay ? labels.snow_depth.units : labels.rainfall.units;
+
+					var snowRangeNight = period.summary.night.snow_range;
+					var showUnitsNight = true;
+					var isSnowNight = period.summary.night.precip_type === 'snow';
+
+                    if (snowRangeNight == null) {
+                         if (weather.forecast.source === 'nws') {
+                            snowRangeNight = '--';
+                            showUnitsNight = false;
+                         } else {
+                            snowRangeNight = weather.response.units === 'metric' ? '< 2' : '< 1';
+                         }
+                    }
+
+					var precipAmountNight = isSnowNight ? snowRangeNight : (period.summary.night.liquid_precip || 0);
+					precipUnitsNight = isSnowNight ? labels.snow_depth.units : labels.rainfall.units;
+				%>
+		<div id="fctDay-<%= period.summary.date.year %><%= wui.date.pad(period.summary.date.month) %><%= wui.date.pad(period.summary.date.day) %>" class="day-row <% if (periodindex>=3) { %>fct3<% } %>">
+		<div class="summary">
+		<span class="weekday"><%= period.summary.date.weekday %></span>
+		<span class="date"><%= wui.date.strftime("%m/%d",period.summary.date) %></span>
+		<span class="temps">
+		<span class="high"><%= period.summary.high %></span>
+		<span class="split">|</span>
+		<span class="low"><%= period.summary.low %></span>
+		<%= labels.temperature.units %>
+		</span>
+		</div>
+		<div class="day">
+		<img src="<%= period.summary.day.icon_url %>" />
+		<span class="title"><span class="long"><%= period.summary.date.weekday %></span><span class="short"><%= period.summary.date.weekday_short %></span></span>
+		<span class="pop<% if (period.summary.day.precip_type === 'snow') {%> snow<% } if(period.summary.day.pop >= 30) {%> wet<%}%>" title="<%= labels.pop.label %>">
+  <% if (showPrecipDay && periodindex === 0) { %><a href="<%= cityUrl %>/precipitation"><% } %>
+  <span><%= period.summary.day.pop %></span>
+  <%= labels.pop.units %> <%= labels.precipitation.abbrev %> / <strong><%= precipAmountDay %></strong> <% if (showUnitsDay || !isSnowDay) { %><%= precipUnitsDay %><% } %>
+  <% if (showPrecipDay && periodindex === 0) { %></a><% } %>
+  </span>
+		<p><%= period.summary.day.text %></p>
+		</div>
+		<div class="night">
+		<img src="<%= period.summary.night.icon_url %>" />
+		<span class="title"><span class="long"><%= period.summary.date.weekday %></span><span class="short"><%= period.summary.date.weekday_short %></span> Night</span>
+		<span class="pop<% if (period.summary.night.precip_type === 'snow') {%> snow<% } if(period.summary.night.pop >= 30) {%> wet<%}%>" title="<%= labels.pop.label %>">
+  <% if (showPrecipNight && periodindex === 0) { %><a href="<%= cityUrl %>/precipitation"><% } %>
+  <span><%= period.summary.night.pop %></span>
+  <%= labels.pop.units %> <%= labels.precipitation.abbrev %> / <strong><%= precipAmountNight %></strong> <% if (showUnitsNight || !isSnowNight) { %><%= precipUnitsNight %><% } %>
+  <% if (showPrecipNight && periodindex === 0) { %></a><% } %>
+  </span>
+		<p><%= period.summary.night.text %></p>
+		</div>
+		</div>
+		<% } %>
+		<% }); %>
+	</div>
+	<p class="fct3-toggle">
+		<a href="#" class="fct3-toggle-show">More Days</a>
+		<a href="#" class="fct3-toggle-hide">Fewer Days</a>
+	</p>
+</script>
+<div id="extended">
+	<!-- fct nodes will be inserted here -->
+</div>
+		</div>
+		<div class="fctLinks">
+  
+  <div id="fctLinkSource" class="right">
+		Source: <a href="/about/data.asp">Weather Underground BestForecast</a>
+  </div>
+		</div>
+	</div>
+		<div class="is-sidebar">
+		<div id="top-ad-wrapper" class="surprise-contain cp">
+	<center class="clearfix">
+		<div id="WX_Top300Variable">
+		<div id="div-gpt-ad-615639597871654305-2" class="ad-box align-top">
+		</div>
+		<div id="targeted-banner" class="ads-blocked hide">
+		</div>
+		<div class="ad-nav">
+		<div class="pubnation ad-link" data-target="div-gpt-ad-615639597871654305-2" style="visibility: hidden;">report this ad</div>
+		<div class="ad-link align-top"> | </div>
+		<div class="ad-link align-top" data-reveal-id="why-ads-modal">why ads?</div>
+		</div>
+		</div>
+	</center>
+		<div id="surprise" class="show-for-large-up surprise">
+	<center class="clearfix">
+		<div id="div-gpt-ad-615639597871654305-tdu" class="ad-box no-well align-top">
+		</div>
+		<div class="ad-nav">
+		<div class="pubnation ad-link" data-target="div-gpt-ad-615639597871654305-tdu" style="visibility: hidden;">report this ad</div>
+		<div class="ad-link no-well align-top"> | </div>
+		<div class="ad-link no-well align-top" data-reveal-id="why-ads-modal">why ads?</div>
+		</div>
+	</center>
+		</div>
+		</div>
+		</div>
+</div>
+		<a name="map"></a>
+
+<input type="hidden" id="LayerHurricane_cod" value="" checked="checked" />
+<input type="hidden" id="LayerHurricane_fx" value="" checked="checked" />
+<input type="hidden" id="LayerHurricane_obs" value="" checked="checked" />
+	<center class="clearfix">
+		<div id="div-gpt-ad-615639597871654305-3" class="ad-box align-top compact-leader">
+		</div>
+		<div class="ad-nav">
+		<div class="pubnation ad-link" data-target="div-gpt-ad-615639597871654305-3" style="visibility: hidden;">report this ad</div>
+		<div class="ad-link align-top compact-leader"> | </div>
+		<div class="ad-link align-top compact-leader" data-reveal-id="why-ads-modal">why ads?</div>
+		</div>
+	</center>
+<script type="text/template" id="precip-map">
+  <img src="//icons.wxug.com/i/o/precip/<%= eventType %>.svg" alt="<%= eventType %>" width="30" height="30" class="graphic">
+  <ul  class="enticement-list">
+  <li class="enticement"><a href="<%= cityUrl %>/precipitation">7-Hour Precipitation Forecast for Robben Island, South Africa</a></li>
+  </ul>
+</script>
+<script type="text/template" id="precip-inline">
+  <a href="<%= cityUrl %>/precipitation"><%= statement %></a>
+</script>
+<script type="text/template" id="precip-abovebelow">
+  <div class="columns small-12">
+  <div class="hook-message precip-message">
+  <div class="hook-icon">
+  <img src="//icons.wxug.com/i/o/precip/<%= eventType %>.svg" alt="<%= eventType %>" width="30" height="30">
+  </div>
+  <p><a href="<%= cityUrl %>/precipitation" id="precip-link"><%= statement %></a></p>
+  </div>
+  </div>
+</script>
+<script type="text/template" id="pollen-hook-template">
+  <div class="columns small-12">
+  <div class="hook-message pollen-message">
+  <div class="hook-icon">
+  <img src="//icons.wxug.com/i/o/pollen.svg" alt="Pollen Icon" width="30" height="30">
+  </div>
+  <p><a href="<%= cityUrl %>/health#<%= pollenType %>" id="pollen-link">Allergy <%= statement %></a></p>
+  </div>
+  </div>
+</script>
+<script type="text/template" id="uv-hook-template">
+  <div class="columns small-12">
+  <div class="hook-message uv-message">
+  <div class="hook-icon">
+  <img src="//icons.wxug.com/i/o/uv.svg" alt="UV Icon" width="30" height="30">
+  </div>
+  <p><a href="<%= cityUrl %>/health#uv" id="uv-link">UV Warning</a></p>
+  </div>
+  </div>
+</script>
+		</div>
+	</div>
+	<
+		</div>
+		<div class="wx-col-2">
+	
+		</div>
+		<div class="wx-col-3">
+	<center class="clearfix">
+		<div id="div-gpt-ad-615639597871654305-4" class="ad-box compact-large">
+		</div>
+		<div class="ad-nav">
+		<div class="pubnation ad-link" data-target="div-gpt-ad-615639597871654305-4" style="visibility: hidden;">report this ad</div>
+		<div class="ad-link compact-large"> | </div>
+		<div class="ad-link compact-large" data-reveal-id="why-ads-modal">why ads?</div>
+		</div>
+	</center>
+	
+		</div>
+	</div>
+	
+	
+	
+</div>
+
+  
+		</div>
+		
+		
+	</div>
+	
+		
+	
+		
+		
+	
+	
+	
+</div>
+	
+		</section>
+		
+
+</div>
+		</div>
+<script>
+	if(!window.wui) window.wui = {};
+</script>
+<script>
+	wui.bootstrapped = {
+		iconPath: "i/c/v4",
+		pageType: "CityPage",
+		"localtime": {
+  "epoch": 1476527203,
+  "pretty": "12:26 PM SAST on October 15, 2016",
+  "rfc822": "Sat, 15 Oct 2016 12:26:43 +0200",
+  "iso8601": "2016-10-15T12:26:43+0200",
+  "year": 2016,
+  "month": 10,
+  "day": 15,
+  "yday": 288,
+  "hour": 12,
+  "min": "26",
+  "sec": 43,
+  "monthname": "October",
+  "monthname_short": "Oct",
+  "weekday": "Saturday",
+  "weekday_short": "Sat",
+  "ampm": "PM",
+  "tz_short": "SAST",
+  "tz_long": "Africa/Johannesburg",
+  "tz_offset_text": "+0200",
+  "tz_offset_hours": 2.00
+},
+		"usertime": {
+  "epoch": 1476527203,
+  "pretty": "10:26 AM GMT on October 15, 2016",
+  "rfc822": "Sat, 15 Oct 2016 10:26:43 +0000",
+  "iso8601": "2016-10-15T10:26:43+0000",
+  "year": 2016,
+  "month": 10,
+  "day": 15,
+  "yday": 288,
+  "hour": 10,
+  "min": "26",
+  "sec": 43,
+  "monthname": "October",
+  "monthname_short": "Oct",
+  "weekday": "Saturday",
+  "weekday_short": "Sat",
+  "ampm": "AM",
+  "tz_short": "GMT",
+  "tz_long": "UTC",
+  "tz_offset_text": "+0000",
+  "tz_offset_hours": 0.00
+},
+		search: "", //Used for Wundermap autocomplete initialization
+		async: true,
+		https: false,
+		smurfs: false,
+		showUstreamTDU: false,
+		showDailyDownpourTDU: false,
+		showSurveyBanner: false,
+  showPrivacyBanner: false,
+		dailyDownpourText: '',
+		showBOM: false,
+		//These scripts are interacted with via scriptUsher.js, located in wui-js
+		scripts: {
+		amazon_bid: {
+		url: "//aax.amazon-adsystem.com/e/dtb/bid?src=1004&u="+encodeURIComponent(document.location)+"&cb="+Math.round(1e7 * Math.random()),
+		promise: null,
+		timeout: 500
+		},
+		lotame_ads: {
+		url :"//ad.crwdcntrl.net/5/c=2215/pe=y/callback=?",
+		dataType : "jsonp",
+		promise: null,
+		timeout: 500
+		},
+		wfxtriggers: {
+		url:"//triggers1.wfxtriggers.com/json/?resp_type=json&acctid=" + (window.innerWidth > 990 ? "B1CC73" : "5B3739") + "&current=true&df=1,2,3&zcs=&nzcs=00000",
+		dataType : "jsonp",
+		promise: null,
+		timeout: 500
+		},
+		'amp.premier': {
+		url: '/amp.premier/amp.premier.min.js',
+		done: function() {
+		akamai.amp.AMP.loadDefaults('/amp.premier/amp.premier.xml');
+		}
+		},
+		googlemaps: {
+		url: "//maps.googleapis.com/maps/api/js?sensor=false&client=gme-theweatherchannel&channel=CityPage&libraries=geometry&" +
+		"callback=wui.bootstrapped.scripts.googlemaps.callback",
+		promise: null,
+		callback: function() {
+		wui.bootstrapped.scripts.googlemaps.promise.resolve();
+		}
+		},
+		mapbox: {
+		url: "//api.mapbox.com/mapbox.js/v2.2.2/mapbox.js?",
+		promise: null
+		},
+		mosaicmap: {
+		//url: "//icons.wxug.com/wxmapsdk/1.1.2/wx.js?apiKey=abcdefghijklmnopqrstuvwxyz0123456789&",
+		url: "//icons.wxug.com/scripts/wxmapsdk/1.5.0/wx.js",
+		promise: null
+		},
+		mosaicwundermap: {
+  url: "//icons.wxug.com/scripts/mosaicmap/1.1.9/wui.mosaicmap.min.js",
+		promise: null
+		},
+		infobox: {
+		url: "/scripts/wundermap/src/wu4/stable/gmap_util_lib/infobox_packed.js?v=3.5.20",
+		promise: null
+		},
+		'jquery-cookie': {
+		url: "//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js",
+		promise: null
+		},
+		tealium: {
+		url: "//tags.tiqcdn.com/utag/weather/wunderground/prod/utag.js",
+		promise: null
+		},
+		wundermap: {
+		// SHH TODO: Update SERVERCONFIG, then reference SERVERCONFIG.WunderMap.Version.release
+		url: "//icons.wxug.com/scripts/wundermap/release/8.1.2/wundermaplight.min.js",
+		promise: null
+		},
+		angularStationselect: {
+		url: '//icons.wxug.com/scripts/angular/1.3.1/angular.min.js',
+  promise: null,
+		done: function() {
+  var stationselect_promise = null;
+  stationselect_promise = wui.usher.loadScript('stationselect');
+		}
+		},
+		stationselect: {
+		url: "//icons.wxug.com/scripts/wui-station-select/0.0.4/wui.ngstationselect.min.js",
+		promise: null,
+  done: function() {
+  var temp = angular.bootstrap(document, ["wu_station_select"]);
+  var count = 0;
+  var timeout = setInterval(function() {
+  count++;
+  if(count>10){
+  clearInterval(timeout);
+  }
+  else if (temp) {
+  angular.element('#station-select-button-ng').triggerHandler('click');
+  clearInterval(timeout);
+  }
+  }, 1000);
+  }
+		},
+		}
+	};
+</script>
+<script>
+wui.bootstrapped.prefs = {
+	'selected_pws': "IWESTERN142",
+	'CP_FCTTAB': "2",
+	'CP_VAR_dp': null,
+	'CP_VAR_fl': null,
+	'CP_VAR_temp': null,
+	'CP_VAR_cc': null,
+	'CP_VAR_pop': null,
+	'CP_VAR_h': null,
+	'CP_VAR_p': null,
+	'CP_VAR_wspd': null,
+	'CP_VAR_qpf': null,
+	'CP_VAR_precip': null,
+	'EXPFCT': "1",
+	'RADARBOX': null,
+	'RADARBOX_WEBCAM': null,
+	'GMAPTYPE': '',
+	'GMAPUNITS': '',
+	'iconset': '',
+	'LangCode': 'EN',
+	'BrowserCode': 'en-US',
+	'Units': 'metric',
+	'raw_string': 'FAVS:1|WXSN:1|PWSOBS:1|WPHO:1|PHOT:1|RADC:0|RADALL:0|HIST0:NULL|GIFT:1|00000168813WS:IWESTERN142|CP_FCTTAB:2|',
+  'fodqa' : false,
+	'rapidfire': '10'
+};
+</script>
+<script>
+	wui.asyncCityPage = true;
+	wui.bootstrapped.API = "";
+	wui.api_data =
+{
+	"response": {
+		"version": "2.0",
+		"units": "metric",
+		"termsofService": "https://www.wunderground.com/weather/api/d/terms.html",
+		"attribution": {
+		"image":"//icons.wxug.com/graphics/wu2/logo_130x80.png",
+		"title":"Weather Underground",
+		"link":"http://www.wunderground.com"
+		},
+		"features": {
+		"conditions": 1
+		}
+		, "location": {
+		"name": "Robben Island",
+		"neighborhood":null,
+		"city": "Robben Island",
+		"state": null,
+		"state_name":"South Africa",
+		"country": "ZA",
+		"country_iso3166":null,
+		"country_name":"South Africa",
+		"continent":"AF",
+		"zip":"00000",
+		"magic":"1",
+		"wmo":"68813",
+		"radarcode":"xxx",
+		"radarregion_ic":null,
+		"radarregion_link": "//",
+		"latitude":-33.79999924,
+		"longitude":18.37000084,
+		"elevation":3.00000000,
+		"l": "/q/zmw:00000.1.68813",
+		"canonical": "/za/robben-island"
+		},
+		"date": {
+	"epoch": 1476527203,
+	"pretty": "12:26 PM SAST on October 15, 2016",
+	"rfc822": "Sat, 15 Oct 2016 12:26:43 +0200",
+	"iso8601": "2016-10-15T12:26:43+0200",
+	"year": 2016,
+	"month": 10,
+	"day": 15,
+	"yday": 288,
+	"hour": 12,
+	"min": "26",
+	"sec": 43,
+	"monthname": "October",
+	"monthname_short": "Oct",
+	"weekday": "Saturday",
+	"weekday_short": "Sat",
+	"ampm": "PM",
+	"tz_short": "SAST",
+	"tz_long": "Africa/Johannesburg",
+	"tz_offset_text": "+0200",
+	"tz_offset_hours": 2.00
+}
+	}
+		,
+	"current_observation": {
+		"source": "PWS",
+		"station": {
+		"id":null,
+		"name":null,
+		"city":null,
+		"state":null,
+		"state_name":"South Africa",
+		"country":null,
+		"country_name":"South Africa",
+		"country_iso3166":"",
+		"latitude":null,
+		"longitude":null,
+		"elevation":null
+		},
+		"estimated": {
+		"estimated": 1,
+		"description": "These are estimated conditions. There are no weather stations nearby."
+		},
+		"date": {
+	"epoch": null,
+	"pretty": null,
+	"rfc822": null,
+	"iso8601": null,
+	"year": null,
+	"month": null,
+	"day": null,
+	"yday": null,
+	"hour": null,
+	"min": null,
+	"sec": null,
+	"monthname": null,
+	"monthname_short": null,
+	"weekday": null,
+	"weekday_short": null,
+	"ampm": null,
+	"tz_short": null,
+	"tz_long": null,
+	"tz_offset_text": null,
+	"tz_offset_hours": null
+},
+		"metar": "METAR FACT 151000Z 17009KT 130V200 9999 BKN025 20/12 Q1013 NOSIG",
+		"condition":"Partly Cloudy",
+		"temperature": 18,
+		"humidity":68,
+		"wind_speed":24,
+		"wind_gust_speed":null,
+		"wind_dir":"SW",
+		"wind_dir_degrees":220,
+		"wind_dir_variable":1,
+		"pressure": 1013,
+		"pressure_trend": "0",
+		"pressure_tendency": 0.000000,
+		"pressure_tendency_string": "Steady",
+		"dewpoint": 12,
+		"heatindex": null,
+		"windchill": null,
+		"feelslike": 18,
+		"visibility":10.0,
+		"cloud_description": {
+		"highest_layer": "BKN",
+		"oktas": 6,
+		"layers": [
+		{
+		"height": 762,
+		"height_char": null,
+		"cover": "BKN",
+		"cover_text": "Mostly Cloudy",
+		"oktas": "6",
+		"other": null
+		}
+		]
+		},
+		"solarradiation": null,
+		"uv_index": 7,
+		"temperature_indoor": null,
+		"humidity_indoor": null,
+		"t1f": null,
+		"t2f": null,
+		"precip_1hr":null,
+		"precip_today":null,
+		"soil_temp": null,
+		"soil_moisture": null,
+		"leaf_wetness": null,
+		"icon":"partlycloudy",
+		"icon_url":"//icons.wxug.com/i/c/v4/partlycloudy.svg",
+		"forecast_url":"http://www.wunderground.com/global/stations/68813.html",
+		"history_url":"http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=",
+		"ob_url":"http://www.wunderground.com/cgi-bin/findweather/getForecast?query=,",
+		"nowcast":"",
+		"pollen": null,
+		"flu": null,
+		"ozone_index": null,
+		"ozone_text": null,
+		"pm_index": null,
+		"pm_text": null,
+		"yesterday_max_temperature": null,
+		"yesterday_min_temperature": null,
+		"yesterday_precip_total": null,
+		"cod_wspd": null,
+		"cod_mslp": null,
+		"cod_feels_like": null,
+		"cod_vis": null,
+		"cod_altimeter": null,
+		"cod_rh": null,
+		"cod_temp_min_24hour": null,
+		"cod_snow_season": null,
+		"cod_precip_mtd": null,
+		"cod_snow_6hour": null,
+		"cod_temp_max_24hour": null,
+		"cod_temp_change_24hour": null,
+		"cod_wc": null,
+		"cod_snow_24hour": null,
+		"cod_snow_ytd": null,
+		"cod_hi": null,
+		"cod_pchange": null,
+		"cod_snow_1hour": null,
+		"cod_snow_mtd": null,
+		"cod_precip_1hour": null,
+		"cod_snow_2day": null,
+		"cod_snow_3day": null,
+		"cod_precip_2day": null,
+		"cod_snow_7day": null,
+		"cod_precip_3day": null,
+		"cod_precip_6hour": null,
+		"cod_precip_24hour": null,
+		"cod_precip_ytd": null,
+		"cod_precip_7day": null
+	}
+}
+;
+</script>
+	<script src="//icons.wxug.com/scripts/wui-whyads/advert.js?0.0.3"></script>
+<script>
+	(function () {
+		var fromPrefToBoolean = function(pref, default_val) {
+		if (pref === "1" || pref === 1 || pref === "true" || pref === true) {
+		return true;
+		} else if (pref === "0" || pref === 0 || pref === "false" || pref === false) {
+		return false;
+		} else {
+		return default_val;
+		}
+		}
+		wui.build_url = function(options) {
+		var url = '//api-ak-aws.wunderground.com/api/' + options.k;
+		if (options.features) {
+		url += '/' + options.features.join('/');
+	 if ("history" in options.features) { url.replace("/history/","/history_"+wui.date.strftime('%Y%m%d')+"/"); }
+		}
+		if (options.lang) {
+		url += '/lang:' + options.lang;
+		}
+		if (options.units) {
+		url += '/units:' + options.units;
+		}
+		if (options.version) {
+		url += '/v:' + options.version;
+		}
+		if (options.bestfct == 0 || options.bestfct == false) {
+		url += '/bestfct:0';
+		}
+		if (options.bestfct == 1 || options.bestfct == true) {
+		url += '/bestfct:1';
+		}
+		url += '/q/'+ options.query +'.json';
+		url += '?ttl=300';
+  if (options.fodqa) {
+  url += '&qa=1&fod=1';
+  }
+		if(options.selected_pws) {
+		url += '&sp=' + options.selected_pws;
+		}
+		return url;
+		}
+		var initScripts = [
+		{
+		load: "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js",
+		complete: function () {
+		if ( window.jQuery && wui.bootstrapped.pageType == "CityPage" ) {
+		//Load API data for city page
+		var prefs = wui.bootstrapped.prefs;
+		var query = 'zmw:' + '00000.1.68813';
+		var selected_pws = wui.bootstrapped.prefs.selected_pws;
+		var citypage_options = {
+		k: 'c991975b7f4186c0',
+		bestfct: fromPrefToBoolean(prefs['EXPFCT'], true),
+		lang: prefs['LangCode'],
+		features: [ 'forecast10day',
+		'hourly10day',
+		'labels',
+		//'conditions',
+		'astronomy10day'],
+		selected_pws: selected_pws,
+		query: query,
+  fodqa: false,
+		units: prefs['Units'],
+		version: '2.0'
+		};
+		var url = wui.build_url(citypage_options);
+		var ajaxOptions = {
+		async: true,
+		cache: true,
+		dataType: "jsonp",
+		jsonpCallback: 'weatherCallback',
+		url: url
+		};
+		wui.api_done = $.ajax(ajaxOptions).done(function(data) {
+		wui.api_data = $.extend({}, wui.api_data, data);
+		});
+		}
+		}
+		},
+		"//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js",
+		"//icons.wxug.com/scripts/wui-js/2.0.0/wui.min.js",
+		"//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js",
+		"//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js",
+		"//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js",
+		"//cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js",
+		"//cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.time.min.js",
+		"//icons.wxug.com/scripts/backbone-nested/1.1.2/backbone-nested.min.js",
+		"//icons.wxug.com/scripts/responsive-tables.js",
+  "//icons.wxug.com/scripts/tablesaw/1.0.4/tablesaw.min.js",
+  "//icons.wxug.com/scripts/pubnation.js",
+		"//icons.wxug.com/scripts/wui-backbone/1.4.9/wui.backbone.min.js",
+		"//icons.wxug.com/scripts/rAF/0.0.1/rAF.min.js",
+		"//icons.wxug.com/scripts/wui-flot/0.1.1/wui.flot.min.js",
+		"//cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js", // for IE cors support
+		"//icons.wxug.com/scripts/wui-citypage/1.2.1/wui.citypage.min.js",
+		"//icons.wxug.com/scripts/wui-precip/0.2.2/wui.precip.min.js",
+		"//icons.wxug.com/scripts/wui-sitewide/2.1.5/wui.sitewide.min.js",
+		];
+		var trackingAndAdsScripts = [
+		"//c.amazon-adsystem.com/aax2/amzn_ads.js",
+		"//icons.wxug.com/scripts/wui-ads/0.2.3/wui.ads.min.js"
+		];
+		function scriptLoader(scripts) {
+		!function(e,t,r){function n(){for(;d[0]&&"loaded"==d[0][f];)c=d.shift(),c[o]=!i.parentNode.insertBefore(c,i)}for(var s,a,c,d=[],i=e.scripts[0],o="onreadystatechange",f="readyState";s=r.shift();)a=e.createElement(t),"async"in i?(a.async=!1,e.head.appendChild(a)):i[f]?(d.push(a),a[o]=n):e.write("<"+t+' src="'+s+'" defer></'+t+">"),a.src=s}(document,"script",scripts);
+		}
+		//Add usher to global wui namespace/object
+		wui.usher = {
+		scripts: initScripts.concat([]),
+		//Callback for loading ads later on in the page (currently controller.js for CityPage)
+		loadTrackingAndAds: function() {
+		if (wui.usher.loadedTrackingAndAds) {
+		return;
+		}
+		wui.usher.scripts = wui.usher.scripts.concat(trackingAndAdsScripts);
+		Modernizr.load(trackingAndAdsScripts);
+		wui.usher.loadedTrackingAndAds = true;
+		},
+		loadedTrackingAndAds: false
+		};
+		// backwards compatibility
+		wui.usher.loadAds = wui.usher.loadTrackingAndAds;
+		//Load all required scripts for page
+		Modernizr.load(initScripts);
+	})();
+</script>
+<script>
+wui.bootstrapped.ajax_favorites = true; //added for wundermap favorites layer loading
+wui.bootstrapped.citylist = "";
+//wui.bootstrapped.citylist = "";
+</script>
+<script>
+wui.bootstrapped.recents = [
+	{
+	url: "/za//robben-island",
+	"lat": -33.79999924,
+	"lon": 18.37000084,
+	"name": "Robben Island, South Africa",
+	"type": "recent",
+	"zmw": "00000.1.68813"
+	}
+];
+</script>
+<script>
+wui.bootstrapped.popular=[
+	{
+	url: "///",
+	"lat": null,
+	"lon": null,
+	"name": "New York, NY",
+	"type": "popular",
+	"zmw": "10001.5.99999"
+		},
+	{
+	url: "///",
+	"lat": null,
+	"lon": null,
+	"name": "London, UK",
+	"type": "popular",
+	"zmw": "00000.1.03772"
+		},
+	{
+	url: "///",
+	"lat": null,
+	"lon": null,
+	"name": "Chicago, IL",
+	"type": "popular",
+	"zmw": "60290.1.99999"
+		},
+	{
+	url: "///",
+	"lat": null,
+	"lon": null,
+	"name": "Boston, MA",
+	"type": "popular",
+	"zmw": "02101.1.99999"
+		},
+	{
+	url: "///",
+	"lat": null,
+	"lon": null,
+	"name": "Houston, TX",
+	"type": "popular",
+	"zmw": "77001.1.99999"
+		},
+	{
+	url: "///",
+	"lat": null,
+	"lon": null,
+	"name": "San Francisco, CA",
+	"type": "popular",
+	"zmw": "94101.1.99999"
+		},
+	];
+if(!wui.bootstrapped.favorites && wui.bootstrapped.recents.length===0 && wui.bootstrapped.citylist=="") {
+wui.bootstrapped.popularcities = ["10001.5.99999","00000.1.03772","60290.1.99999","02101.1.99999","77001.1.99999","94101.1.99999"];
+}
+</script>
+<script>
+wui.bootstrapped.ads = {
+	interval: 300000,
+	enableAdRefresh: 1,
+	ugc: false
+};
+</script>
+<script>
+wui.bootstrapped.citypage = {
+	airports: [
+		{
+		code: "FACT"
+		}
+	],
+  mosaic: {
+  map_type: "terrain"
+  },
+	storm: {
+	},
+	photos: [
+	],
+	defconLevel: '5',
+	zmw: '00000.1.68813',
+	lat: '-33.79999924',
+	lon: '18.37000084',
+	tzname: 'Africa/Johannesburg'
+};
+</script>
+<script>
+wui.bootstrapped.indexpage = {
+	newhp: 1,
+	geoip: {
+  lat: "-33.821301",
+		lon: "18.445400"
+	},
+	home_loc: {
+		lat: "0.00",
+		lon: "0.00",
+		zmw: ""
+	},
+	location_found: 0,
+  mosaic: {
+  map_type: "lightmap"
+  },
+	//wundermap Layers
+	layers: [
+		{
+		layer: "WeatherStations",
+		active: 1,
+		//clickable: false,
+		mode: "paddles",
+		stationTypes: "ICAO,PWS",
+		customClickHandler: function() { wui.indexpage.App.setSelectedStation(this); }
+		}
+	],
+	video: {
+		clipid: '',
+		collid: 'news'
+	},
+	popups: {
+		//'HpIterationInfo': null,
+		'HpIterationInfo': '1',
+	}
+};
+</script>
+<script>
+wui.bootstrapped.share = {
+	domain: "www.wunderground.com",
+	category: "CityPage",
+	page: "IntlCity",
+	title: 'Robben Island, South Africa Forecast',
+		autoInitialize: false,
+		image: 'http://icons.wxug.com/i/c/a/partlycloudy.gif',
+		now: 'Partly Cloudy',
+		temp_now: '18 &deg;C',
+		high_now: ' &deg;C',
+		low_now: ' &deg;C',
+		tonight: '',
+		high_tonight: ' &deg;C',
+		low_tonight: ' &deg;C',
+		tomorrow: '',
+		high_tomorrow: ' &deg;C',
+		low_tomorrow: ' &deg;C',
+		loc: 'Robben Island, ',
+		content_template: '<%= weather.response.location.city %>, <%= weather.response.location.state || weather.response.location.country_name %> - Now: <%= weather.current_observation.condition %> \(<%= weather.current_observation.temperature %><%= labels.temperature.units_nosymbol %>\) Tomorrow: <%= weather.forecast.days[1].summary.condition %> \(<%= weather.forecast.days[1].summary.high %><%= labels.temperature.units_nosymbol %>/<%= weather.forecast.days[1].summary.low %><%= labels.temperature.units_nosymbol %>\)'
+}
+</script>
+<script>
+	wui.bootstrapped.videos = {
+		play_icon: "//icons.wxug.com/graphics/playBtn.png",
+		title: "Video Meat",
+		clipid: '',
+		playlists: [
+		],
+		showFeedbackTab: false,
+		hasCondsCard: 0
+	}
+</script>
+<script>
+wui.bootstrapped.precip = {
+  'lat': '',
+  'lon': '',
+  'country': 'South Africa',
+  'chunky': '',
+  'baseUrl': '/za/robben-island',
+  'errors': {
+  statement: 'Oh no! Forecast temporarily unavailable. If this continues, please let us know: \x3Ca href=\x27mailto:help@wunderground.com?subject=Precipitation Forecast for Robben Island&body=I am having problems seeing the precipitation forecast at http:\x2F\x2Fwww.wunderground.com\x2Fq\x2Fzmw:00000.1.68813?sp=IWESTERN457\x27\x3Ehelp@wunderground.com\x3C\x2Fa\x3E',
+  graph: 'Forecast temporarily unavailable.',
+  table: 'Forecast details are unavailable.'
+  }
+};
+</script>
+	<script>
+	var pwidget_config = {
+  copypaste: false,
+  shareQuote: false,
+		defaults: {
+		afterShare: false,
+  afterShareText: false,
+  shareAgain: false
+		}
+  };
+</script>
+		<img src="//www.wunderground.com/tag.php?ViewTarget_1=0.5" style="display: none;" />
+	<script src="//tags.crwdcntrl.net/c/2216/cc.js?ns=_cc2216" id="LOTCC_2216"></script>
+<script>
+		wui.bootstrapped.wu_country_code = "ZA";
+  if (window.innerWidth >= 1025) {
+		var ad_unit = "web_wunderground_us";
+		var ad_plat = "wund";
+		var wfx_id = "B1CC73";
+		var pos1 = 'wx_ws';
+		var pos1Sizes = [[728,91],[970,90],[970,250]];
+		var pos2 = 'wx_300var';
+		var pos2Sizes = [[300,600],[300,251]];
+		var pos3 = 'wx_hsd';
+		var pos3Sizes = [[728,91]];
+		var pos4 = 'wx_mid300';
+		var pos4Sizes = [[300,251]];
+		var pos5 = 'wx_pds';
+		var pos5Sizes = [[300,251]];
+		var pos6 = 'wx_bot300';
+		var pos6Sizes = [[300,251]];
+		var pos7 = 'wx_midldr';
+		var pos7Sizes = [[728,91]];
+		var pos8 = 'wx_bot300_1';
+		var pos8Sizes = [[300,251]];
+		var pos9 = 'wx_botldr';
+		var pos9Sizes = [[728,91]];
+	}
+  else if (window.innerWidth >= 768) {
+		var ad_unit = 'tablet_wunderground_us';
+		var ad_plat = 'wund_tab';
+		var wfx_id = "B1CC73";
+		var pos1 = 'wx_ws';
+		var pos1Sizes = [[728,91],[728,92]];
+		var pos2 = 'wx_300var';
+		var pos2Sizes = [[300,251]];
+		var pos3 = 'wx_hsd';
+		var pos3Sizes = [[728,91]];
+		var pos4 = 'wx_mid300';
+		var pos4Sizes = [[300,251]];
+		var pos5 = 'wx_pds';
+		var pos5Sizes = [[300,251]];
+		var pos6 = 'wx_bot300';
+		var pos6Sizes = [[300,251]];
+		var pos7 = 'wx_midldr';
+		var pos7Sizes = [[728,91]];
+		var pos8 = 'wx_bot300_1';
+		var pos8Sizes = [[300,251]];
+		var pos9 = 'wx_botldr';
+		var pos9Sizes = [[728,91],[728,92]];
+	}
+	else {
+		var adLimitMobile = 5;
+		var ad_unit = "mobile_smart_wunderground_us";
+		var ad_plat = "wund_mw";
+		var wfx_id = "5B3739";
+		var pos1 = 'mw_p1';
+		var pos1Sizes = [[320,51]];
+		var pos2 = 'mw_p2';
+		var pos2Sizes = [[300,251]];
+		var pos3 = 'mw_p3';
+		var pos3Sizes = [[300,251]];
+		var pos4 = 'mw_p4';
+		var pos4Sizes = [[300,251]];
+		var pos5 = 'mw_p5';
+		var pos5Sizes = [[300,251]];
+	}
+		window.combined_hash = {};
+	var isEdge = navigator.userAgent.indexOf('Edge') >=0;
+	var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+	var isFirefox = typeof InstallTrigger !== 'undefined';
+	var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+	var isChrome = !!window.chrome && !isOpera && !isEdge;
+	var isIE = /*@cc_on!@*/false || !!document.documentMode;
+	var browser_type = null;
+	if (isFirefox) {
+		browser_type = 'wuff';
+	} else if (isSafari) {
+		browser_type = 'wusafari';
+	} else if (isChrome) {
+		browser_type = 'wuchrome'
+	} else if (isIE) {
+		browser_type = 'wuie';
+	} else if (isEdge) {
+		browser_type = 'wuedge';
+	}
+	var ad_placements = [];
+		ad_placements.push(["/7646/"+ad_unit+"/local_forecasts", pos1Sizes, "div-gpt-ad-615639597871654305-top", {"pos": pos1, "atf": "1"}]);
+	var adNum = 2;
+		if ((ad_plat === 'wund') || (ad_plat === 'wund_tab') || (adNum <= adLimitMobile && ad_plat === 'wund_mw')) {
+			ad_placements.push(["/7646/"+ad_unit+"/local_forecasts", pos2Sizes, "div-gpt-ad-615639597871654305-2", {"pos": pos2, "atf": "1"}]);
+		}
+		
+		
+		
+		adNum = 3;
+	
+		
+		if ((ad_plat === 'wund') || (ad_plat === 'wund_tab') || (adNum <= adLimitMobile && ad_plat === 'wund_mw')) {
+			ad_placements.push(["/7646/"+ad_unit+"/local_forecasts", pos3Sizes, "div-gpt-ad-615639597871654305-3", {"pos": pos3, "atf": "0"}]);
+		}
+		
+		
+		
+		adNum = 4;
+	
+		
+		if ((ad_plat === 'wund') || (ad_plat === 'wund_tab') || (adNum <= adLimitMobile && ad_plat === 'wund_mw')) {
+			ad_placements.push(["/7646/"+ad_unit+"/local_forecasts", pos4Sizes, "div-gpt-ad-615639597871654305-4", {"pos": pos4, "atf": "0"}]);
+		}
+		
+		
+		
+		adNum = 5;
+	
+		
+		if ((ad_plat === 'wund') || (ad_plat === 'wund_tab') || (adNum <= adLimitMobile && ad_plat === 'wund_mw')) {
+			ad_placements.push(["/7646/"+ad_unit+"/local_forecasts", pos5Sizes, "div-gpt-ad-615639597871654305-5", {"pos": pos5, "atf": "0"}]);
+		}
+		
+		
+		
+		adNum = 6;
+	
+		
+		if ((ad_plat === 'wund') || (ad_plat === 'wund_tab') || (adNum <= adLimitMobile && ad_plat === 'wund_mw')) {
+			ad_placements.push(["/7646/"+ad_unit+"/local_forecasts", pos6Sizes, "div-gpt-ad-615639597871654305-6", {"pos": pos6, "atf": "0"}]);
+		}
+		
+		
+		
+		adNum = 7;
+	
+		
+		if ((ad_plat === 'wund') || (ad_plat === 'wund_tab') || (adNum <= adLimitMobile && ad_plat === 'wund_mw')) {
+			ad_placements.push(["/7646/"+ad_unit+"/local_forecasts", pos7Sizes, "div-gpt-ad-615639597871654305-7", {"pos": pos7, "atf": "0"}]);
+		}
+		
+		
+		
+		adNum = 8;
+	
+		
+		if ((ad_plat === 'wund') || (ad_plat === 'wund_tab') || (adNum <= adLimitMobile && ad_plat === 'wund_mw')) {
+			ad_placements.push(["/7646/"+ad_unit+"/local_forecasts", pos8Sizes, "div-gpt-ad-615639597871654305-8", {"pos": pos8, "atf": "0"}]);
+		}
+		
+		
+		
+		adNum = 9;
+	
+	
+	
+		if ((ad_plat === 'wund') || (ad_plat === 'wund_tab') || (adNum <= adLimitMobile && ad_plat === 'wund_mw')) {
+			ad_placements.push(["/7646/"+ad_unit+"/local_forecasts", pos9Sizes, "div-gpt-ad-615639597871654305-bot", {"pos": pos9, "atf": "0"}]);
+		}
+	
+	
+		if (ad_plat === 'wund') {
+			ad_placements.push(["/7646/"+ad_unit+"/local_forecasts", [[310,325]], "div-gpt-ad-615639597871654305-tdu", {"pos": "ws_hsp", "atf": "0"}]);
+		}
+	
+
+	var utag_data = {
+		ad_placements : ad_placements,
+		ad_unit : "/7646/"+ad_unit+"/local_forecasts",
+		platform : ad_plat,
+		preempt : "y",
+	
+	
+		site : "www",
+	
+	
+		layout : "wx_t3bbf",
+	
+	
+	
+	
+		exclude : "wund",
+	
+	
+	
+		page_view : "1",
+	
+	
+		time_frame : "today",
+	
+	
+		twc_location_id : "SFWP0048$1",
+	
+		entry : "city",
+	
+		
+	
+		
+	
+		
+	
+		city : "Robben Island",
+	
+		
+	
+		country_code : "ZA",
+	
+		language : "EN",
+	
+		locale : "EN_ZA",
+	
+		temperature : "60h",
+	
+		temperature_range : "cool",
+	
+		
+	
+		wind : "lo",
+	
+		uv : "hi",
+	
+		humidity : "hi",
+	
+		
+	
+		condition : "cld",
+	
+		
+	
+		forecast_high_increment : "60h",
+	
+		forecast_high_range : "cool",
+	
+		forecast_low_increment : "50l",
+	
+		forecast_low_range : "thaw",
+	
+		forecast_day_1 : "cld",
+	
+		forecast_day_2 : "rain",
+	
+		forecast_day_3 : "rain",
+	
+		barometer : "stdy",
+	
+		weather_fx : "",
+		weather_fx_zcs : "",
+		weather_fx_nzcs : "",
+		ad_bidding : combined_hash,
+	
+		page_name : "LocalWX: /local_forecasts",
+		
+			channel : "International Forecast",
+		
+		content_type : "LocalWX",
+		
+			sub_section : "International Forecast > Robben Island, South Africa",
+		events : "",
+		search_type : "other",
+		page : "IntlCity",
+		category : "CityPage",
+		browser_type : browser_type,
+		sharing : "post",
+		display_ads : "yes",
+		ssl_page : "no",
+		member_pws : "0",
+		member_webcam : "0",
+		member_translator : "0",
+		member_approver : "0",
+		member_zealot : "0",
+		member_moderator : "0",
+		member_favorites : "0",
+		ad_blocker : window.noAdBlocker ? "no" : "yes",
+		member_type : "non-paid member"
+	}
+</script>
+		<div id="fb-root"></div>
+	</body>
+</html>

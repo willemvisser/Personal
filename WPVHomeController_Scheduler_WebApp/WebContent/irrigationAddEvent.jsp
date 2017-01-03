@@ -1,3 +1,5 @@
+<%@page import="java.util.LinkedList"%>
+<%@page import="za.co.willemvisser.wpvhomecontroller.scheduler.job.dto.JobParamDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.GregorianCalendar"%>
@@ -67,19 +69,24 @@
 			
 			newJobDto.setCronExpression(strBuff.toString());
 			
-			HashMap<String, String> params = new HashMap<String, String>();
-			params.put("command", "xon");
-			params.put("boardId", "1");
-			params.put("ouputId", "D");
-			params.put("pin", request.getParameter("valve"));
+			List<JobParamDTO> params = new LinkedList<JobParamDTO>();
+			params.add(new JobParamDTO("command", "xon"));
+			params.add(new JobParamDTO("boardId", "1"));
+			params.add(new JobParamDTO("ouputId", "D"));
+			params.add(new JobParamDTO("pin", request.getParameter("valve")));
 			newJobDto.setParams(params);
+			
 			
 			WPVHomeControllerScheduler.INSTANCE.addJob(newJobDto, WPVHomeControllerScheduler.INSTANCE.getGeneralJobPropertiesMap());
 			
 			//Adding the stop event
 			newJobDto.setName("OnceOff_QuickEvent_Off_" + (cal.getTime().getTime()) );
-			params.put("command", "xoff");
-			//out.println("<br/>Min: " + Integer.valueOf(request.getParameter("time")) + "<br/>");
+			params = new LinkedList<JobParamDTO>();
+			params.add(new JobParamDTO("command", "xoff"));
+			params.add(new JobParamDTO("boardId", "1"));
+			params.add(new JobParamDTO("ouputId", "D"));
+			params.add(new JobParamDTO("pin", request.getParameter("valve")));
+			newJobDto.setParams(params);			
 			
 			cal.add(Calendar.MINUTE,  Integer.valueOf(request.getParameter("time")) );
 			strBuff = new StringBuffer();

@@ -79,6 +79,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<ul class="nav">
 								<li><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
 								<li><a href="irrigation.jsp"><i><img src="images/user.png" alt="" /></i>Irrigation</a></li>
+								<li><a href="temperatures.jsp"><i><img src="images/mail.png" alt="" /></i>Temperatures</a></li>
 								<!-- 
 								<li><a href="lights.jsp"><i><img src="images/mail.png" alt="" /></i>Lights</a></li>
 								 -->
@@ -102,9 +103,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		    		 	   <div class="menu_box_list">
 					      		<ul>
 							  		<li class="active"><a href="#" class="account_settings"><span>All Devices</span></a></li>
+							  		<li class="active"><a href="#" class="account_settings"><span>All Devices</span></a></li>
 							  		<li><a href="eventLog.jsp" class="messages"><span>Event Log</span><div class="clear"></div></a></li>
 							  		<li><a href="settings.jsp?action=reload" class="statistics"><span>Reload Config</span><div class="clear"></div></a></li>
-							  		<li><a href="settings.jsp?action=discover" class="statistics"><span>Discover Network</span><div class="clear"></div></a></li>					  	
+							  		<li><a href="settings.jsp?action=discover" class="statistics"><span>Discover Network</span><div class="clear"></div></a></li>
+							  		<li><a href="settingsGeneralProperties.jsp" class="statistics"><span>General Properties</span><div class="clear"></div></a></li>					  	
 					    		</ul>
 					      </div>
 		    	</div>

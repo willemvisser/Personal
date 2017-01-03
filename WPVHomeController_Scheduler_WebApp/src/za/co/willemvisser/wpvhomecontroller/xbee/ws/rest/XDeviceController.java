@@ -1,18 +1,12 @@
 package za.co.willemvisser.wpvhomecontroller.xbee.ws.rest;
 
-import java.util.HashMap;
 
 import javax.ws.rs.GET;  
 import javax.ws.rs.Path;  
 import javax.ws.rs.PathParam;  
 import javax.ws.rs.Produces;  
-
 import org.apache.log4j.Logger;
-
-import com.rapplogic.xbee.api.XBeeAddress64;
-
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
-import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO;
 import za.co.willemvisser.wpvhomecontroller.xbee.XbeeController;
 
@@ -48,9 +42,9 @@ public class XDeviceController {
 		log.info("XDeviceController taking action on device: " + deviceId);
 
 		try {			
-			XbeeConfigDeviceDTO xbeeConfigDeviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);
-			log.info(": " + xbeeConfigDeviceDTO.getName() + ", Port=" + xbeeConfigDeviceDTO.getPort() + ", PortAddress=" + xbeeConfigDeviceDTO.getPortAddress());;
+			XbeeConfigDeviceDTO xbeeConfigDeviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);			
 			if (xbeeConfigDeviceDTO != null) {
+				log.info(": " + xbeeConfigDeviceDTO.getName() + ", Port=" + xbeeConfigDeviceDTO.getPort() + ", PortAddress=" + xbeeConfigDeviceDTO.getPortAddress());;
 				String result = takeAction(xbeeConfigDeviceDTO);
 				log.info("Result: " + result);
 				return result;

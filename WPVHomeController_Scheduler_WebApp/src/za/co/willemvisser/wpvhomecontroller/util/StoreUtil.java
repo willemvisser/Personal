@@ -1,7 +1,6 @@
 package za.co.willemvisser.wpvhomecontroller.util;
 
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.Date;
 
 import org.apache.http.HttpResponse;
@@ -24,9 +23,7 @@ public enum StoreUtil {
 			log.error("Could not find the Store HTTP URl in the general properties file under key: " + GeneralPropertyDTO.PROP_STORE_EVENT_URL);
 			//TODO - add to event??
 			return;
-		}
-		
-		
+		}				
 		
 		try {
 			StringBuffer requestBuffer = new StringBuffer(propStoreEventURL.getValue());

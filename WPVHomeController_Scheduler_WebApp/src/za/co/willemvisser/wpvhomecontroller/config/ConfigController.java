@@ -2,6 +2,7 @@ package za.co.willemvisser.wpvhomecontroller.config;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.net.InetAddress;
 
 import javax.servlet.ServletContext;
@@ -16,6 +17,7 @@ import za.co.willemvisser.wpvhomecontroller.config.dto.GeneralPropertiesDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.GeneralPropertyDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigsDTO;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
+import za.co.willemvisser.wpvhomecontroller.util.S3Util;
 
 public enum ConfigController {
 
@@ -117,16 +119,30 @@ public enum ConfigController {
 	 */
 	private Object loadXmlFromRemoteResource(Unmarshaller um, String fileName) throws JAXBException, IOException {										
 		/* Attempt to download from remote server */
+		/*
 		String remoteUrl = HTTP_PREFIX + remoteConfigHostAddress + 
 				"/config/" + 
 				fileName;
-				
+			
+		
 		HttpResponse response = HttpUtil.INSTANCE.doHttpGet(remoteUrl);
-		if (response.getStatusLine().getStatusCode() == 200) {				
-			return um.unmarshal( response.getEntity().getContent() );				
+		if (response.getStatusLine().getStatusCode() == 200) {		
+			
+			
+			try { 
+				S3Util.INSTANCE.writeStringToBucket(S3Util.BUCKET_WPVHOMESCHEDULER, fileName,  HttpUtil.INSTANCE.getResponseContent(response).toString()  );
+			} catch (Exception e) {
+				log.error(e);
+			}
+		
+					
+			return um.unmarshal( response.getEntity().getContent() );
+			
 		} else {
 			throw new IOException("Could not load Remote XML file: " + remoteUrl);
-		}								
+		}
+		*/
+		return um.unmarshal( new StringReader( S3Util.INSTANCE.getBucketAsString(S3Util.BUCKET_WPVHOMESCHEDULER, fileName) ) );
 							
 	}
 	

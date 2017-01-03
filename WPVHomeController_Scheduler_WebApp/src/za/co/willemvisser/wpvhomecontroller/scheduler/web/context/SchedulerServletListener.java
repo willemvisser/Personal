@@ -65,10 +65,9 @@ public class SchedulerServletListener implements ServletContextListener {
 		
 		//
 		
-		try {
-			
+		try {			
 		    
-			WPVHomeControllerScheduler.INSTANCE.startScheduler(ipAddress, configXmlInputStream);
+			WPVHomeControllerScheduler.INSTANCE.startScheduler(ipAddress);
 			
 			ConfigController.INSTANCE.init("54.68.136.170", context.getServletContext());
 						

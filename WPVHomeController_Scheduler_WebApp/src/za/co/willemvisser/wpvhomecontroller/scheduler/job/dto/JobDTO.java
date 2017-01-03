@@ -3,8 +3,12 @@ package za.co.willemvisser.wpvhomecontroller.scheduler.job.dto;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -15,6 +19,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@XmlRootElement(name = "job")
+@XmlAccessorType (XmlAccessType.FIELD)
 public class JobDTO {
 
 	static Logger log = Logger.getLogger(JobDTO.class.getName());
@@ -27,7 +33,7 @@ public class JobDTO {
 	private int durationMin;
 	private Date startTime;
 	private String cronStartExpression;
-	private HashMap<String, String> params;
+	private List<JobParamDTO> params;
 	
 	public static final String GROUPNAME_IRRIGATION = "Irrigation";
 	public static final String GROUPNAME_POOLPUMP = "PoolPump";
@@ -36,7 +42,7 @@ public class JobDTO {
 		super();
 	}
 	
-	public JobDTO(String className, String name, String groupName, int durationMin, Date startTime, String cronStartExpression, HashMap<String, String> params) {
+	public JobDTO(String className, String name, String groupName, int durationMin, Date startTime, String cronStartExpression, List<JobParamDTO> params) {
 		super();
 		this.className = className;
 		this.name = name;
@@ -64,7 +70,7 @@ public class JobDTO {
 		}
 		this.cronStartExpression = eElement.getElementsByTagName("cronStartExpression").item(0).getTextContent() ;
 		this.durationMin = Integer.parseInt(eElement.getElementsByTagName("durationMin").item(0).getTextContent() );
-		this.params = new HashMap<String, String>();						
+		this.params = new LinkedList<JobParamDTO>();						
 		
 		String expression = "params/param";	        
         NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(eElement, XPathConstants.NODESET);
@@ -72,8 +78,10 @@ public class JobDTO {
         for (int i = 0; i < nodeList.getLength(); i++) {
         	Node nNode = nodeList.item(i);
         	Element paramElement = (Element) nNode;
-        	this.params.put(paramElement.getElementsByTagName("name").item(0).getTextContent(), 
-        			paramElement.getElementsByTagName("value").item(0).getTextContent());
+        	this.params.add(new JobParamDTO(paramElement.getElementsByTagName("name").item(0).getTextContent(), 
+                			paramElement.getElementsByTagName("value").item(0).getTextContent()));
+        	//this.params.put(paramElement.getElementsByTagName("name").item(0).getTextContent(), 
+        	//		paramElement.getElementsByTagName("value").item(0).getTextContent());
         }
         log.debug("Job '" + this.name + "' Added with cron: " + this.cronStartExpression + " and params: " + this.params);
 	}
@@ -115,12 +123,12 @@ public class JobDTO {
 	}
 
 
-	public HashMap<String, String> getParams() {
+	public List<JobParamDTO> getParams() {
 		return params;
 	}
 
 
-	public void setParams(HashMap<String, String> params) {
+	public void setParams(List<JobParamDTO> params) {
 		this.params = params;
 	}
 

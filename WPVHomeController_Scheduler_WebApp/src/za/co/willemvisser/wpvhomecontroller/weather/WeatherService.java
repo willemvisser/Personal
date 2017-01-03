@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO;
+import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
 import za.co.willemvisser.wpvhomecontroller.weather.dto.Forecast10DayDTO;
 import za.co.willemvisser.wpvhomecontroller.weather.dto.ForecastDayDTO;
 import za.co.willemvisser.wpvhomecontroller.xbee.XbeeController;
@@ -55,15 +56,16 @@ public enum WeatherService {
 			log.info("Refreshing weather data...");
 			
 			Forecast10DayDTO forecast10DayDTO = new Forecast10DayDTO();
+			if (cachedForecast10DayDTO == null) {
+				cachedForecast10DayDTO = forecast10DayDTO;		//If the cache is null, set it to the empty list at this point
+			}
 			
 			HttpClient httpclient = new DefaultHttpClient();
 	        HttpResponse response;
 	        String responseString = null;
 	        try {
 	        	//System.out.println("URI: " + uri[0] );
-	        	
-	        	
-	        	
+	        		        		        	
 	            response = httpclient.execute(new HttpGet(forecast10DayUrl));
 	            StatusLine statusLine = response.getStatusLine();
 	            if(statusLine.getStatusCode() == HttpStatus.SC_OK){
@@ -97,17 +99,23 @@ public enum WeatherService {
 		                	forecast10DayDTO.addForecast(forecastDayDTO);
 	                	} catch (Exception e) {
 	        	    		log.error("Could not process forecast: " + e.toString());
+	        	    		
+	        	    		StringBuffer strBuffer = HttpUtil.INSTANCE.getResponseContent( HttpUtil.INSTANCE.doHttpGet( forecast10DayUrl ) );
 	        	    	}
 	                }
 	                	                
-	                
+	                lastUpdated10DayForecast = new Date();
+		            cachedForecast10DayDTO = forecast10DayDTO;
+		            		            
+	            } else {
+	            	StringBuffer strBuffer = HttpUtil.INSTANCE.getResponseContent( HttpUtil.INSTANCE.doHttpGet( forecast10DayUrl ) );
+	            	log.warn("Could not retrieve weather info (nothing in response to process)");
 	            }
 	            
-	            lastUpdated10DayForecast = new Date();
-	            cachedForecast10DayDTO = forecast10DayDTO;
+	            
 	        } catch (Exception e) {
 	        	log.error("Cannot get forecast: " + e.toString() );
-	        }
+	        } 
 	        
 		} 
 		
@@ -120,18 +128,29 @@ public enum WeatherService {
      * @return Today's forecast
      */
     public synchronized ForecastDayDTO getForecastForToday() {
-    	return get10DayForecast().getForecasts().get(0);
+    	if (get10DayForecast().getForecasts().size() > 0)
+    		return get10DayForecast().getForecasts().get(0);
+    	else
+    		return ForecastDayDTO.buildNoDataAvailableDTO();	 
     }
     
     /**
      * @return Tomorrow's forecast
      */
     public synchronized ForecastDayDTO getForecastForTomorrow() {
-    	return get10DayForecast().getForecasts().get(1);
+    	if (get10DayForecast().getForecasts().size() > 1)
+    		return get10DayForecast().getForecasts().get(1);
+    	else
+    		return ForecastDayDTO.buildNoDataAvailableDTO();
     }
     
     public String getLastUpdatedString() {
-    	return sdf.format(lastUpdated10DayForecast);
+    	if (lastUpdated10DayForecast != null) {
+    		return sdf.format(lastUpdated10DayForecast);
+    	} else {
+    		return "n.a.";
+    	}
+    	
     }
     
     /**
@@ -143,7 +162,7 @@ public enum WeatherService {
     		XbeeConfigDeviceDTO deviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);    		
     		return Double.toString( deviceDTO.getAnalogValue().intValue()/10.0 );    	    	
     	} catch (Exception e) {
-    		log.error("Could not return outside temperature: ", e);
+    		log.error("Could not return outside temperature, probably because we couldn't reach the device");
     		return "n.a.";
     	}
     }
@@ -157,7 +176,7 @@ public enum WeatherService {
     		XbeeConfigDeviceDTO deviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);    		
     		return Double.toString( deviceDTO.getAnalogValue().intValue()/10.0 );    	    	
     	} catch (Exception e) {
-    		log.error("Could not return inside temperature: ", e);
+    		log.error("Could not return inside temperature, probably because we couldn't reach the device: ");
     		return "n.a.";
     	}
     }
