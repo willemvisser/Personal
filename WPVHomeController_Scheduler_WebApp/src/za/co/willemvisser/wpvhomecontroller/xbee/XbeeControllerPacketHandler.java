@@ -76,12 +76,18 @@ public class XbeeControllerPacketHandler implements PacketListener {
 				log.info("ZNetRxResponse (casted): " + rxResponse);
 				log.info("ZNetRxResponse (Data): " + rxResponse.getData() );
 				if (rxResponse.getData() != null) {
+					log.info("ZNetRxResponse Size: " + rxResponse.getData().length);
 					if (rxResponse.getData().length >= 1) {
 						log.info("ZNetRxResponse (Data 0): " + rxResponse.getData()[0] );
 					}
 					if (rxResponse.getData().length >= 2) {
-						log.info("ZNetRxResponse (Data 1): " + rxResponse.getData()[0] );
+						log.info("ZNetRxResponse (Data 1): " + rxResponse.getData()[1] );
 					}
+					
+					StringBuffer sb = new StringBuffer();
+					for (int i = 0; i < rxResponse.getData().length; i++)
+						sb.append((char)rxResponse.getData()[i]);
+					log.info("Response as text: " + sb.toString());
 				}
 			} else {
 				log.info("TODO: Unknown Response: API_ID=" + response.getApiId().toString() + " -> " + response.toString() + " type=" + response.getClass());
