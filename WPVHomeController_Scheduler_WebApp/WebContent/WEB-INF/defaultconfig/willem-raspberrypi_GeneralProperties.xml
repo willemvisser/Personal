@@ -46,4 +46,9 @@
 		<value>KITCHEN_TEMP</value>
 		<description> Device ID for inside temperature</description>
 	</generalproperty>
+	<generalproperty>
+		<key>WaterTankLevelID</key>
+		<value>TANK_LEVEL</value>
+		<description> Device ID for tank level sensor</description>
+	</generalproperty>	
 </generalproperties>
