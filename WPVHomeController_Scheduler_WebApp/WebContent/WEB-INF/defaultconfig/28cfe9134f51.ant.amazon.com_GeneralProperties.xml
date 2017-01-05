@@ -36,4 +36,14 @@
 			URL for Events
 		</description>
 	</generalproperty>		
+	<generalproperty>
+		<key>OutsideTempID</key>
+		<value>PAL_TEMP</value>
+		<description> Device ID for outside temperature</description>
+	</generalproperty>
+	<generalproperty>
+		<key>InsideTempID</key>
+		<value>KITCHEN_TEMP</value>
+		<description> Device ID for inside temperature</description>
+	</generalproperty>
 </generalproperties>
