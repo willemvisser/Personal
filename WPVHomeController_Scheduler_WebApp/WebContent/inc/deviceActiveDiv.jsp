@@ -11,14 +11,14 @@
 		    		 	 
 		    		 	 <%
 		    		 	int cm = -1;
-		    		 	double percentage = -1;
+		    		 	long percentage = -1;
 		    		 	try {
 		    	    		String deviceId = ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_WATERTANKLEVEL_ID).getValue();    		
 		    	    		XbeeConfigDeviceDTO deviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);    		
-		    	    		// deviceDTO.getPort()  // should return 71
+		    	    		// deviceDTO.getPortAddress()  // should return 71
 		    	    		XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeWithDeviceID(deviceId);
-		    	    		cm = xbeeConfigDTO.getRxResponseMap().get(Integer.parseInt(deviceDTO.getPort())); 
-		    	    		percentage = (260.0 - cm) / 260.0 * 100;    		    	    
+		    	    		cm = xbeeConfigDTO.getRxResponseMap().get(Integer.parseInt(deviceDTO.getPortAddress())); 
+		    	    		percentage = (long) ((260.0 - cm) / 260.0 * 100);    		    	    
 		    	    	} catch (Exception e) {
 		    	    		//Do nothing
 		    	    	}
