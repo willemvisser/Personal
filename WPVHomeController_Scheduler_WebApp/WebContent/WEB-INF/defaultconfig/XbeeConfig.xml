@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xbeeconfig>
-	<xbee>		
+	<xbee>
 		<address>00 13 A2 00 40 A8 C0 3C</address>
 		<name>Irrigation Controller</name>
 		<id>1</id>
@@ -49,11 +49,11 @@
 				<logicalPort>5</logicalPort>
 				<digital>true</digital>
 				<type>Irrigation</type>
-			</device>			
+			</device>
 		</devices>
 	</xbee>
 	<xbee>
-		<address>00 13 A2 00 40 B2 5C 6E</address>
+		<address>00 13 A2 00 40 BE 46 EE</address>
 		<name>Outside - Pump and Lights</name>
 		<id>3</id>
 		<devices>
@@ -92,6 +92,15 @@
 				<type>Light</type>
 			</device>
 			<device>
+				<id>STUDY_LED</id>
+				<name>Study LED</name>
+				<portAddress>P</portAddress>
+				<port>1</port>
+				<logicalPort>11</logicalPort>
+				<digital>true</digital>
+				<type>Light</type>
+			</device>
+			<device>
 				<id>STUDY_TEMP</id>
 				<name>Study Temperature</name>
 				<portAddress>D</portAddress>
@@ -99,78 +108,136 @@
 				<logicalPort>0</logicalPort>
 				<digital>false</digital>
 				<type>Temperature</type>
-			</device>
+			</device><!-- <device> <id>STUDY_IR</id> <name>Study IR</name> <portAddress>D</portAddress> 
+				<port>1</port> <logicalPort>1</logicalPort> <digital>true</digital> <type>Pump</type> 
+				</device> -->
 			<device>
-				<id>STUDY_IR</id>
-				<name>Study D1</name>
+				<id>STUDY_S1</id>
+				<name>Study LED Switch</name>
 				<portAddress>D</portAddress>
 				<port>1</port>
 				<logicalPort>1</logicalPort>
 				<digital>true</digital>
-				<type>Pump</type>
+				<type>ToggleSwitch</type>
+				<linkedDeviceId>STUDY_LED</linkedDeviceId>
 			</device>
-			<!-- 
 			<device>
-				<id>STUDY_IR</id>
-				<name>Study Infrared</name>
+				<id>STUDY_S2</id>
+				<name>Study S2</name>
 				<portAddress>D</portAddress>
-				<port>1</port>
-				<logicalPort>1</logicalPort>
+				<port>2</port>
+				<logicalPort>2</logicalPort>
 				<digital>true</digital>
-				<type>Infrared</type>
-			</device>
-			 -->
+				<type>ToggleSwitch</type>
+				<linkedDeviceId>STUDY_LAMP</linkedDeviceId>
+			</device>			<!-- <device> <id>STUDY_IR</id> <name>Study Infrared</name> <portAddress>D</portAddress> 
+				<port>1</port> <logicalPort>1</logicalPort> <digital>true</digital> <type>Infrared</type> 
+				</device> -->
 		</devices>
-	</xbee>		
-	<xbee>		
-		<address>00 13 A2 00 40 A7 81 B8</address>
-		<name>Breadboard</name>
-		<id>5</id>
+	</xbee>	<!-- <xbee> <address>00 13 A2 00 40 A7 81 B8</address> <name>Breadboard</name> 
+		<id>5</id> <devices> <device> <id>BREADBOARD_IR</id> <name>Breadboard D1</name> 
+		<portAddress>D</portAddress> <port>1</port> <logicalPort>1</logicalPort> 
+		<digital>true</digital> <type>Pump</type> </device> </devices> </xbee> -->
+	<xbee>
+		<address>00 13 A2 00 40 BE 47 03</address>
+		<name>Pool Pump Controller</name>
+		<id>8</id>
 		<devices>
 			<device>
-				<id>BREADBOARD_IR</id>
-				<name>Breadboard D1</name>
+				<id>PP_TEMP</id>
+				<name>Pool Pump Temperature</name>
+				<portAddress>D</portAddress>
+				<port>0</port>
+				<logicalPort>0</logicalPort>
+				<digital>false</digital>
+				<type>Temperature</type>
+			</device>
+			<device>
+				<id>PP_PUMP</id>
+				<name>Pool Pump</name>
+				<portAddress>D</portAddress>
+				<port>5</port>
+				<logicalPort>5</logicalPort>
+				<digital>true</digital>
+				<type>Pump</type>
+			</device>
+			<device>
+				<id>PP_PUMP_SWITCH</id>
+				<name>Pool Switch</name>
 				<portAddress>D</portAddress>
 				<port>1</port>
 				<logicalPort>1</logicalPort>
 				<digital>true</digital>
-				<type>Pump</type>
+				<type>ToggleSwitch</type>
+				<linkedDeviceId>PP_PUMP</linkedDeviceId>
 			</device>
 		</devices>
 	</xbee>
 	<xbee>
-    	<address>00 13 A2 00 40 BE 47 03</address>
-		<name>Pool Pump Controller</name>
-		<id>8</id>
-			<devices>
-				<device>
-					<id>PP_TEMP</id>
-                    <name>Pool Pump Temperature</name>
-                    <portAddress>D</portAddress>
-                    <port>0</port>
-                    <logicalPort>0</logicalPort>
-                    <digital>false</digital>
-                    <type>Temperature</type>
-				</device>
-                <device>
-                	<id>PP_PUMP</id>
-                    <name>Pool Pump</name>
-                    <portAddress>D</portAddress>
-                    <port>5</port>
-                    <logicalPort>5</logicalPort>
-                    <digital>true</digital>
-                    <type>Pump</type>
-                </device>
-                <device>
-                	<id>PP_PUMP</id>
-                    <name>Pool Pump</name>
-                    <portAddress>D</portAddress>
-                    <port>6</port>
-                    <logicalPort>6</logicalPort>
-                    <digital>true</digital>
-                    <type>Button</type>
-                </device>
-			</devices>
-        </xbee>
-	
+		<address>00 13 A2 00 40 BE 46 D1</address>
+		<name>Kitchen</name>
+		<id>9</id>
+		<devices>
+			<device>
+				<id>KITCHEN_TEMP</id>
+				<name>Kitchen Temperature</name>
+				<portAddress>D</portAddress>
+				<port>0</port>
+				<logicalPort>0</logicalPort>
+				<digital>false</digital>
+				<type>Temperature</type>
+			</device>
+			<device>
+				<id>KITCHEN_LED</id>
+				<name>Kitchen LED</name>
+				<portAddress>P</portAddress>
+				<port>1</port>
+				<logicalPort>11</logicalPort>
+				<digital>true</digital>
+				<type>Light</type>
+			</device>
+			<device>
+				<id>KITCHEN_SWITCH</id>
+				<name>Kitchen Switch</name>
+				<portAddress>D</portAddress>
+				<port>2</port>
+				<logicalPort>2</logicalPort>
+				<digital>true</digital>
+				<type>ToggleSwitch</type>
+				<linkedDeviceId>KITCHEN_LED</linkedDeviceId>
+			</device>
+		</devices>
+	</xbee>
+	<xbee>
+		<address>00 13 A2 00 40 A8 B8 CE</address>
+		<name>Pool Area Lounge</name>
+		<id>10</id>
+		<devices>
+			<device>
+				<id>PAL_TEMP</id>
+				<name>Shade Temperature</name>
+				<portAddress>D</portAddress>
+				<port>0</port>
+				<logicalPort>0</logicalPort>
+				<digital>false</digital>
+				<type>Temperature</type>
+			</device>
+		</devices>
+	</xbee>
+	<xbee>
+		<address>00 13 A2 00 40 BE 46 F4</address>
+		<name>Water Tank</name>
+		<id>11</id>
+		<devices>
+			<device>
+				<id>TANK_LEVEL</id>
+				<name>Tank Level</name>
+				<portAddress>P</portAddress>
+				<port>1</port>
+				<logicalPort>11</logicalPort>
+				<digital>true</digital>
+				<type>Sensor</type>
+			</device>
+		</devices>
+	</xbee>
 </xbeeconfig>
