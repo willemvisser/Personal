@@ -232,9 +232,9 @@
 			<device>
 				<id>TANK_LEVEL</id>
 				<name>Tank Level</name>
-				<portAddress>P</portAddress>
-				<port>1</port>
-				<logicalPort>11</logicalPort>
+				<portAddress>71</portAddress>
+				<port>0</port>
+				<logicalPort>0</logicalPort>
 				<digital>true</digital>
 				<type>Sensor</type>
 			</device>

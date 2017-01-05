@@ -3,6 +3,7 @@ package za.co.willemvisser.wpvhomecontroller.config.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -32,6 +33,9 @@ public class XbeeConfigDTO implements Serializable {
 	@XmlTransient
 	private ZNetRxIoSampleResponse latestPortReadings;
 	
+	@XmlTransient
+	private HashMap<Integer, Integer> rxResponseMap; 
+		
 	@XmlTransient
 	private Date lastSync = null;
 	
@@ -122,6 +126,14 @@ public class XbeeConfigDTO implements Serializable {
 			}
 		}
 	}
+	
+	public void setRxResponseEntry(int[] data) {
+		if (rxResponseMap == null) {
+			rxResponseMap = new HashMap<Integer, Integer>();
+		}
+		rxResponseMap.put(Integer.valueOf(data[0]), Integer.valueOf(data[0]) );
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -135,5 +147,10 @@ public class XbeeConfigDTO implements Serializable {
 		this.lastSync = lastSync;
 	}
 	
-
+	public HashMap<Integer, Integer> getRxResponseMap() {
+		return rxResponseMap;
+	}
+	public void setRxResponseMap(HashMap<Integer, Integer> rxResponseMap) {
+		this.rxResponseMap = rxResponseMap;
+	}
 }

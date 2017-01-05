@@ -1,4 +1,5 @@
-			<%@page import="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO"%>
+			<%@page import="za.co.willemvisser.wpvhomecontroller.config.ConfigController"%>
+<%@page import="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO"%>
 <%@page import="za.co.willemvisser.wpvhomecontroller.xbee.XbeeController"%>
 <%@page import="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO"%>
 <%@page import="com.rapplogic.xbee.api.XBeeAddress64"%>
@@ -8,11 +9,28 @@
 		    		 	 
 		    		 	 <h3>Tank Level: </h3>	
 		    		 	 
+		    		 	 <%
+		    		 	int cm = -1;
+		    		 	double percentage = -1;
+		    		 	try {
+		    	    		String deviceId = ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_WATERTANKLEVEL_ID).getValue();    		
+		    	    		XbeeConfigDeviceDTO deviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);    		
+		    	    		// deviceDTO.getPort()  // should return 71
+		    	    		XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeWithDeviceID(deviceId);
+		    	    		cm = xbeeConfigDTO.getRxResponseMap().get(Integer.parseInt(deviceDTO.getPort())); 
+		    	    		percentage = (260.0 - cm) / 260.0 * 100;    		    	    
+		    	    	} catch (Exception e) {
+		    	    		//Do nothing
+		    	    	}
+		    		 	
+		    		 	String percentageStr = percentage == -1 ? "ERR" : String.valueOf(percentage);
+		    		 	 %>
+		    		 	 
 		    		 	 <div id="bar-1" class="bar-main-container yellow">
 						    <div class="wrapPercentage">
-						      <div class="bar-percentage" data-percentage="38"> 39%</div>
+						      <div class="bar-percentage" data-percentage="<%=percentageStr%>"> <%=percentageStr%> %</div>
 						      <div class="bar-container">
-						        <div class="bar" style="width: 39%"></div>
+						        <div class="bar" style="width: <%=percentageStr%>%"></div>
 						      </div>
 						    </div>
 						  </div>

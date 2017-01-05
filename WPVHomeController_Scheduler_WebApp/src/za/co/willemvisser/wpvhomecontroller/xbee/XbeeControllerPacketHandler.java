@@ -35,13 +35,10 @@ public class XbeeControllerPacketHandler implements PacketListener {
 				
 			} else if (response instanceof ZNetRxIoSampleResponse) {
 												
-				ZNetRxIoSampleResponse ioResponse = (ZNetRxIoSampleResponse)response;
-												
-								
+				ZNetRxIoSampleResponse ioResponse = (ZNetRxIoSampleResponse)response;																				
 				
 				XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeDeviceMap().get(ioResponse.getRemoteAddress64());
-				if (xbeeConfigDTO != null) {
-					//log.debug("Awesome, found Xbee entry for: " + xbeeConfigDTO.getName() + " - " + ioResponse.getRemoteAddress64());
+				if (xbeeConfigDTO != null) {					
 					xbeeConfigDTO.setLatestPortReadings(ioResponse);
 				} else {
 					log.info("New XBee found: " + ioResponse.getRemoteAddress64());
@@ -70,24 +67,36 @@ public class XbeeControllerPacketHandler implements PacketListener {
 					log.error("Unknown Command Response: getCommand=" + atResponse.getCommand() + 
 							" - String: " + atResponse.toString() );
 				}							
-			} else if (response instanceof ZNetRxResponse) {
-				log.info("ZNetRxResponse (response): " + response);
-				ZNetRxResponse rxResponse = (ZNetRxResponse)response;
-				log.info("ZNetRxResponse (casted): " + rxResponse);
-				log.info("ZNetRxResponse (Data): " + rxResponse.getData() );
+			} else if (response instanceof ZNetRxResponse) {				
+				ZNetRxResponse rxResponse = (ZNetRxResponse)response;				
 				if (rxResponse.getData() != null) {
-					log.info("ZNetRxResponse Size: " + rxResponse.getData().length);
-					if (rxResponse.getData().length >= 1) {
-						log.info("ZNetRxResponse (Data 0): " + rxResponse.getData()[0] );
-					}
-					if (rxResponse.getData().length >= 2) {
-						log.info("ZNetRxResponse (Data 1): " + rxResponse.getData()[1] );
+					//log.info("ZNetRxResponse Size: " + rxResponse.getData().length);
+					if (rxResponse.getData().length == 2) {
+						//TODO - we should move this out to a separate process handler
+						
+						XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeDeviceMap().get(rxResponse.getRemoteAddress64());
+						if (xbeeConfigDTO != null) {					
+							xbeeConfigDTO.setRxResponseEntry(rxResponse.getData());
+						} else {
+							log.info("New XBee found: " + rxResponse.getRemoteAddress64());
+							XbeeConfigDTO newXbeeConfigDTO = new XbeeConfigDTO();
+							newXbeeConfigDTO.setName("Unknown XBee: " + rxResponse.getRemoteAddress64() );					
+							newXbeeConfigDTO.setAddress(rxResponse.getRemoteAddress64().getAddress().toString());
+							newXbeeConfigDTO.setDeviceList(new ArrayList<XbeeConfigDeviceDTO>());
+							newXbeeConfigDTO.setRxResponseEntry(rxResponse.getData());					
+							XbeeController.INSTANCE.getXbeeDeviceMap().put(rxResponse.getRemoteAddress64(), 
+									newXbeeConfigDTO);
+						}
+						
+						log.info("ZNetRxResponse (Data): " + rxResponse.getData()[0] + " - " + rxResponse.getData()[1] );
+						
+					} else {
+						log.error("ZNetRxResponse - unknown packet size (" + rxResponse.getData().length + ") - expected 2: " + rxResponse.toString());
 					}
 					
-					StringBuffer sb = new StringBuffer();
-					for (int i = 0; i < rxResponse.getData().length; i++)
-						sb.append((char)rxResponse.getData()[i]);
-					log.info("Response as text: " + sb.toString());
+					
+				} else {
+					log.error("ZNetRxResponse - empty/null packet data - expected 2: " + rxResponse.toString());
 				}
 			} else {
 				log.info("TODO: Unknown Response: API_ID=" + response.getApiId().toString() + " -> " + response.toString() + " type=" + response.getClass());

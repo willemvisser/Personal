@@ -33,6 +33,7 @@ public enum ConfigController {
 	
 	public static final String PROPERTY_OUTSIDE_TEMPID = "OutsideTempID";
 	public static final String PROPERTY_INSIDE_TEMPID = "InsideTempID";
+	public static final String PROPERTY_WATERTANKLEVEL_ID = "WaterTankLevelID";
 	
 	private String remoteConfigHostAddress;
 	private XbeeConfigsDTO xbeeConfigsDTO;
