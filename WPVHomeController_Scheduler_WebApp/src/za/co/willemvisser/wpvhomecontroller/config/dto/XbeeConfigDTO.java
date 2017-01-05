@@ -131,7 +131,7 @@ public class XbeeConfigDTO implements Serializable {
 		if (rxResponseMap == null) {
 			rxResponseMap = new HashMap<Integer, Integer>();
 		}
-		rxResponseMap.put(Integer.valueOf(data[0]), Integer.valueOf(data[0]) );
+		rxResponseMap.put(Integer.valueOf(data[0]), Integer.valueOf(data[1]) );
 	}
 	
 	public String getId() {
