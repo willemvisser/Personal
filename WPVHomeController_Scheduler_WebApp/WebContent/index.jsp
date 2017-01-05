@@ -25,6 +25,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <link rel="stylesheet" href="css/wxug_core.css">		  
 <link rel="stylesheet" href="css/wxug_omnibus.css">
+<link rel="stylesheet" href="css/percentage_style.css">
 
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/login.js"></script>
@@ -37,7 +38,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   <script src="js/underscore-min.js"></script>
   <script src= "js/moment-2.2.1.js"></script>
   <script src="js/clndr.js"></script>
-  <script src="js/site.js"></script>
+  <script src="js/site.js"></script>  
   <!----End Calender -------->
 </head>
 <body>			  
@@ -142,10 +143,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			 -->		         	          
 		         	           
 		       
-    	    </div>
-    	    
-            <div class="column_right" id="divDeviceActive">            	
-												   				  
+    	    </div>    	               
+             
+            <div class="column_right" id="divDeviceActive">            													   				  
 				   
              </div>
     	<div class="clear"></div>

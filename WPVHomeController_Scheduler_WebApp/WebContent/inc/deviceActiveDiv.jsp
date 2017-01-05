@@ -3,7 +3,20 @@
 <%@page import="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO"%>
 <%@page import="com.rapplogic.xbee.api.XBeeAddress64"%>
 <%@page import="java.util.HashMap"%>
+
 <div class="menu_box">
+		    		 	 
+		    		 	 <h3>Tank Level: </h3>	
+		    		 	 
+		    		 	 <div id="bar-1" class="bar-main-container yellow">
+						    <div class="wrapPercentage">
+						      <div class="bar-percentage" data-percentage="38"> 39%</div>
+						      <div class="bar-container">
+						        <div class="bar" style="width: 39%"></div>
+						      </div>
+						    </div>
+						  </div>
+		    		 	 
 		    		 	 <h3>Active Devices</h3>
 		    		 	   <div class="menu_box_list">
 					      		<ul>
