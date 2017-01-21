@@ -15,7 +15,7 @@ public enum WaterTankFillUtil {
 	
 	private boolean pumping = false;
 	
-	private static final int maxLitres = 800;
+	private static final int maxLitres = 1500;
 	private static final int litrePerFill = 20;
 	
 	private int litresAdded = 0;
@@ -114,14 +114,14 @@ public enum WaterTankFillUtil {
 				log.info("Litres Added: " + litresAdded + "l with " + noCycles + " cycles.");
 				
 				try {
-					Thread.sleep(240000);
+					Thread.sleep(310000);
 				} catch (Exception e) {
 					log.warn("Thread sleep got interruped");
 					//Do nothing - it is OK if we get interrupted
 				}
 				
 				//Every 200l (yes we can do a remainder here rather dumbass) - sleep extra 200s
-				if (litresAdded == 180 || litresAdded == 360 || litresAdded == 540 || litresAdded == 720) {					
+				if (litresAdded == 180 || litresAdded == 360 || litresAdded == 540 || litresAdded == 720 || litresAdded == 900 || litresAdded == 1080) {					
 					try {
 						Thread.sleep(200000);
 					} catch (Exception e) {

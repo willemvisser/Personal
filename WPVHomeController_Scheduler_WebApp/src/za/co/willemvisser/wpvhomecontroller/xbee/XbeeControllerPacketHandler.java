@@ -1,6 +1,7 @@
 package za.co.willemvisser.wpvhomecontroller.xbee;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 
@@ -87,6 +88,8 @@ public class XbeeControllerPacketHandler implements PacketListener {
 							XbeeController.INSTANCE.getXbeeDeviceMap().put(rxResponse.getRemoteAddress64(), 
 									newXbeeConfigDTO);
 						}
+						
+						xbeeConfigDTO.setLastSync(new Date());
 						
 						log.info("ZNetRxResponse (Data): " + rxResponse.getData()[0] + " - " + rxResponse.getData()[1] );
 						
