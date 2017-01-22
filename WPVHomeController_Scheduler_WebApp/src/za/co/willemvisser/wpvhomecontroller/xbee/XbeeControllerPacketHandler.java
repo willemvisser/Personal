@@ -91,7 +91,7 @@ public class XbeeControllerPacketHandler implements PacketListener {
 						
 						xbeeConfigDTO.setLastSync(new Date());
 						
-						log.info("ZNetRxResponse (Data): " + rxResponse.getData()[0] + " - " + rxResponse.getData()[1] );
+						log.debug("ZNetRxResponse (Data): " + rxResponse.getData()[0] + " - " + rxResponse.getData()[1] );
 						
 					} else {
 						log.error("ZNetRxResponse - unknown packet size (" + rxResponse.getData().length + ") - expected 2: " + rxResponse.toString());
