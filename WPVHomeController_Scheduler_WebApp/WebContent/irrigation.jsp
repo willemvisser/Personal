@@ -20,6 +20,11 @@
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 		<link href="css/nav.css" rel="stylesheet" type="text/css" media="all"/>
 		<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic+SC' rel='stylesheet' type='text/css'>
+		
+		<link rel="stylesheet" href="css/wxug_core.css">		  
+		<link rel="stylesheet" href="css/wxug_omnibus.css">
+		<link rel="stylesheet" href="css/percentage_style.css">
+		
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/login.js"></script>
 		<script type="text/javascript" src="js/Chart.js"></script>
@@ -121,6 +126,8 @@
 							<ul class="nav">
 								<li><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
 								<li class="active"><a href="irrigation.jsp"><i><img src="images/user.png" alt="" /></i>Irrigation</a></li>
+								<li><a href="cameras.jsp"><i><img src="images/views.png" alt="" /></i>Cameras</a></li>
+								<li><a href="temperatures.jsp"><i><img src="images/mail.png" alt="" /></i>Temperatures</a></li>
 								<!-- 
 								<li><a href="lights.jsp"><i><img src="images/mail.png" alt="" /></i>Lights</a></li>
 								 -->

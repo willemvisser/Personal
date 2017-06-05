@@ -43,57 +43,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 <body>			  
 
-	<script type="text/javascript">
-		//setInterval('updateDeviceStatusDiv()', 1000); // refresh div after 5 secs
-		setInterval('updateDeviceActiveDiv()', 1000); // refresh div after 1 secs
-		setInterval('updateQuickSwitchDiv()', 1000); // refresh div after 1 secs
-		setInterval('updateWeatherDiv()', 300000); // refresh div after 5 mins
-		
-		function updateWeatherDiv() {			
-			$.get('./inc/weatherDiv.jsp', function(data) {
-			  $('#divWeather').html(data);
-			});
-		}
-		
-		
-		function updateDeviceStatusDiv() {			
-			$.get('./inc/deviceStatusDiv.jsp', function(data) {
-			  $('#divDeviceStatus').html(data);
-			});
-		}
-		
-		function updateQuickSwitchDiv() {			
-			$.get('./inc/quickSwitchDiv.jsp', function(data) {
-			  $('#divQuickSwitch').html(data);
-			});
-		}
-		
-		
-		
-		function updateDeviceActiveDiv() {			
-			$.get('./inc/deviceActiveDiv.jsp', function(data) {
-			  $('#divDeviceActive').html(data);
-			});
-		}
-		
-		
-		
-		updateWeatherDiv();
-		updateDeviceActiveDiv();		
-		updateQuickSwitchDiv();
-		
-		
-	</script>
-     
+	
+    <!-- Menu -->
 	<div class="wrap">	 
 	      <div class="header">
 	      	  <div class="header_top">
 					  <div class="menu">
 						  <a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
 							<ul class="nav">
-								<li class="active"><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
+								<li><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
 								<li><a href="irrigation.jsp"><i><img src="images/user.png" alt="" /></i>Irrigation</a></li>
-								<li><a href="cameras.jsp"><i><img src="images/views.png" alt="" /></i>Cameras</a></li>
+								<li class="active"><a href="cameras.jsp"><i><img src="images/views.png" alt="" /></i>Cameras</a></li>
 								<li><a href="temperatures.jsp"><i><img src="images/mail.png" alt="" /></i>Temperatures</a></li>
 								<!-- 
 								<li><a href="lights.jsp"><i><img src="images/mail.png" alt="" /></i>Lights</a></li>
@@ -109,50 +69,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>	  					     
 	</div>		
 	
-	  <div class="main">  
-	    <div class="wrap">  		 
-	    	 
-	    	<div class="column_left" id="divWeather">	
-	    	 	    	          	    	    				    		 
-			</div>
-	
-	
-	    
-	    		
-	    		 
-	  		 <!--  </div> column_left -->
-	  		
-            <div class="column_middle">
-             <!-- 
-              <div class="column_middle_grid1">
-		      -->
-		         <!--  
-		         <div class="column_right_grid calender"  style="margin-top:0px">
-                      <div class="cal1"> </div>
-				 </div>
-		         -->
-		         
-             
-             	 
-             	 <div id="divQuickSwitch">            	
-												   				  
-				   
-             	 </div>
-		         
-		     <!--     
-		       </div>
-			 -->		         	          
-		         	           
-		       
-    	    </div>    	               
-             
-            <div class="column_right" id="divDeviceActive">            													   				  
-				   
-             </div>
-    	<div class="clear"></div>
- 	 </div>
+	<div class="main">
+	<%
+	if (request.getParameter("cam") != null) {
+	%>		  	    
+		<a href="cameras.jsp"><img src="http://192.168.1.203:808<%=request.getParameter("cam")%>" border="0" width="100%"/></a>		
+	<%
+	} else {
+	%>	    	    
+		<a href="cameras.jsp?cam=2"><img src="http://192.168.1.203:8082" border="0" width="40%"/></a>
+		<a href="cameras.jsp?cam=3"><img src="http://192.168.1.203:8083" border="0" width="40%"></a>
+		<a href="cameras.jsp?cam=1"><img src="http://192.168.1.203:8081" border="0" width="40%"></a>
+		<a href="cameras.jsp?cam=4"><img src="http://192.168.1.203:8084" border="0" width="40%"></a> 	   	  
+   <%
+	}
+   %>
    </div>
-   
    <br/>
   		 <div class="copy-right" style="float: right;">
 				<p>© 2016 Willem Visser, Version 1.50</p>
