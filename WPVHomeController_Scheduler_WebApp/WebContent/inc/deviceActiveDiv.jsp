@@ -30,7 +30,7 @@
 						    <div class="wrapPercentage">
 						      <div class="bar-percentage" data-percentage="<%=percentageStr%>"> <%=percentageStr%> %</div>
 						      <div class="bar-container">
-						        <div class="bar" style="width: <%=percentageStr%>%"></div>
+						        <div class="bar" style="width: <%=percentageStr%>% (<%=cm%> cm)"></div>
 						      </div>
 						    </div>
 						  </div>
