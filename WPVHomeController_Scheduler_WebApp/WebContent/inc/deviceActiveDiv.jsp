@@ -18,7 +18,7 @@
 		    	    		// deviceDTO.getPortAddress()  // should return 71
 		    	    		XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeWithDeviceID(deviceId);
 		    	    		cm = xbeeConfigDTO.getRxResponseMap().get(Integer.parseInt(deviceDTO.getPortAddress())); 
-		    	    		percentage = (long) ((198.0 - cm - 20) / 198.0 * 100);    		    	    
+		    	    		percentage = (long) ((198.0 - cm + 20) / 198.0 * 100);    		    	    
 		    	    	} catch (Exception e) {
 		    	    		//Do nothing
 		    	    	}
