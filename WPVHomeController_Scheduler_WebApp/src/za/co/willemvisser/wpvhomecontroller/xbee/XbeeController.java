@@ -199,6 +199,7 @@ public enum XbeeController {
 		}
 		return null;
 	}
+			
 	
 	/**
 	 * @param deviceID
@@ -211,6 +212,21 @@ public enum XbeeController {
 				if (xbeeConfigDeviceDTO.getId().equals(deviceID)) {
 					return xbeeConfigDTO;
 				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Board == Xbee
+	 * @param boardID
+	 * @return
+	 */
+	public XbeeConfigDTO getBoardWithID(String boardID) {
+		HashMap<XBeeAddress64, XbeeConfigDTO> xbeeMap = XbeeController.INSTANCE.getXbeeDeviceMap();
+		for (XbeeConfigDTO xbeeConfigDTO : xbeeMap.values()) {
+			if (xbeeConfigDTO.getId().equals(boardID)) {
+				return xbeeConfigDTO;
 			}
 		}
 		return null;
