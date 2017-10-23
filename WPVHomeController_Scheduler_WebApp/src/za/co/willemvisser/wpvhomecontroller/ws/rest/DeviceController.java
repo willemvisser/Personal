@@ -8,7 +8,6 @@ import javax.ws.rs.Produces;
 import org.apache.log4j.Logger;
 
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO;
-import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO;
 import za.co.willemvisser.wpvhomecontroller.xbee.XbeeController;
 
 
@@ -18,33 +17,30 @@ public class DeviceController {
 	static Logger log = Logger.getLogger(DeviceController.class.getName());
 	
 	@GET
-	@Path("/{deviceId}/{portAddress}/{port}")  
+	@Path("/{deviceId}/{mapIndex}")  
 	@Produces("text/plain")  
-    public String getDeviceStatus(@PathParam("deviceId") String deviceId,  @PathParam("portAddress") String portAddress, 
-    		@PathParam("port") String port) {
-		
+    public String getDeviceMapValue(@PathParam("deviceId") String deviceId,  @PathParam("mapIndex") Integer mapIndex) {		
 		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??
-		try {
-			XbeeConfigDeviceDTO deviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);
+		try {			
 			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeWithDeviceID(deviceId);
-			return String.valueOf( xbeeConfigDTO.getRxResponseMap().get(Integer.parseInt(deviceDTO.getPortAddress())) );						
+			return String.valueOf( xbeeConfigDTO.getRxResponseMap().get(mapIndex.intValue()) );						
 		} catch (Exception e) {
 			return "ERR";
 		}
 	}
 	
 	@GET
-	@Path("/{deviceId}/{portAddress}/{port}/{status}")  
+	@Path("/{deviceId}/{mapIndex}/{mapValue}")  
 	@Produces("text/plain")  
-    public String setDeviceStatus(@PathParam("deviceId") String deviceId,  @PathParam("portAddress") String portAddress, 
-    		@PathParam("port") String port, @PathParam("status") String status) {
+    public String setDeviceMapValue(@PathParam("deviceId") String deviceId,  @PathParam("mapIndex") Integer mapIndex, 
+    		@PathParam("mapValue") Integer mapValue) {
 		
 		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??
 		try {
-			XbeeConfigDeviceDTO deviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);
+			//XbeeConfigDeviceDTO deviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);
 			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeWithDeviceID(deviceId);
-			//return String.valueOf( xbeeConfigDTO.getRxResponseMap().get(Integer.parseInt(deviceDTO.getPortAddress())) );
-			return "TODO - should set the value";
+			xbeeConfigDTO.getRxResponseMap().put(mapIndex, mapValue);			
+			return "OK";
 		} catch (Exception e) {
 			return "ERR";
 		}
