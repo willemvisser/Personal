@@ -18,7 +18,7 @@ public class DeviceController {
 	static Logger log = Logger.getLogger(DeviceController.class.getName());
 	
 	@GET
-	@Path("/{deviceId}/{port}/{portAddress}")  
+	@Path("/{deviceId}/{portAddress}/{port}")  
 	@Produces("text/plain")  
     public String getDeviceStatus(@PathParam("deviceId") String deviceId,  @PathParam("portAddress") String portAddress, 
     		@PathParam("port") String port) {
@@ -28,6 +28,23 @@ public class DeviceController {
 			XbeeConfigDeviceDTO deviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);
 			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeWithDeviceID(deviceId);
 			return String.valueOf( xbeeConfigDTO.getRxResponseMap().get(Integer.parseInt(deviceDTO.getPortAddress())) );						
+		} catch (Exception e) {
+			return "ERR";
+		}
+	}
+	
+	@GET
+	@Path("/{deviceId}/{portAddress}/{port}/{status}")  
+	@Produces("text/plain")  
+    public String setDeviceStatus(@PathParam("deviceId") String deviceId,  @PathParam("portAddress") String portAddress, 
+    		@PathParam("port") String port, @PathParam("status") String status) {
+		
+		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??
+		try {
+			XbeeConfigDeviceDTO deviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);
+			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeWithDeviceID(deviceId);
+			//return String.valueOf( xbeeConfigDTO.getRxResponseMap().get(Integer.parseInt(deviceDTO.getPortAddress())) );
+			return "TODO - should set the value";
 		} catch (Exception e) {
 			return "ERR";
 		}
