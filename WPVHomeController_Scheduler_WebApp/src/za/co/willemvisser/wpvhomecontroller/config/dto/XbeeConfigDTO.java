@@ -43,6 +43,11 @@ public class XbeeConfigDTO implements Serializable {
 	@XmlElementWrapper(name="devices")
 	private ArrayList<XbeeConfigDeviceDTO> deviceList; 
 	
+	public XbeeConfigDTO() {
+		super();
+		rxResponseMap = new HashMap<Integer, Integer>();
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -140,7 +145,7 @@ public class XbeeConfigDTO implements Serializable {
 			}
 			dataBuffer.append(data[i]);			
 		}
-		log.info("setRxResponseEntry (" + this.getId() + " - " + this.getName() + ") Len(" + data.length + "): " + dataBuffer);
+		log.debug("setRxResponseEntry (" + this.getId() + " - " + this.getName() + ") Len(" + data.length + "): " + dataBuffer);
 	}
 	
 	public String getId() {

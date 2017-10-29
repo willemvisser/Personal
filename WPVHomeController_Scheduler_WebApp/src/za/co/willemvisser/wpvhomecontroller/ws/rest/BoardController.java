@@ -25,11 +25,10 @@ public class BoardController {
     public String setDeviceHeartBeat(@PathParam("boardId") String boardId) {
 		
 		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??
-		log.info("BoardController.setDeviceHeartBeat: " + boardId);
+		log.debug("BoardController.setDeviceHeartBeat: " + boardId);
 		try {						
 			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getBoardWithID(boardId);
-			xbeeConfigDTO.setLastSync(new Date());
-			log.info("board: " + xbeeConfigDTO.getName());			
+			xbeeConfigDTO.setLastSync(new Date());					
 			return "OK";					
 		} catch (Exception e) {
 			log.error("setDeviceHeartBeat: " + e.toString());

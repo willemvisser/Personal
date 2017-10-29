@@ -26,6 +26,7 @@ public class DeviceController {
 			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeWithDeviceID(deviceId);
 			return String.valueOf( xbeeConfigDTO.getRxResponseMap().get(mapIndex.intValue()) );						
 		} catch (Exception e) {
+			log.error("getDeviceMapValue: " + e.toString() );
 			return "ERR";
 		}
 	}
@@ -43,6 +44,7 @@ public class DeviceController {
 			xbeeConfigDTO.getRxResponseMap().put(mapIndex, mapValue);			
 			return "OK";
 		} catch (Exception e) {
+			log.error("setDeviceMapValue: " + e.toString() );
 			return "ERR";
 		}
 	}
