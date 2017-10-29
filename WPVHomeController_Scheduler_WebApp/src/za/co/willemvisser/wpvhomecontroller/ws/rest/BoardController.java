@@ -35,4 +35,37 @@ public class BoardController {
 			return "ERR";
 		}
 	}
+	
+	@GET
+	@Path("/getmapvalue/{boardId}/{mapIndex}")  
+	@Produces("text/plain")  
+    public String getBoardMapValue(@PathParam("boardId") String boardId,  @PathParam("mapIndex") Integer mapIndex) {		
+		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??
+		try {	
+			log.info("Board getmapvalue: " + boardId + ":" + mapIndex);
+			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getBoardWithID(boardId);
+			return String.valueOf( xbeeConfigDTO.getRxResponseMap().get(mapIndex.intValue()) );						
+		} catch (Exception e) {
+			log.error("getDeviceMapValue: " + e.toString() );
+			return "ERR";
+		}
+	}
+	
+	@GET
+	@Path("/setmapvalue/{boardId}/{mapIndex}/{mapValue}")  
+	@Produces("text/plain")  
+    public String setBoardMapValue(@PathParam("boardId") String boardId,  @PathParam("mapIndex") Integer mapIndex, 
+    		@PathParam("mapValue") Integer mapValue) {
+		
+		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??
+		try {
+			log.info("Board setmapvalue: " + boardId + ":" + mapIndex + ":" + mapValue);
+			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getBoardWithID(boardId);
+			xbeeConfigDTO.getRxResponseMap().put(mapIndex, mapValue);			
+			return "OK";
+		} catch (Exception e) {
+			log.error("setDeviceMapValue: " + e.toString() );
+			return "ERR";
+		}
+	}
 }
