@@ -42,12 +42,7 @@ public class XbeeConfigDTO implements Serializable {
 	@XmlElement(name = "device")
 	@XmlElementWrapper(name="devices")
 	private ArrayList<XbeeConfigDeviceDTO> deviceList; 
-	
-	public XbeeConfigDTO() {
-		super();
-		rxResponseMap = new HashMap<Integer, Integer>();
-	}
-	
+		
 	public String getName() {
 		return name;
 	}
@@ -162,6 +157,9 @@ public class XbeeConfigDTO implements Serializable {
 	}
 	
 	public HashMap<Integer, Integer> getRxResponseMap() {
+		if (rxResponseMap == null) {
+			rxResponseMap = new HashMap<Integer, Integer>();
+		}
 		return rxResponseMap;
 	}
 	public void setRxResponseMap(HashMap<Integer, Integer> rxResponseMap) {
