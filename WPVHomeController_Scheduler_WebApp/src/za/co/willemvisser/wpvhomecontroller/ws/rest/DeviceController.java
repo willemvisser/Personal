@@ -17,11 +17,12 @@ public class DeviceController {
 	static Logger log = Logger.getLogger(DeviceController.class.getName());
 	
 	@GET
-	@Path("/{deviceId}/{mapIndex}")  
+	@Path("/getmapvalue/{deviceId}/{mapIndex}")  
 	@Produces("text/plain")  
     public String getDeviceMapValue(@PathParam("deviceId") String deviceId,  @PathParam("mapIndex") Integer mapIndex) {		
 		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??
-		try {			
+		try {	
+			log.info("Device getmapvalue: " + deviceId + ":" + mapIndex);
 			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeWithDeviceID(deviceId);
 			return String.valueOf( xbeeConfigDTO.getRxResponseMap().get(mapIndex.intValue()) );						
 		} catch (Exception e) {
@@ -30,14 +31,14 @@ public class DeviceController {
 	}
 	
 	@GET
-	@Path("/{deviceId}/{mapIndex}/{mapValue}")  
+	@Path("/setmapvalue/{deviceId}/{mapIndex}/{mapValue}")  
 	@Produces("text/plain")  
     public String setDeviceMapValue(@PathParam("deviceId") String deviceId,  @PathParam("mapIndex") Integer mapIndex, 
     		@PathParam("mapValue") Integer mapValue) {
 		
 		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??
 		try {
-			//XbeeConfigDeviceDTO deviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);
+			log.info("Device setmapvalue: " + deviceId + ":" + mapIndex + ":" + mapValue);
 			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeWithDeviceID(deviceId);
 			xbeeConfigDTO.getRxResponseMap().put(mapIndex, mapValue);			
 			return "OK";
