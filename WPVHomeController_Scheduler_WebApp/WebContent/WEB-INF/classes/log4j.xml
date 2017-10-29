@@ -40,7 +40,7 @@
 	<logger name="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO"
 				additivity="false">
   		<appender-ref ref="console" />
-  		<level value="debug"/> 
+  		<level value="info"/> 
 	</logger>
 	
 	<logger name="za.co.willemvisser.wpvhomecontroller.config.ConfigController"
