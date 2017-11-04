@@ -38,7 +38,16 @@
 		    		 	 <h3>Active Devices</h3>
 		    		 	   <div class="menu_box_list">
 					      		<ul>
-					      		<%					      							      		
+					      		<%
+					      		XbeeConfigDTO garageXbeeConfigDTO = XbeeController.INSTANCE.getBoardWithID("12");
+								if (garageXbeeConfigDTO != null && garageXbeeConfigDTO.getRxResponseMap().get(71) != null
+										&& garageXbeeConfigDTO.getRxResponseMap().get(71).intValue() == 1) {	
+					      		%>
+					      		<div id="" class="simplemenu_amber">
+					      			<h4 id="">Garage - Main</h4>
+					      		</div>
+					      		<%
+								}
 					      		HashMap<XBeeAddress64, XbeeConfigDTO> xbeeMap = XbeeController.INSTANCE.getXbeeDeviceMap();
 					      		for (XbeeConfigDTO xbeeConfigDTO : xbeeMap.values()) {
 					      			for (XbeeConfigDeviceDTO xbeeConfigDeviceDTO : xbeeConfigDTO.getDeviceList()) {

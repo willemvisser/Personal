@@ -999,6 +999,23 @@ fieldset#body {
 .simplemenu_green a > i > img{
 	margin:0 5px -10px 0;
 }
+.simplemenu_amber{
+	background:#FF6A00;
+	padding:10px 0 11px 0;
+	text-align:center;
+	border-radius:10px 10px 10px 10px;
+	border-bottom:1px solid #1f253d;
+	-webkit-border-radius:5px 5px 5px 5px;
+	-moz-border-radius:5px 5px 5px 5px;
+	-o-border-radius:5px 5px 5px 5px;
+}
+.simplemenu_amber h4{
+	font-size:1.1em;
+	color: #000;
+}
+.simplemenu_amber a > i > img{
+	margin:0 5px -10px 0;
+}
 .simplemenu_black{
 	background:#9099B7;
 	padding:10px 0 11px 0;
