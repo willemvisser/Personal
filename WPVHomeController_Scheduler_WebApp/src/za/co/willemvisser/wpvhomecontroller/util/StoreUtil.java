@@ -18,6 +18,11 @@ public enum StoreUtil {
 	public void logEvent(String deviceId, String command, Boolean success, String description, Date timestamp) {
 		log.debug("logEvent: " + description);
 		
+		//TODO - This caused up to 60s delay in commands.  We should be adding these events to a queue / bus - and then
+		//		 	have an asynch thread reading from it.
+		
+		/*
+		
 		GeneralPropertyDTO propStoreEventURL = ConfigController.INSTANCE.getGeneralProperty(GeneralPropertyDTO.PROP_STORE_EVENT_URL);
 		if (propStoreEventURL == null) {
 			log.error("Could not find the Store HTTP URl in the general properties file under key: " + GeneralPropertyDTO.PROP_STORE_EVENT_URL);
@@ -49,5 +54,7 @@ public enum StoreUtil {
 			
 			//TODO - we should store this event and try again later
 		}
+		
+		*/
 	}
 }
