@@ -114,47 +114,30 @@ public enum WPVHomeControllerScheduler {
 			scheduler.start();
 			
 			try {
-	        	processXmlConfig();          	
+	        	processXmlConfig( getJobXmlConfigFromS3() );          	
 	        } catch (Exception e) {
 	        	log.error("Could not process xml: " + e.toString());
 	        	throw new SchedulerException(e);
 	        }
 			isStarted = true;
 		}
-	}
-	
-	private InputStream loadRemoteScheduleConfig() throws Exception {
-		
-		/* Attempt to download from remote server */
-		try {
-			String remoteUrl = HTTP_PREFIX + 
-								"54.68.136.170/config/" +
-								ConfigController.INSTANCE.getGeneralProperty(ConfigController.XML_FILENAME_SCHEDULE);
-					 					
-			
-			HttpResponse response = HttpUtil.INSTANCE.doHttpGet(remoteUrl);
-			if (response.getStatusLine().getStatusCode() == 200) {
-				return response.getEntity().getContent();				
-			
-			} else {
-				throw new IOException("Could not load Remote XML file: " + remoteUrl);
-			}
-			
-			
-		} catch (Exception e) {
-			log.error("Failed to download remote file: " + e);
-			throw (e);
-		}
-	}
+	}	
 	
 	public void reloadSchedule() {		
 		try {			
-			InputStream newConfigStream = loadRemoteScheduleConfig();
 			scheduler.clear();
-        	processXmlConfig( );          	
+        	processXmlConfig( getJobXmlConfigFromS3() );          	
         } catch (Exception e) {
         	log.error("Could not process xml: " + e.toString());        	
         }
+	}
+	
+	/**
+	 * @param newJobScheduleXmlStr to XML to write to S3
+	 */
+	public void writeJobScheduletoS3(String newJobScheduleXmlStr) {
+		//TODO - we should validate at least this is valid XML - and probably that this parses correctly before we save.
+		S3Util.INSTANCE.writeStringToBucket(S3Util.BUCKET_WPVHOMESCHEDULER, S3_KEY_SCHEDULE, newJobScheduleXmlStr);
 	}
 	
 	public LinkedList<String> getCurrentlyExecutingJobs() {
@@ -225,7 +208,11 @@ public enum WPVHomeControllerScheduler {
 		Thread.sleep(1000);
 	}
 	
-	protected void processXmlConfig() 
+	public String getJobXmlConfigFromS3() {
+		return S3Util.INSTANCE.getBucketAsString(S3Util.BUCKET_WPVHOMESCHEDULER, S3_KEY_SCHEDULE);
+	}
+	
+	protected void processXmlConfig(String jobXmlConfigStr) 
 			throws ParserConfigurationException, SAXException, IOException, XPathExpressionException, 
 			DOMException, ParseException, CloneNotSupportedException {
 		log.debug("processXmlConfig");		
@@ -237,7 +224,7 @@ public enum WPVHomeControllerScheduler {
         dBuilder = dbFactory.newDocumentBuilder();
         
         InputSource is = new InputSource(
-        		new StringReader(S3Util.INSTANCE.getBucketAsString(S3Util.BUCKET_WPVHOMESCHEDULER, S3_KEY_SCHEDULE) ));
+        		new StringReader( jobXmlConfigStr ));
 
         Document doc = dBuilder.parse(is);
         doc.getDocumentElement().normalize();
@@ -252,7 +239,8 @@ public enum WPVHomeControllerScheduler {
         	JobDTO jobDTO = new JobDTO(xPath, eElement);
         	addJob(jobDTO, generalJobPropertiesMap);
         	        	
-        	//TODO - why limit this to these groups, why not all??
+        	//TODO - why limit this to these groups, why not all??  
+        	//			I think this should just check if there is a duration > 0
         	
         	if (jobDTO.getGroupName().equals( JobDTO.GROUPNAME_IRRIGATION ) || 
         			jobDTO.getGroupName().equals( JobDTO.GROUPNAME_POOLPUMP)) {
@@ -297,8 +285,7 @@ public enum WPVHomeControllerScheduler {
 	
 	
 	public void addJob(JobDTO jobDTO, HashMap<String, String> jobPropertiesMap) {
-		try {
-			log.debug("Adding new job..." + jobDTO.toString());
+		try {			
 			Class reportClass = Class.forName(jobDTO.getClassName());
 			JobDetail job1 = newJob(reportClass)   
 				    //.withIdentity(jobDTO.getName(), jobDTO.getGroupName())

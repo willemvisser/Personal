@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -27,6 +28,7 @@ public class JobDTO {
 	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		
+	private String id;
 	private String className;
 	private String name;
 	private String groupName;
@@ -44,6 +46,7 @@ public class JobDTO {
 	
 	public JobDTO(String className, String name, String groupName, int durationMin, Date startTime, String cronStartExpression, List<JobParamDTO> params) {
 		super();
+		this.id = UUID.randomUUID().toString();
 		this.className = className;
 		this.name = name;
 		this.groupName = groupName;
@@ -55,6 +58,7 @@ public class JobDTO {
 	
 	public JobDTO(XPath xPath, Element eElement) throws DOMException, ParseException, XPathExpressionException {
 		super();
+		this.id = eElement.getElementsByTagName("id").item(0).getTextContent();
 		this.className = eElement.getElementsByTagName("class").item(0).getTextContent();
 		this.name = eElement.getElementsByTagName("name").item(0).getTextContent();
 		this.groupName = eElement.getElementsByTagName("groupName").item(0).getTextContent();
@@ -155,6 +159,14 @@ public class JobDTO {
 
 	public void setDurationMin(int durationMin) {
 		this.durationMin = durationMin;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	

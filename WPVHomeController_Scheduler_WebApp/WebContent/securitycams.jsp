@@ -5,6 +5,10 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE HTML>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Set"%>
+<%@page import="za.co.willemvisser.wpvhomecontroller.video.VideoBankDayDTO"%>
+<%@page import="za.co.willemvisser.wpvhomecontroller.video.VideoBankController"%>
 <%@page import="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO"%>
 <%@page import="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO"%>
 <%@page import="za.co.willemvisser.wpvhomecontroller.xbee.dto.XbeeDTO"%>
@@ -16,7 +20,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <%@page import="za.co.willemvisser.wpvhomecontroller.weather.dto.Forecast10DayDTO"%>
 <html>
 <head>
-<title>WPV Home Controller | Home</title>
+<title>WPV Home Controller | Security Archive</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
@@ -43,57 +47,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 <body>			  
 
-	<script type="text/javascript">
-		//setInterval('updateDeviceStatusDiv()', 1000); // refresh div after 5 secs
-		setInterval('updateDeviceActiveDiv()', 1000); // refresh div after 1 secs
-		setInterval('updateQuickSwitchDiv()', 1000); // refresh div after 1 secs
-		setInterval('updateWeatherDiv()', 300000); // refresh div after 5 mins
-		
-		function updateWeatherDiv() {			
-			$.get('./inc/weatherDiv.jsp', function(data) {
-			  $('#divWeather').html(data);
-			});
-		}
-		
-		
-		function updateDeviceStatusDiv() {			
-			$.get('./inc/deviceStatusDiv.jsp', function(data) {
-			  $('#divDeviceStatus').html(data);
-			});
-		}
-		
-		function updateQuickSwitchDiv() {			
-			$.get('./inc/quickSwitchDiv.jsp', function(data) {
-			  $('#divQuickSwitch').html(data);
-			});
-		}
-		
-		
-		
-		function updateDeviceActiveDiv() {			
-			$.get('./inc/deviceActiveDiv.jsp', function(data) {
-			  $('#divDeviceActive').html(data);
-			});
-		}
-		
-		
-		
-		updateWeatherDiv();
-		updateDeviceActiveDiv();		
-		updateQuickSwitchDiv();
-		
-		
-	</script>
-     
+	
+    <!-- Menu -->
 	<div class="wrap">	 
 	      <div class="header">
 	      	  <div class="header_top">
 					  <div class="menu">
 						  <a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
 							<ul class="nav">
-								<li class="active"><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
-								<li><a href="events.jsp"><i><img src="images/user.png" alt="" /></i>Events</a></li>
-								<li><a href="cameras.jsp"><i><img src="images/views.png" alt="" /></i>Cameras</a></li>
+								<li><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
+								<li><a href="irrigation.jsp"><i><img src="images/user.png" alt="" /></i>Irrigation</a></li>
+								<li class="active"><a href="cameras.jsp"><i><img src="images/views.png" alt="" /></i>Cameras</a></li>
 								<li><a href="temperatures.jsp"><i><img src="images/mail.png" alt="" /></i>Temperatures</a></li>
 								<!-- 
 								<li><a href="lights.jsp"><i><img src="images/mail.png" alt="" /></i>Lights</a></li>
@@ -109,54 +73,81 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>	  					     
 	</div>		
 	
-	  <div class="main">  
-	    <div class="wrap">  		 
-	    	 
-	    	<div class="column_left" id="divWeather">	
-	    	 	    	          	    	    				    		 
-			</div>
-	
-	
-	    
-	    		
-	    		 
-	  		 <!--  </div> column_left -->
-	  		
-            <div class="column_middle">
-             <!-- 
-              <div class="column_middle_grid1">
-		      -->
-		         <!--  
-		         <div class="column_right_grid calender"  style="margin-top:0px">
-                      <div class="cal1"> </div>
-				 </div>
-		         -->
-		         
-             
-             	 
-             	 <div id="divQuickSwitch">            	
-												   				  
-				   
-             	 </div>
-		         
-		     <!--     
-		       </div>
-			 -->		         	          
-		         	           
-		       
-    	    </div>    	               
-             
-            <div class="column_right" id="divDeviceActive">            													   				  
-				   
-             </div>
-    	<div class="clear"></div>
- 	 </div>
-   </div>
-   
+	<div class="main">	
+		<div class="column_left">	 
+		<h3>File List:</h3>
+		<%
+			//TODO - move these to the servlet context init
+			VideoBankController.INSTANCE.init();
+			VideoBankController.INSTANCE.refresh();
+			
+			String paramDate = request.getParameter("date");
+			String paramHour = request.getParameter("hour");
+			
+			if (paramDate == null) { 
+				HashMap<String, VideoBankDayDTO> videoMap = VideoBankController.INSTANCE.getVideoMap();
+			 	Set<String> dateSet = videoMap.keySet();
+			 	for (String dateStr : dateSet) {
+					out.print("<a href=\"securitycams.jsp?date=");
+					out.print(dateStr);
+					out.print("\">");
+					out.print(dateStr);
+					out.println("</a>");					
+					out.println("<br/>");
+			 	}
+			} else if (paramHour == null) {
+				out.println("<h2>");
+				out.println(paramDate);
+				out.println("</h2>");
+				VideoBankDayDTO videoBankDayDTO = VideoBankController.INSTANCE.getVideoBankDayDTO(paramDate);
+				HashMap<String, ArrayList<String>> videosPerHourMap = videoBankDayDTO.listVideosPerHour();
+				Set<String> hourSet = videosPerHourMap.keySet();
+				
+				for (String hour : hourSet) {
+					out.print("<a href=\"securitycams.jsp?date=");
+					out.print(paramDate);
+					out.print("&hour=");
+					out.print(hour);
+					out.print("\">");
+					out.print(hour);
+					out.println("</a>");					
+					out.println("<br/>");
+				}
+			 } else {
+				 out.println("<h2>");					
+				 	out.print(paramDate);
+					out.print(" - ");
+					out.print(paramHour);
+					out.println("</h2>");
+					
+					VideoBankDayDTO videoBankDayDTO = VideoBankController.INSTANCE.getVideoBankDayDTO(paramDate);
+					HashMap<String, ArrayList<String>> videosPerHourMap = videoBankDayDTO.listVideosPerHour();
+					ArrayList<String> videoList = videosPerHourMap.get(paramHour);
+					
+					for (String video : videoList) {
+						out.print("<a href=\"securitycams.jsp?date=");
+						out.print(paramDate);
+						out.print("&hour=");
+						out.print(paramHour);
+						out.print("&video=");
+						out.print(video);
+						out.print("\">");
+						out.print(video);
+						out.println("</a>");					
+						out.println("<br/>");
+					} 
+			 }
+			
+			
+		%>
+		</div>
+		<div class="column_middle"  style="width:75%; margin-top:0px">
+			<embed src="video/<%=request.getParameter("video") %>" width="1280" height="960">
+		</div>
+	</div>
    <br/>
   		 <div class="copy-right" style="float: right;">
 				<p>© 2016 Willem Visser, Version 1.50</p>
 	 	 </div>   
 </body>
 </html>
-

@@ -44,7 +44,7 @@
 						  <a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
 							<ul class="nav">
 								<li><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
-								<li class="active"><a href="irrigation.jsp"><i><img src="images/user.png" alt="" /></i>Irrigation</a></li>
+								<li class="active"><a href="events.jsp"><i><img src="images/user.png" alt="" /></i>Events</a></li>
 								<li><a href="lights.jsp"><i><img src="images/mail.png" alt="" /></i>Lights</a></li>
 								<li><a href="settings.jsp"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>
 							<div class="clear"></div>
@@ -65,11 +65,12 @@
 		    		 	 <h3>Actions</h3>
 		    		 	   <div class="menu_box_list">
 					      		<ul>
-							  		<li><a href="irrigation.jsp" class="account_settings"><span>Today</span></a></li>
-							  		<li><a href="irrigationAddEvent.jsp" class="messages"><span>Add Event</span><div class="clear"></div></a></li>
+							  		<li class="active"><a href="events.jsp" class="account_settings"><span>Today</span></a></li>
+							  		<li><a href="eventAddSelectType.jsp" class="messages"><span>Add Event</span><div class="clear"></div></a></li>
 							  		<li><a href="#" class="invites"><span>Stop Current Event</span><div class="clear"></div></a></li>
 							  		<li><a href="#" class="events"><span>Clear Today</span><div class="clear"></div></a></li>							  		
-							  		<li class="active"><a href="irrigationDetail.jsp" class="statistics"><span>Detailed List</span></a></li>						  	
+							  		<li><a href="irrigationDetail.jsp" class="statistics"><span>Detailed List</span></a></li>
+							  		<li><a href="eventsDirectEdit.jsp" class="account_settings"><span>Direct Edit</span></a></li>						  	
 					    		</ul>
 					      </div>
 		    		 </div>
@@ -94,8 +95,10 @@
 							JobTriggerDTO jobTriggerDTO = jobTriggerList.get(i);							
 							%>
 							<li><a href="#"><span class="day_name"><%=jobTriggerDTO.getJobDataMap().getString("job.name")%> </span>
+							<!-- 
 							<span class="day_name"> | <%=jobTriggerDTO.getJobDataMap().getString("command")%></span>
-							<span class="day_name"> | <%=jobTriggerDTO.getJobDataMap().getString("ouputId")%><%=jobTriggerDTO.getJobDataMap().getString("pin")%></span> 
+							<span class="day_name"> | <%=jobTriggerDTO.getJobDataMap().getString("ouputId")%><%=jobTriggerDTO.getJobDataMap().getString("pin")%></span>
+							 --> 
 				  			<label class="digits"><%=sdf.format(jobTriggerDTO.getTrigger().getNextFireTime()) %>
 				  			
 				  			<i>
@@ -106,6 +109,8 @@
 					  				} else if (jobTriggerDTO.getJobDataMap().getString("command").equals("xoff")) {
 					  					out.print("<img src=\"images/stop-red-icon.png\" alt=\"\" />");
 					  				}
+				  				} else {
+				  					out.print("<img src=\"images/start-icon.png\" alt=\"\" />");
 				  				}
 				  			%>				  			
 				  			</i></label>				  			

@@ -44,9 +44,9 @@
 						  <a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
 							<ul class="nav">
 								<li><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
-								<li class="active"><a href="irrigation.jsp"><i><img src="images/user.png" alt="" /></i>Irrigation</a></li>
+								<li class="active"><a href="events.jsp"><i><img src="images/user.png" alt="" /></i>Events</a></li>
 								<li><a href="lights.jsp"><i><img src="images/mail.png" alt="" /></i>Lights</a></li>
-								<li><a href="settings.jsp"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>
+								<li><a href="settings.jsp"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>								
 							<div class="clear"></div>
 						    </ul>
 							<script type="text/javascript" src="js/responsive-nav.js"></script>
@@ -65,11 +65,12 @@
 		    		 	 <h3>Actions</h3>
 		    		 	   <div class="menu_box_list">
 					      		<ul>
-							  		<li><a href="irrigation.jsp" class="account_settings"><span>Today</span></a></li>
-							  		<li><a href="irrigationAddEvent.jsp" class="messages"><span>Add Event</span><div class="clear"></div></a></li>
+							  		<li class="active"><a href="events.jsp" class="account_settings"><span>Today</span></a></li>
+							  		<li><a href="eventAddSelectType.jsp" class="messages"><span>Add Event</span><div class="clear"></div></a></li>
 							  		<li><a href="#" class="invites"><span>Stop Current Event</span><div class="clear"></div></a></li>
 							  		<li><a href="#" class="events"><span>Clear Today</span><div class="clear"></div></a></li>							  		
-							  		<li class="active"><a href="irrigationDetail.jsp" class="statistics"><span>Detailed List</span></a></li>						  	
+							  		<li><a href="irrigationDetail.jsp" class="statistics"><span>Detailed List</span></a></li>
+							  		<li><a href="eventsDirectEdit.jsp" class="account_settings"><span>Direct Event Edit</span></a></li>						  	
 					    		</ul>
 					      </div>
 		    		 </div>
@@ -82,43 +83,33 @@
 	    				      
 	    
 	    		<div class="weather" style="margin-top:0px">
-		        	<h3><i><img src="images/location.png" alt="" /> </i> Today's Scheduled Irrigation Times</h3>
+		        	<h3><i><img src="images/location.png" alt="" /> </i> Event Configuration</h3>
 		            
 					
-					<div class="temp_list">
-				    	<ul>
-				    	
-				    	<%
-						List<JobTriggerDTO> jobTriggerList = WPVHomeControllerScheduler.INSTANCE.listJobTriggers();
-						for (int i=0; i<jobTriggerList.size(); i++) {
-							JobTriggerDTO jobTriggerDTO = jobTriggerList.get(i);							
-							%>
-							<li><a href="#"><span class="day_name"><%=jobTriggerDTO.getJobDataMap().getString("job.name")%> </span>
-							<span class="day_name"> | <%=jobTriggerDTO.getJobDataMap().getString("command")%></span>
-							<span class="day_name"> | <%=jobTriggerDTO.getJobDataMap().getString("ouputId")%><%=jobTriggerDTO.getJobDataMap().getString("pin")%></span> 
-				  			<label class="digits"><%=sdf.format(jobTriggerDTO.getTrigger().getNextFireTime()) %>
-				  			
-				  			<i>
-				  			<%
-				  				if (jobTriggerDTO.getJobDataMap().getString("command") != null) {
-					  				if (jobTriggerDTO.getJobDataMap().getString("command").equals("xon")) {
-					  					out.print("<img src=\"images/start-icon.png\" alt=\"\" />");	
-					  				} else if (jobTriggerDTO.getJobDataMap().getString("command").equals("xoff")) {
-					  					out.print("<img src=\"images/stop-red-icon.png\" alt=\"\" />");
-					  				}
-				  				}
-				  			%>				  			
-				  			</i></label>				  			
-				  			<div class="clear"></div></a></li>
-							<% 
+						<%
+						String action = request.getParameter("action");
+						if (action != null && action.equals("uploadConfig")) {
+							String newXmlConfig = request.getParameter("jobConfigStr");
+							if (newXmlConfig != null) {
+								WPVHomeControllerScheduler.INSTANCE.writeJobScheduletoS3(newXmlConfig.trim());
+							}
+							out.println("Config uploaded successfully to S3");
 							
 						}
 						%>
-				    	
-						  		    
+					
+				    	<ul>
+				    	<form action="eventsDirectEdit.jsp" method="POST">
+				    		<input type="hidden" name="action" value="uploadConfig"/>
+					    	<textarea name="jobConfigStr" style="width:100%; height:80%"> 
+							
+					    	<%=WPVHomeControllerScheduler.INSTANCE.getJobXmlConfigFromS3().trim()%>
+					    	</textarea>
+					    	
+					    	<input type="submit" class="my-button" value="Upload Config">
+						</form>
 				    	</ul>
 				      </div>	<!-- temp_list -->
-		          </div>	<!-- weather -->
 	    		 
 	  		</div> <!-- column_middle_grid1 -->
 	  		</div> <!-- column_middle -->

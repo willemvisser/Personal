@@ -50,6 +50,8 @@
 			<div>High <span style="color: #feae3c;"><%=WeatherService.INSTANCE.getForecastForToday().getHigh()%> &deg;C</span><span class="split">|</span> Low <span style="color: #feae3c;"><%=WeatherService.INSTANCE.getForecastForToday().getLow()%> &deg;C</span></div>
 			<div><%=WeatherService.INSTANCE.getForecastForToday().getPrecipitationChance()%>% Chance of Precip.</div>
 			<div>Precip. <%=WeatherService.INSTANCE.getForecastForToday().getPrecipitation()%> mm</div>
+			<div>Wind Speed. <%=WeatherService.INSTANCE.getForecastForToday().getWindSpeed()%> km/h</div>
+			<div>Wind Dir. <%=WeatherService.INSTANCE.getForecastForToday().getWindDirection()%> </div>
 		</div>
 		
 		<div class="small-6 columns">			
@@ -57,6 +59,8 @@
 			<div>High <span style="color: #feae3c;"><%=WeatherService.INSTANCE.getForecastForTomorrow().getHigh()%> &deg;C</span><span class="split">|</span> Low <span style="color: #feae3c;"><%=WeatherService.INSTANCE.getForecastForTomorrow().getLow()%> &deg;C</span></div>
 			<div><%=WeatherService.INSTANCE.getForecastForTomorrow().getPrecipitationChance()%>% Chance of Precip.</div>
 			<div>Precip. <%=WeatherService.INSTANCE.getForecastForTomorrow().getPrecipitation()%> mm</div>
+			<div>Wind Speed. <%=WeatherService.INSTANCE.getForecastForTomorrow().getWindSpeed()%> km/h</div>
+			<div>Wind Dir. <%=WeatherService.INSTANCE.getForecastForTomorrow().getWindDirection()%> </div>
 		</div>
 		
 	</div>

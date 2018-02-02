@@ -23,6 +23,7 @@ import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigsDTO;
 import za.co.willemvisser.wpvhomecontroller.scheduler.WPVHomeControllerScheduler;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
+import za.co.willemvisser.wpvhomecontroller.util.WaterTankFillUtil;
 import za.co.willemvisser.wpvhomecontroller.xbee.XbeeController;
 import za.co.willemvisser.wpvhomecontroller.xbee.dto.XbeeDeviceDTO;
 
@@ -43,6 +44,10 @@ public class SchedulerServletListener implements ServletContextListener {
 	public void contextDestroyed(ServletContextEvent arg0) {		
 		System.out.println("Shutting down!!!");
 		try {
+			
+			if (WaterTankFillUtil.INSTANCE.isPumping()) {				
+				WaterTankFillUtil.INSTANCE.stopPumping();
+			}
 			WPVHomeControllerScheduler.INSTANCE.stopScheduler();
 		} catch (Exception e) {
 			e.printStackTrace();

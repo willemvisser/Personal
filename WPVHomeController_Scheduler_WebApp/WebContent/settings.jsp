@@ -5,6 +5,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE HTML>
+<%@page import="za.co.willemvisser.wpvhomecontroller.scheduler.WPVHomeControllerScheduler"%>
 <%@page import="za.co.willemvisser.wpvhomecontroller.config.ConfigController"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO"%>
@@ -45,6 +46,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		if (action != null && action.equals("reload")) {
 			ConfigController.INSTANCE.reloadRemoteXbeeConfig();
 			XbeeController.INSTANCE.loadXbeeConfig(ConfigController.INSTANCE.getXbeeConfigsDTO());	
+			WPVHomeControllerScheduler.INSTANCE.reloadSchedule();
 		} else if (action != null && action.equals("discover")) {
 			XbeeController.INSTANCE.discoverXbeeRing();
 		}
