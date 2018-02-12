@@ -18,17 +18,23 @@
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 		<link href="css/nav.css" rel="stylesheet" type="text/css" media="all"/>
 		<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic+SC' rel='stylesheet' type='text/css'>
+		
+		<link rel="stylesheet" href="css/wxug_core.css">		  
+		<link rel="stylesheet" href="css/wxug_omnibus.css">
+		<link rel="stylesheet" href="css/percentage_style.css">
+		
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/login.js"></script>
 		<script type="text/javascript" src="js/Chart.js"></script>
 		 <script type="text/javascript" src="js/jquery.easing.js"></script>
 		 <script type="text/javascript" src="js/jquery.ulslide.js"></script>
+		 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		 <!----Calender -------->
 		  <link rel="stylesheet" href="css/clndr.css" type="text/css" />
 		  <script src="js/underscore-min.js"></script>
 		  <script src= "js/moment-2.2.1.js"></script>
 		  <script src="js/clndr.js"></script>
-		  <script src="js/site.js"></script>
+		  <script src="js/site.js"></script>  
 		  <!----End Calender -------->
 	</head>
 	<body>
@@ -37,43 +43,17 @@
 			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");			
 		%>	
 		
-		<div class="wrap">	 
-	    	<div class="header">
-	      		<div class="header_top">
-					  <div class="menu">
-						  <a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
-							<ul class="nav">
-								<li><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
-								<li class="active"><a href="events.jsp"><i><img src="images/user.png" alt="" /></i>Events</a></li>
-								<li><a href="lights.jsp"><i><img src="images/mail.png" alt="" /></i>Lights</a></li>
-								<li><a href="settings.jsp"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>
-							<div class="clear"></div>
-						    </ul>
-							<script type="text/javascript" src="js/responsive-nav.js"></script>
-					</div>	
-					  
-		 		      <div class="clear"></div>				 
-				</div>
-			</div>	
-		</div>
+		<jsp:include page="inc/menuDiv.jsp">
+			<jsp:param name="active" value="Events" />
+		</jsp:include>
 		
 		<div class="main">  
-	    	<div class="wrap">	    
-			
+		
+	    	<div class="wrap">	    			
 				<div class="column_left">	          
-		    		 <div class="menu_box">
-		    		 	 <h3>Actions</h3>
-		    		 	   <div class="menu_box_list">
-					      		<ul>
-							  		<li class="active"><a href="events.jsp" class="account_settings"><span>Today</span></a></li>
-							  		<li><a href="eventAddSelectType.jsp" class="messages"><span>Add Event</span><div class="clear"></div></a></li>
-							  		<li><a href="#" class="invites"><span>Stop Current Event</span><div class="clear"></div></a></li>
-							  		<li><a href="#" class="events"><span>Clear Today</span><div class="clear"></div></a></li>							  		
-							  		<li><a href="irrigationDetail.jsp" class="statistics"><span>Detailed List</span></a></li>
-							  		<li><a href="eventsDirectEdit.jsp" class="account_settings"><span>Direct Edit</span></a></li>						  	
-					    		</ul>
-					      </div>
-		    		 </div>
+		    		 <jsp:include page="inc/menuEventsDiv.jsp">
+						<jsp:param name="active" value="Today" />
+					 </jsp:include>
 		    	</div>
 			</div>  <!-- wrap -->
 		

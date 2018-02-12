@@ -240,4 +240,20 @@
 			</device>
 		</devices>
 	</xbee>
+    <xbee>
+        <address>00 13 A2 00 00 00 00 00</address>
+        <name>Garage - Onion</name>
+        <id>12</id>
+        <devices>
+            <device>
+                <id>GARAGE_MAINDOOR</id>
+                <name>Garage - Main Door</name>
+                <portAddress>71</portAddress>
+                <port>0</port>
+                <logicalPort>0</logicalPort>
+                <digital>true</digital>
+                <type>Sensor</type>
+            </device>
+        </devices>
+    </xbee>
 </xbeeconfig>

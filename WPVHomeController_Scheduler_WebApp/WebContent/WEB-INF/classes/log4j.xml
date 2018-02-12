@@ -34,7 +34,7 @@
 	<logger name="za.co.willemvisser.wpvhomecontroller.xbee.ws.rest.XDeviceController"
 				additivity="false">
   		<appender-ref ref="console" />
-  		<level value="info"/> 
+  		<level value="WARNING"/> 
 	</logger>
 	
 	<logger name="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO"
@@ -52,19 +52,19 @@
 	<logger name="za.co.willemvisser.wpvhomecontroller.util.HttpUtil"
 				additivity="false">
   		<appender-ref ref="console" />
-  		<level value="info"/> 
+  		<level value="WARNING"/> 
 	</logger>
 	
 	<logger name="za.co.willemvisser.wpvhomecontroller.xbee.XbeeControllerPacketHandler"
 				additivity="false">
   		<appender-ref ref="console" />
-  		<level value="info"/> 
+  		<level value="WARNING"/> 
 	</logger>
 	
 	<logger name="za.co.willemvisser.wpvhomecontroller.xbee.XbeeController"
 			additivity="false">
   		<appender-ref ref="console" />
-  		<level value="info"/> 
+  		<level value="WARNING"/> 
 	</logger>
 	
 	<logger name="za.co.willemvisser.wpvhomecontroller.scheduler.WPVHomeControllerScheduler"
@@ -82,7 +82,7 @@
 	<logger name="za.co.willemvisser.wpvhomecontroller.scheduler.job.XbeeRemoteCommandJob"
 				additivity="false">
   		<appender-ref ref="console" />
-  		<level value="info"/> 
+  		<level value="WARNING"/> 
 	</logger>
 		
 	<logger name="com.rapplogic.xbee.RxTxSerialComm"

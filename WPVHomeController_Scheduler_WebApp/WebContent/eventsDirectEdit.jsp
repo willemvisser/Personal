@@ -37,43 +37,17 @@
 			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");			
 		%>	
 		
-		<div class="wrap">	 
-	    	<div class="header">
-	      		<div class="header_top">
-					  <div class="menu">
-						  <a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
-							<ul class="nav">
-								<li><a href="index.jsp"><i><img src="images/settings.png" alt="" /></i>Home</a></li>
-								<li class="active"><a href="events.jsp"><i><img src="images/user.png" alt="" /></i>Events</a></li>
-								<li><a href="lights.jsp"><i><img src="images/mail.png" alt="" /></i>Lights</a></li>
-								<li><a href="settings.jsp"><i><img src="images/settings.png" alt="" /></i>Settings</a></li>								
-							<div class="clear"></div>
-						    </ul>
-							<script type="text/javascript" src="js/responsive-nav.js"></script>
-					</div>	
-					  
-		 		      <div class="clear"></div>				 
-				</div>
-			</div>	
-		</div>
+		<jsp:include page="inc/menuDiv.jsp">
+			<jsp:param name="active" value="Events" />
+		</jsp:include>
 		
 		<div class="main">  
 	    	<div class="wrap">	    
 			
 				<div class="column_left">	          
-		    		 <div class="menu_box">
-		    		 	 <h3>Actions</h3>
-		    		 	   <div class="menu_box_list">
-					      		<ul>
-							  		<li class="active"><a href="events.jsp" class="account_settings"><span>Today</span></a></li>
-							  		<li><a href="eventAddSelectType.jsp" class="messages"><span>Add Event</span><div class="clear"></div></a></li>
-							  		<li><a href="#" class="invites"><span>Stop Current Event</span><div class="clear"></div></a></li>
-							  		<li><a href="#" class="events"><span>Clear Today</span><div class="clear"></div></a></li>							  		
-							  		<li><a href="irrigationDetail.jsp" class="statistics"><span>Detailed List</span></a></li>
-							  		<li><a href="eventsDirectEdit.jsp" class="account_settings"><span>Direct Event Edit</span></a></li>						  	
-					    		</ul>
-					      </div>
-		    		 </div>
+		    		 <jsp:include page="inc/menuEventsDiv.jsp">
+						<jsp:param name="active" value="Today" />
+					 </jsp:include>
 		    	</div>
 			</div>  <!-- wrap -->
 		
@@ -101,10 +75,7 @@
 				    	<ul>
 				    	<form action="eventsDirectEdit.jsp" method="POST">
 				    		<input type="hidden" name="action" value="uploadConfig"/>
-					    	<textarea name="jobConfigStr" style="width:100%; height:80%"> 
-							
-					    	<%=WPVHomeControllerScheduler.INSTANCE.getJobXmlConfigFromS3().trim()%>
-					    	</textarea>
+					    	<textarea name="jobConfigStr" style="width:100%; height:80%"><%=WPVHomeControllerScheduler.INSTANCE.getJobXmlConfigFromS3().trim()%></textarea>
 					    	
 					    	<input type="submit" class="my-button" value="Upload Config">
 						</form>

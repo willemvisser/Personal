@@ -40,7 +40,7 @@ public class DeviceController {
 		
 		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??
 		try {
-			log.info("Device setmapvalue: " + deviceId + ":" + mapValue);
+			log.debug("Device setmapvalue: " + deviceId + ":" + mapValue);
 			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeWithDeviceID(deviceId);
 			XbeeConfigDeviceDTO xbeeConfigDeviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);
 			
