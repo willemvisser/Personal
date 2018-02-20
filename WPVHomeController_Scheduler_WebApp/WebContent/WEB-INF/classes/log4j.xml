@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
-<log4j:configuration debug="true"
-	xmlns:log4j='http://jakarta.apache.org/log4j/'>
+<log4j:configuration debug="true" xmlns:log4j='http://jakarta.apache.org/log4j/'>
  
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 	    <layout class="org.apache.log4j.PatternLayout">
@@ -34,7 +33,7 @@
 	<logger name="za.co.willemvisser.wpvhomecontroller.xbee.ws.rest.XDeviceController"
 				additivity="false">
   		<appender-ref ref="console" />
-  		<level value="WARNING"/> 
+  		<level value="info"/> 
 	</logger>
 	
 	<logger name="za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO"
@@ -52,19 +51,19 @@
 	<logger name="za.co.willemvisser.wpvhomecontroller.util.HttpUtil"
 				additivity="false">
   		<appender-ref ref="console" />
-  		<level value="WARNING"/> 
+  		<level value="info"/> 
 	</logger>
 	
 	<logger name="za.co.willemvisser.wpvhomecontroller.xbee.XbeeControllerPacketHandler"
 				additivity="false">
   		<appender-ref ref="console" />
-  		<level value="WARNING"/> 
+  		<level value="info"/> 
 	</logger>
 	
 	<logger name="za.co.willemvisser.wpvhomecontroller.xbee.XbeeController"
 			additivity="false">
   		<appender-ref ref="console" />
-  		<level value="WARNING"/> 
+  		<level value="info"/> 
 	</logger>
 	
 	<logger name="za.co.willemvisser.wpvhomecontroller.scheduler.WPVHomeControllerScheduler"
@@ -82,7 +81,7 @@
 	<logger name="za.co.willemvisser.wpvhomecontroller.scheduler.job.XbeeRemoteCommandJob"
 				additivity="false">
   		<appender-ref ref="console" />
-  		<level value="WARNING"/> 
+  		<level value="info"/> 
 	</logger>
 		
 	<logger name="com.rapplogic.xbee.RxTxSerialComm"
