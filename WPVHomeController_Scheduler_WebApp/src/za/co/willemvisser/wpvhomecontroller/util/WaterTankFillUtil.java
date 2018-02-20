@@ -31,20 +31,48 @@ public enum WaterTankFillUtil {
 	 */
 	public void startPumping(int toWhatHeightInCm, int maxNoCycles) {
 		//TODO - when we start - we should check if all sensors are alive.
+		//TODO - if after x attempts the level hasn't changed - we should stop as it means probably something is broken - 
+		//			either the pipe or sensor
+		//TOOD - we should add a timestamp to depth reading
 		
 		pumping = true;
 		this.requestedFillDepth = toWhatHeightInCm;
 		
 		int noCycles = 0;
 		
+		
+		/*
+		 * Before we even start - we are going to check the depth
+		 */
+		
+		try {
+			updateCurrentDepth();
+			
+			if (this.requestedFillDepth == -1) {
+				this.requestedFillDepth = currentDepth - maxFillInCms;
+			}
+			
+			if (currentDepth <= minFillDepth) {
+				log.info("We are not going to add any water:" + currentDepth + " <= " + minFillDepth + " (min depth)" );
+				return;
+			} else if (currentDepth <= requestedFillDepth) {
+				log.info("We are not going to add any water:" +  currentDepth + " <= " + requestedFillDepth + " (requested depth): True!" );
+				return;
+			}
+			
+		} catch (Exception e) {
+			log.warn("Could not determine the depth of the tank, so we are not going to pump anything");			
+			return;
+		}
+		
+		
+		
 				
 		while (pumping) {
 			noCycles++;
 			
 			try {
-				StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet("http://192.168.1.202:8080/WPVHomeController_Scheduler_WebApp/xbee/device/getmapvalue/TANK_LEVEL"));
-				log.info("Tank Depth: " + response);
-				currentDepth = Integer.parseInt(response.toString());
+				updateCurrentDepth();
 				
 				if (this.requestedFillDepth == -1) {
 					this.requestedFillDepth = currentDepth - maxFillInCms;
@@ -136,6 +164,17 @@ public enum WaterTankFillUtil {
 		}
 		
 		switchOffPumpNow();
+	}
+	
+	/**
+	 * Retrieves the current tank depth
+	 * @throws IOException
+	 * @throws NumberFormatException
+	 */
+	private void updateCurrentDepth() throws IOException, NumberFormatException {
+		StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet("http://192.168.1.202:8080/WPVHomeController_Scheduler_WebApp/xbee/device/getmapvalue/TANK_LEVEL"));
+		log.info("Tank Depth: " + response);
+		currentDepth = Integer.parseInt(response.toString());
 	}
 	
 	private void switchOffPumpNow() {
