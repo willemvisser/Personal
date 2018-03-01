@@ -3,11 +3,26 @@ package za.co.willemvisser.wpvhomecontroller.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.log4j.Logger;
 
 public enum HttpUtil {
@@ -32,6 +47,47 @@ public enum HttpUtil {
 		log.debug("doHttpGet (" + url + ") Response Status: " + response.getStatusLine());		        
 
         return response;
+	}
+	
+	public HttpResponse doHttpsGet(String url) throws IOException, GeneralSecurityException {
+		TrustStrategy acceptingTrustStrategy = (cert, authType) -> true;
+	    SSLSocketFactory sf = new SSLSocketFactory(
+	      acceptingTrustStrategy, SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+	    SchemeRegistry registry = new SchemeRegistry();
+	    registry.register(new Scheme("https", 8443, sf));
+	    ClientConnectionManager ccm = new PoolingClientConnectionManager(registry);
+	 
+	    DefaultHttpClient httpClient = new DefaultHttpClient(ccm);
+	 
+	    HttpGet getMethod = new HttpGet(url);
+	     
+	    return httpClient.execute(getMethod);
+	}
+	
+	/**
+	 * @param url
+	 * @param params
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public HttpResponse doHttpResponse(String url, List<NameValuePair> params) 
+			  throws ClientProtocolException, IOException {
+			    CloseableHttpClient client = HttpClients.createDefault();
+			    HttpPost httpPost = new HttpPost(url);
+			 
+			    httpPost.setEntity(new UrlEncodedFormEntity(params));
+			    /*
+			    List<NameValuePair> params = new ArrayList<NameValuePair>();
+			    params.add(new BasicNameValuePair("username", "John"));
+			    params.add(new BasicNameValuePair("password", "pass"));
+			    httpPost.setEntity(new UrlEncodedFormEntity(params));
+			 	*/
+			    
+			    CloseableHttpResponse response = client.execute(httpPost);			    
+			    client.close();
+			    
+			    return response;
 	}
 	
 	/**

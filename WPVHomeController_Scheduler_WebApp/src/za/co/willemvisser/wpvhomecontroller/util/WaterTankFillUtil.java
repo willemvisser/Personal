@@ -48,20 +48,25 @@ public enum WaterTankFillUtil {
 		try {
 			updateCurrentDepth();
 			
+			TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... Start ... Current Depth: " + currentDepth);
+			
 			if (this.requestedFillDepth == -1) {
 				this.requestedFillDepth = currentDepth - maxFillInCms;
 			}
 			
 			if (currentDepth <= minFillDepth) {
 				log.info("We are not going to add any water:" + currentDepth + " <= " + minFillDepth + " (min depth)" );
+				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... We are already at required minimum depth: " + minFillDepth);
 				return;
 			} else if (currentDepth <= requestedFillDepth) {
 				log.info("We are not going to add any water:" +  currentDepth + " <= " + requestedFillDepth + " (requested depth): True!" );
+				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... We are already at requested depth: " + requestedFillDepth);
 				return;
 			}
 			
 		} catch (Exception e) {
-			log.warn("Could not determine the depth of the tank, so we are not going to pump anything");			
+			log.warn("Could not determine the depth of the tank, so we are not going to pump anything");		
+			TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... Unable to determine tank depth - nothing was pumped.");
 			return;
 		}
 		
@@ -80,6 +85,7 @@ public enum WaterTankFillUtil {
 				
 			} catch (Exception e) {
 				log.warn("Could not determine the depth of the tank, exiting");
+				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... Unable to determine tank depth - stopping at depth: " + currentDepth + " after " + noCycles + " cycles.");
 				pumping = false;
 				break;
 			}
@@ -91,6 +97,7 @@ public enum WaterTankFillUtil {
 				if (!response.toString().equals("OK")) {
 					pumping = false;
 					log.warn("Could not switch on irrigation pump for WaterTank, exiting");
+					TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... Unable to switch on pump - stopping at depth: " + currentDepth + " after " + noCycles + " cycles.");
 					break;
 				}
 				
@@ -99,6 +106,7 @@ public enum WaterTankFillUtil {
 				Thread.sleep(150);
 			} catch (IOException io) {
 				log.warn("Could not switch on irrigation pump for WaterTank, exiting");
+				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... Unable to switch on pump - stopping at depth: " + currentDepth + " after " + noCycles + " cycles.");
 				pumping = false;
 				break;
 			} catch (InterruptedException ie) {
@@ -121,6 +129,7 @@ public enum WaterTankFillUtil {
 				if (!response.toString().equals("OK")) {
 					pumping = false;
 					log.warn("Could not switch off irrigation pump for WaterTank, exiting");
+					TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... Unable to switch off pump - stopping at depth: " + currentDepth + " after " + noCycles + " cycles.");
 					switchOffPumpNow();
 					break;
 				} else {
@@ -130,6 +139,7 @@ public enum WaterTankFillUtil {
 				
 			} catch (IOException io) {
 				log.warn("Could not switch off irrigation pump for WaterTank, exiting");
+				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... Unable to switch off pump - stopping at depth: " + currentDepth + " after " + noCycles + " cycles.");
 				pumping = false;
 				break;
 			}
@@ -138,15 +148,18 @@ public enum WaterTankFillUtil {
 				log.info( currentDepth + " <= " + minFillDepth + " (min depth): True!" );
 				pumping = false;
 				log.info("Stopping");
-				log.info("We are now on depth: " + currentDepth);
+				log.info("Stopping, we are now on depth: " + currentDepth);
+				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... stopping at depth: " + currentDepth + " after " + noCycles + " cycles, we have reached minimum fill depth: " + minFillDepth);
 			} else if (currentDepth <= requestedFillDepth) {
 				log.info( currentDepth + " <= " + requestedFillDepth + " (requested depth): True!" );
 				pumping = false;				
 				log.info("We are now on depth: " + currentDepth);
+				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... stopping at depth: " + currentDepth + " after " + noCycles + " cycles, we have reached requested fill depth: " + requestedFillDepth);
 			} else if (noCycles >= maxNoCycles) {
 				log.info( "We have reached the max no of cycles for the job: " + maxNoCycles );
 				pumping = false;
 				log.info("We are now on depth: " + currentDepth);
+				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... stopping at depth: " + currentDepth + " after " + noCycles + " cycles (Max cycles reached)");
 			} else {
 				log.info( currentDepth + " <= " + requestedFillDepth + ": False!" );								
 				
