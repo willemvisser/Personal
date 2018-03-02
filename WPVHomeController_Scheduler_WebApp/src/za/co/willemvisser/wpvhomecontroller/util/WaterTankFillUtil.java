@@ -66,7 +66,7 @@ public enum WaterTankFillUtil {
 			
 		} catch (Exception e) {
 			log.warn("Could not determine the depth of the tank, so we are not going to pump anything");		
-			TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... Unable to determine tank depth - nothing was pumped.");
+			TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... Not Started ... Unable to determine tank depth - nothing was pumped.");
 			return;
 		}
 		
