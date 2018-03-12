@@ -23,13 +23,14 @@ public enum WaterTankFillUtil {
 													
 	private int currentDepth = 0;
 	
-	
+	private int DEFAULT_FILL_TIME_IN_SECS = 80;		
 	
 	/**
 	 * @param toWhatHeightInCm
 	 * @param maxNoCycles	The maximum number of cycles we will pump in one job - safeguard to not drain the wellpoint
+	 * @param fillTimeInSecs The number of seconds to keep on pumping
 	 */
-	public void startPumping(int toWhatHeightInCm, int maxNoCycles) {
+	public void startPumping(int toWhatHeightInCm, int maxNoCycles, int fillTimeInSecs) {
 		//TODO - when we start - we should check if all sensors are alive.
 		//TODO - if after x attempts the level hasn't changed - we should stop as it means probably something is broken - 
 		//			either the pipe or sensor
@@ -39,6 +40,7 @@ public enum WaterTankFillUtil {
 		this.requestedFillDepth = toWhatHeightInCm;
 		
 		int noCycles = 0;
+		int pumpingTime = fillTimeInSecs == -1 ? DEFAULT_FILL_TIME_IN_SECS * 1000 : fillTimeInSecs * 1000;
 		
 		
 		/*
@@ -48,7 +50,8 @@ public enum WaterTankFillUtil {
 		try {
 			updateCurrentDepth();
 			
-			TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... Start ... Current Depth: " + currentDepth);
+			TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... Start with pumpingTime=" + pumpingTime + 
+					" ... Current Depth: " + currentDepth);
 			
 			if (this.requestedFillDepth == -1) {
 				this.requestedFillDepth = currentDepth - maxFillInCms;
@@ -115,7 +118,8 @@ public enum WaterTankFillUtil {
 			
 			
 			try {
-				Thread.sleep(80000);
+				
+				Thread.sleep(pumpingTime);
 			} catch (Exception e) {
 				log.warn("Thread sleep got interruped");
 				//Do nothing - it is OK if we get interrupted

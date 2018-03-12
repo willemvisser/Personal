@@ -11,7 +11,8 @@
 					      		HashMap<XBeeAddress64, XbeeConfigDTO> xbeeMap = XbeeController.INSTANCE.getXbeeDeviceMap();
 					      		for (XbeeConfigDTO xbeeConfigDTO : xbeeMap.values()) {
 					      			for (XbeeConfigDeviceDTO xbeeConfigDeviceDTO : xbeeConfigDTO.getDeviceList()) {
-					      				if (xbeeConfigDeviceDTO.getId().contains("_LED") || 
+					      				if (xbeeConfigDeviceDTO.getId().contains("KITCHEN_LED") ||					      						
+					      						xbeeConfigDeviceDTO.getName().equals("Wellpoint Pump") ||
 					      						xbeeConfigDeviceDTO.getName().equals("Pathway Lights") ||
 					      						xbeeConfigDeviceDTO.getName().equals("Pool Pump")) {
 						      				%>

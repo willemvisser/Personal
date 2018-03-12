@@ -27,10 +27,18 @@ public class WaterTankFillJob implements InterruptableJob {
 			throw new JobExecutionException("No 'maxNoCycles' specified");
 		}
 		
+		String pumpingTimeStr = data.getString("pumpingTime");
+		if (pumpingTimeStr == null) {
+			throw new JobExecutionException("No 'pumpingTime' specified");
+		}
+		
+		
+		
 		try {
 			int fillDepth = Integer.parseInt(fillDepthStr);
 			int maxNoCycles = Integer.parseInt(maxNoCyclesStr);
-			WaterTankFillUtil.INSTANCE.startPumping(fillDepth, maxNoCycles);
+			int pumpingTime = Integer.parseInt(pumpingTimeStr);
+			WaterTankFillUtil.INSTANCE.startPumping(fillDepth, maxNoCycles, pumpingTime);
 		} catch (Exception e) {
 			throw new JobExecutionException("Could not retrieve fill depth from the specified value: " + fillDepthStr);
 		}
