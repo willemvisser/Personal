@@ -53,8 +53,12 @@ public class SchedulerServletListener implements ServletContextListener {
 			e.printStackTrace();
 		}
 		
-		/* Shutting down Xbee Controller */
-		XbeeController.INSTANCE.shutdown();
+		try {
+			/* Shutting down Xbee Controller */
+			XbeeController.INSTANCE.shutdown();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
