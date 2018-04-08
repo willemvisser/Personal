@@ -71,8 +71,7 @@ public enum ConfigController {
 	public String getHostName() {
 		StringBuffer hostNameBuffer = new StringBuffer();
 		try {
-			String hostname = InetAddress.getLocalHost().getHostName();
-			log.info("Hostname: " + hostname);
+			String hostname = InetAddress.getLocalHost().getHostName();			
 			hostNameBuffer.append(hostname);
 			hostNameBuffer.append("_");
 		} catch (Exception e) {
