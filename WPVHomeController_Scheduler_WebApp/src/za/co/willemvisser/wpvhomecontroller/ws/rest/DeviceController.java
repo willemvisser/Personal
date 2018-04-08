@@ -1,11 +1,16 @@
 package za.co.willemvisser.wpvhomecontroller.ws.rest;
 
+import java.util.HashMap;
+import java.util.Random;
+
 import javax.ws.rs.GET;  
 import javax.ws.rs.Path;  
 import javax.ws.rs.PathParam;  
 import javax.ws.rs.Produces;  
 
 import org.apache.log4j.Logger;
+
+import com.rapplogic.xbee.api.XBeeAddress64;
 
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO;
@@ -21,9 +26,10 @@ public class DeviceController {
 	@Path("/getmapvalue/{deviceId}")  
 	@Produces("text/plain")  
     public String getDeviceMapValue(@PathParam("deviceId") String deviceId) {		
-		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??
+		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??						
+		
 		try {	
-			log.info("Device getmapvalue: " + deviceId);
+			log.debug("Device getmapvalue: " + deviceId);
 			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getXbeeWithDeviceID(deviceId);
 			XbeeConfigDeviceDTO xbeeConfigDeviceDTO = XbeeController.INSTANCE.getDeviceWithID(deviceId);			
 			return String.valueOf( xbeeConfigDTO.getRxResponseMap().get(Integer.valueOf(xbeeConfigDeviceDTO.getPortAddress())));						
@@ -51,4 +57,6 @@ public class DeviceController {
 			return "ERR";
 		}
 	}
+	
+	
 }

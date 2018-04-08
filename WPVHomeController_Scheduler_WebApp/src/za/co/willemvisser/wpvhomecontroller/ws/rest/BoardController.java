@@ -1,6 +1,8 @@
 package za.co.willemvisser.wpvhomecontroller.ws.rest;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.ws.rs.GET;  
 import javax.ws.rs.Path;  
@@ -8,6 +10,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;  
 
 import org.apache.log4j.Logger;
+
+import com.rapplogic.xbee.api.XBeeAddress64;
 
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO;
 import za.co.willemvisser.wpvhomecontroller.xbee.XbeeController;
@@ -65,6 +69,40 @@ public class BoardController {
 			return "OK";
 		} catch (Exception e) {
 			log.error("setDeviceMapValue: " + e.toString() );
+			return "ERR";
+		}
+	}
+	
+	@GET
+	@Path("/list")  
+	@Produces("text/plain")  
+    public String listAllBoards() {
+		
+		try {
+			Calendar oneMinuteBack = Calendar.getInstance();
+      		oneMinuteBack.add(Calendar.MINUTE, -1);
+      		
+			StringBuffer returnXml = new StringBuffer();
+			HashMap<XBeeAddress64, XbeeConfigDTO> xbeeMap = XbeeController.INSTANCE.getXbeeDeviceMap();
+      		for (XbeeConfigDTO xbeeConfigDTO : xbeeMap.values()) {
+      			returnXml.append("name:");	returnXml.append(xbeeConfigDTO.getName());	returnXml.append("\r\n");	
+      			
+      			returnXml.append("status:");      			
+      			if (xbeeConfigDTO.getLastSync() != null && xbeeConfigDTO.getLastSync().after(oneMinuteBack.getTime()) ) {
+      				returnXml.append("active");
+      			} else if (xbeeConfigDTO.getLastSync() == null) {      				
+      				returnXml.append("dead");
+      			} else if (xbeeConfigDTO.getLastSync().after(oneMinuteBack.getTime()) ) {      				
+      				returnXml.append("stale");
+      			}
+      			returnXml.append("\r\n");	
+      			
+      			returnXml.append("lastcomms:");	returnXml.append(xbeeConfigDTO.getLastSync());	returnXml.append("\r\n\r\n");
+      			
+      		}
+			return returnXml.toString();
+		} catch (Exception e) {
+			log.error("listAllBoards: " + e.toString() );
 			return "ERR";
 		}
 	}

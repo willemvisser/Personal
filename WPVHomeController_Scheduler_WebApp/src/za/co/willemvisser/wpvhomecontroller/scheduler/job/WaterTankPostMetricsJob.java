@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.quartz.InterruptableJob;
-import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.UnableToInterruptJobException;
@@ -13,7 +12,6 @@ import org.apache.log4j.Logger;
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.config.dto.GeneralPropertyDTO;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
-import za.co.willemvisser.wpvhomecontroller.util.WaterTankFillUtil;
 
 import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatchClientBuilder;
@@ -34,7 +32,13 @@ public class WaterTankPostMetricsJob implements InterruptableJob {
 			StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
 					ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_HTTP_URL).getValue()));
 						
-			double currentDepth = Double.parseDouble(response.toString());
+			double currentDepth = 0;
+			try {
+				currentDepth = Double.parseDouble(response.toString());
+			} catch (Exception ee) {
+				log.error("Could not retrieve current tank depth, not posting any metrics");
+				return;
+			}
 			
 			final AmazonCloudWatch cw =
 				    AmazonCloudWatchClientBuilder.defaultClient();
@@ -65,7 +69,7 @@ public class WaterTankPostMetricsJob implements InterruptableJob {
 				    .withNamespace("HomeAutomation")
 				    .withMetricData(datum);
 
-				PutMetricDataResult result = cw.putMetricData(request);
+				cw.putMetricData(request);
 				
 				log.debug("Tank metrics posted to CloudWatch");
 			
