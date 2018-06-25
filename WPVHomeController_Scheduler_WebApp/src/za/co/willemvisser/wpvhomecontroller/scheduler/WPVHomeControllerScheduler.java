@@ -104,7 +104,7 @@ public enum WPVHomeControllerScheduler {
 			props.setProperty("org.quartz.scheduler.skipUpdateCheck","true");
 			props.setProperty("org.quartz.jobStore.class", "org.quartz.simpl.RAMJobStore");
 			props.setProperty("org.quartz.threadPool.class", "org.quartz.simpl.SimpleThreadPool");
-			props.setProperty("org.quartz.threadPool.threadCount", "1");
+			props.setProperty("org.quartz.threadPool.threadCount", "4");
 			
 			SchedulerFactory schdFact = new StdSchedulerFactory(props);
 			
