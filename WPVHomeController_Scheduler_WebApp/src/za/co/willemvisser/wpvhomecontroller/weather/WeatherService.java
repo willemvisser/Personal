@@ -180,4 +180,37 @@ public enum WeatherService {
     		return "n.a.";
     	}
     }
+    
+    /**
+     * @return If it is predicted to rain more than 2 mm, return true
+     */
+    public boolean isItRainingToday() {
+    	try {
+    		ForecastDayDTO today = getForecastForToday();
+    		int mm = Integer.parseInt(today.getPrecipitationChance());
+    		if (mm > 2) {
+    			return true;
+    		} else {
+    			return false;
+    		}
+    	} catch (Exception e) {
+    		log.error("Could not determine raining change for today: " + e.toString());
+    		return false;
+    	}
+    }
+    
+    public boolean isItRainingTomorrow() {
+    	try {
+    		ForecastDayDTO today = getForecastForTomorrow();
+    		int mm = Integer.parseInt(today.getPrecipitationChance());
+    		if (mm > 2) {
+    			return true;
+    		} else {
+    			return false;
+    		}
+    	} catch (Exception e) {
+    		log.error("Could not determine raining change for today: " + e.toString());
+    		return false;
+    	}
+    }
 }
