@@ -187,7 +187,7 @@ public enum WeatherService {
     public boolean isItRainingToday() {
     	try {
     		ForecastDayDTO today = getForecastForToday();
-    		int mm = Integer.parseInt(today.getPrecipitationChance());
+    		int mm = Integer.parseInt(today.getPrecipitation());
     		if (mm > 1) {
     			return true;
     		} else {
@@ -202,7 +202,7 @@ public enum WeatherService {
     public boolean isItRainingTomorrow() {
     	try {
     		ForecastDayDTO today = getForecastForTomorrow();
-    		int mm = Integer.parseInt(today.getPrecipitationChance());
+    		int mm = Integer.parseInt(today.getPrecipitation());
     		if (mm > 1) {
     			return true;
     		} else {
