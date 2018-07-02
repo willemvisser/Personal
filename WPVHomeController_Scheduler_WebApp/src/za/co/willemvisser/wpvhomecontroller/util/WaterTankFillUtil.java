@@ -63,6 +63,8 @@ public enum WaterTankFillUtil {
 				} else {
 					log.info("It is raining tomorrow, but depth > 85, so we need to fill the tank");
 				}
+			} else {
+				log.info("Not raining today or tomorrow");
 			}
 			
 			if (this.requestedFillDepth == -1) {
