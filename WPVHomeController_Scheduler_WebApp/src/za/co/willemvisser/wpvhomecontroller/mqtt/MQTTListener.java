@@ -42,6 +42,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 			connectAndSubscribeToServer();
 			
 			while (isRunning) {
+				//Do Nothing
 				
 			}
 		} catch (Exception e) {
@@ -65,9 +66,9 @@ public class MQTTListener implements Runnable, MqttCallback {
 		client = new MqttClient(broker, clientId, persistence);
         MqttConnectOptions connOpts = new MqttConnectOptions();
         connOpts.setCleanSession(true);
-        log.debug("Connecting to broker: "+broker);
+        log.info("Connecting to broker: "+broker);
         client.connect(connOpts);
-        log.debug("Connected");    
+        log.info("Connected");    
         client.setCallback(this);
         client.subscribe("wpvserver/tank1_depth");
 	}
@@ -104,7 +105,8 @@ public class MQTTListener implements Runnable, MqttCallback {
 			try {
 				currentDepth = Double.parseDouble(response.toString());
 			} catch (Exception ee) {
-				log.error("Could not retrieve current tank depth, not posting any metrics");
+				log.error("Could not retrieve current tank depth, not posting tank depth to MQTT");
+				log.error(ee);
 				return;
 			}
 			

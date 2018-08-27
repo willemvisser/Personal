@@ -37,6 +37,7 @@ public class WaterTankPostMetricsJob implements InterruptableJob {
 				currentDepth = Double.parseDouble(response.toString());
 			} catch (Exception ee) {
 				log.error("Could not retrieve current tank depth, not posting any metrics");
+				log.error(ee);
 				return;
 			}
 			
