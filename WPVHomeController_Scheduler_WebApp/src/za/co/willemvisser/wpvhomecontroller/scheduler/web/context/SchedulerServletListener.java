@@ -14,8 +14,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.http.HttpResponse;
-
-import jdk.internal.jline.internal.Log;
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.config.dto.GeneralPropertiesDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.GeneralPropertyDTO;
