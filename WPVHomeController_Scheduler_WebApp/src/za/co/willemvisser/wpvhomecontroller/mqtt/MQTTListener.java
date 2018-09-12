@@ -101,9 +101,13 @@ public class MQTTListener implements Runnable, MqttCallback {
 			StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
 					ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_HTTP_URL).getValue()));
 						
-			double currentDepth = 0;
+			long currentDepth = 0;
 			try {
-				currentDepth = Double.parseDouble(response.toString());
+				double tankDepthInCm = Double.parseDouble(response.toString()); 
+				
+				
+				currentDepth = (long) ((198.0 - tankDepthInCm + 13.2) / 198.0 * 100);  
+				
 			} catch (Exception ee) {
 				log.error("Could not retrieve current tank depth, not posting tank depth to MQTT");
 				log.error(ee);
