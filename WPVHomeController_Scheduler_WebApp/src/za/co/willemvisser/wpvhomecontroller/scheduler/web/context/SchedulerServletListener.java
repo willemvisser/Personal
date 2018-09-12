@@ -15,6 +15,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.http.HttpResponse;
 
+import jdk.internal.jline.internal.Log;
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.config.dto.GeneralPropertiesDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.GeneralPropertyDTO;
@@ -79,12 +80,21 @@ public class SchedulerServletListener implements ServletContextListener {
 			WPVHomeControllerScheduler.INSTANCE.startScheduler(ipAddress);
 			
 			ConfigController.INSTANCE.init("54.68.136.170", context.getServletContext());
-						
-			XbeeController.INSTANCE.init("/dev/ttyUSB0", 9600, ConfigController.INSTANCE.getXbeeConfigsDTO());
-			
+												
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
+		
+		try { 
+			
+			String xbeePortName = ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_PORTNAME).getValue();
+			int xbeeBaudRate = Integer.parseInt(ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_BAUDRATE).getValue());
+			
+			XbeeController.INSTANCE.init(xbeePortName, xbeeBaudRate, ConfigController.INSTANCE.getXbeeConfigsDTO());
+		} catch (Exception e) {
+			System.out.println("WARNING *** - Could not start up Xbee: " + e.getMessage());
+			e.printStackTrace();
+		}
 		
 		
 	}

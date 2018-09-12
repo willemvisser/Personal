@@ -70,13 +70,13 @@ public class MQTTListener implements Runnable, MqttCallback {
         client.connect(connOpts);
         log.info("Connected");    
         client.setCallback(this);
-        client.subscribe("wpvserver/tank1_depth");
+        //client.subscribe("wpvserver/tank1_depth");
+        client.subscribe(TOPIC_CMD_TANK1_DEPTH);
 	}
 
 	@Override
 	public void connectionLost(Throwable arg0) {
 		log.error("Connection lost");
-		
 	}
 
 	@Override

@@ -53,11 +53,13 @@ public enum XbeeController {
 	 * @throws XBeeException 
 	 */
 	public void init(String port, int baudRate, XbeeConfigsDTO xbeeConfigsDTO) throws XBeeException {
+		log.info("Xbee connecting to port '" + port + "' with baud rate of '" + baudRate + "'");
 		xbee = new XBee();
 		
 		boolean xbeeEnabled = Boolean.parseBoolean(ConfigController.INSTANCE.getGeneralProperty(GeneralPropertyDTO.PROP_XBEE_ENABLED).getValue());
 		if (xbeeEnabled) {
 			xbee.open(port, baudRate);
+			log.info("Connected to Xbee OK");
 			xbee.addPacketListener(new XbeeControllerPacketHandler());
 		}
 		
