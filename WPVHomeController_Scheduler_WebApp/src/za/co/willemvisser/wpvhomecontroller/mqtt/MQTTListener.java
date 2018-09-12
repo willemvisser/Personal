@@ -107,6 +107,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 				currentDepth = (long) ((198.0 - tankDepthInCm + 13.2) / 198.0 * 100);  
 				
 			} catch (Exception ee) {
+				currentDepth = -111;
 				log.error("Could not retrieve current tank depth, posting a value of -111");
 				log.error(ee);				
 			}
