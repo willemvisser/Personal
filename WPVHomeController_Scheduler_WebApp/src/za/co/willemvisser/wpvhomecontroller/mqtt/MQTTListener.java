@@ -103,15 +103,12 @@ public class MQTTListener implements Runnable, MqttCallback {
 						
 			long currentDepth = 0;
 			try {
-				double tankDepthInCm = Double.parseDouble(response.toString()); 
-				
-				
+				double tankDepthInCm = Double.parseDouble(response.toString()); 								
 				currentDepth = (long) ((198.0 - tankDepthInCm + 13.2) / 198.0 * 100);  
 				
 			} catch (Exception ee) {
-				log.error("Could not retrieve current tank depth, not posting tank depth to MQTT");
-				log.error(ee);
-				return;
+				log.error("Could not retrieve current tank depth, posting a value of -111");
+				log.error(ee);				
 			}
 			
 			MqttMessage message = new MqttMessage((currentDepth+"").getBytes());
