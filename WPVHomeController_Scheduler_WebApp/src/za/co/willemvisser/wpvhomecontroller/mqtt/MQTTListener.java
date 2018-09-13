@@ -104,10 +104,10 @@ public class MQTTListener implements Runnable, MqttCallback {
 						
 			log.info("Tank Depth Response: " + response);
 			
-			long currentDepth = 0;
+			double currentDepth = 0;
 			try {
 				double tankDepthInCm = Double.parseDouble(response.toString()); 								
-				currentDepth = (long) ((198.0 - tankDepthInCm + 13.2) / 198.0 * 100);  
+				currentDepth = ((198.0 - tankDepthInCm + 13.2) / 198.0 * 100);  
 				
 			} catch (Exception ee) {
 				currentDepth = -111;
@@ -118,6 +118,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 			log.info("Current Depth: " + currentDepth);
 			
 			MqttMessage message = new MqttMessage((currentDepth+"").getBytes());
+			log.info("MQTT Message: " + message.toString());
             message.setQos(qos);
             client.publish(TOPIC_STAT_TANK1_DEPTH, message);
             log.info("Tank1 STAT MQTT Message published");
