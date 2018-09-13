@@ -2,8 +2,8 @@ package za.co.willemvisser.wpvhomecontroller.mqtt;
 
 import org.apache.log4j.Logger;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
-import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -19,7 +19,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 	private String clientId     = "wpvserver";
 	
 	static Logger log = Logger.getLogger(MQTTListener.class.getName());	
-	private MqttClient client;
+	private MqttAsyncClient client;
 	private boolean isRunning = false;
 	
 	private MemoryPersistence persistence = new MemoryPersistence();
@@ -63,15 +63,16 @@ public class MQTTListener implements Runnable, MqttCallback {
 	}
 	
 	private void connectAndSubscribeToServer() throws MqttException {
-		client = new MqttClient(broker, clientId, persistence);
+		client = new MqttAsyncClient(broker, clientId, persistence);
         MqttConnectOptions connOpts = new MqttConnectOptions();
         connOpts.setCleanSession(true);
+        connOpts.setKeepAliveInterval(15);
         log.info("Connecting to broker: "+broker);
         client.connect(connOpts);
         log.info("Connected");    
         client.setCallback(this);
         //client.subscribe("wpvserver/tank1_depth");
-        client.subscribe(TOPIC_CMD_TANK1_DEPTH);
+        client.subscribe(TOPIC_CMD_TANK1_DEPTH, qos);
 	}
 
 	@Override
