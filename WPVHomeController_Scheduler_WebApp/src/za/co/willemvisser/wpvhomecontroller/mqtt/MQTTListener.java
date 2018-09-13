@@ -2,8 +2,8 @@ package za.co.willemvisser.wpvhomecontroller.mqtt;
 
 import org.apache.log4j.Logger;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -14,12 +14,12 @@ import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
 
 public class MQTTListener implements Runnable, MqttCallback {
 
-	private int qos             = 2;
+	private int qos             = 0;
 	private String broker       = "tcp://192.168.1.200:1883";
 	private String clientId     = "wpvserver";
 	
 	static Logger log = Logger.getLogger(MQTTListener.class.getName());	
-	private MqttAsyncClient client;
+	private MqttClient client;
 	private boolean isRunning = false;
 	
 	private MemoryPersistence persistence = new MemoryPersistence();
@@ -63,7 +63,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 	}
 	
 	private void connectAndSubscribeToServer() throws MqttException {
-		client = new MqttAsyncClient(broker, clientId, persistence);
+		client = new MqttClient(broker, clientId, persistence);
         MqttConnectOptions connOpts = new MqttConnectOptions();
         connOpts.setCleanSession(true);
         connOpts.setKeepAliveInterval(15);
