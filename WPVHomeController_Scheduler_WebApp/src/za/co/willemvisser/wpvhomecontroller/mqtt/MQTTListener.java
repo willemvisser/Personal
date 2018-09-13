@@ -11,6 +11,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
+import za.co.willemvisser.wpvhomecontroller.util.NumberUtil;
 
 public class MQTTListener implements Runnable, MqttCallback {
 
@@ -70,8 +71,7 @@ public class MQTTListener implements Runnable, MqttCallback {
         log.info("Connecting to broker: "+broker);
         client.connect(connOpts);
         log.info("Connected");    
-        client.setCallback(this);
-        //client.subscribe("wpvserver/tank1_depth");
+        client.setCallback(this);        
         client.subscribe(TOPIC_CMD_TANK1_DEPTH, qos);
 	}
 
@@ -95,6 +95,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 		} else {
 			log.error("Unknown message!: " + topic + " -> " + mqttMessage);
 		}
+		log.info("messageArrived Done (DELME)");
 	}
 	
 	private void postCurrentTank1Depth() {
@@ -108,7 +109,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 			double currentDepth = 0;
 			try {
 				double tankDepthInCm = Double.parseDouble(response.toString()); 								
-				currentDepth = ((198.0 - tankDepthInCm + 13.2) / 198.0 * 100);  
+				currentDepth = NumberUtil.round( ((198.0 - tankDepthInCm + 13.2) / 198.0 * 100), 2);  
 				
 			} catch (Exception ee) {
 				currentDepth = -111;
@@ -118,10 +119,12 @@ public class MQTTListener implements Runnable, MqttCallback {
 			
 			log.info("Current Depth: " + currentDepth);
 			
-			MqttMessage message = new MqttMessage((currentDepth+"").getBytes());
-			log.info("MQTT Message: " + message.toString());
-            message.setQos(qos);
-            client.publish(TOPIC_STAT_TANK1_DEPTH, message);
+//			MqttMessage message = new MqttMessage((currentDepth+"").getBytes());
+//			log.info("MQTT Message: " + message.toString());
+//            message.setQos(qos);
+            //client.publish(TOPIC_STAT_TANK1_DEPTH, message);
+			log.info("Sending MQTT message ...");
+            client.publish(TOPIC_STAT_TANK1_DEPTH, (currentDepth+"").getBytes(), qos, false);
             log.info("Tank1 STAT MQTT Message published");
             
 		} catch (Exception e) {
