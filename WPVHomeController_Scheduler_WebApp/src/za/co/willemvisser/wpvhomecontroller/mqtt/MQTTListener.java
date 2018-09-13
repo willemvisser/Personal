@@ -43,8 +43,12 @@ public class MQTTListener implements Runnable, MqttCallback {
 			connectAndSubscribeToServer();
 			
 			while (isRunning) {
-				//Do Nothing
-				
+				try {
+					myThread.sleep(250);
+					myThread.yield();					
+				} catch (Exception e) {
+					//Do Nothing
+				}				
 			}
 		} catch (Exception e) {
 			log.error("Could not start MQTTListener thread: " + e);
