@@ -124,12 +124,13 @@ public class MQTTListener implements Runnable, MqttCallback {
 			
 			log.info("Current Depth: " + currentDepth);
 			
-//			MqttMessage message = new MqttMessage((currentDepth+"").getBytes());
-//			log.info("MQTT Message: " + message.toString());
-//            message.setQos(qos);
-            //client.publish(TOPIC_STAT_TANK1_DEPTH, message);
+			StringBuffer responseForLastUpdated = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
+					ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_LASTUPDATED_HTTP_URL).getValue()));
+			log.info("Tank Level Last Updated: " + responseForLastUpdated);
+			
+
 			log.info("Sending MQTT message ...");
-            client.publish(TOPIC_STAT_TANK1_DEPTH, (currentDepth+"").getBytes(), qos, false);
+            client.publish(TOPIC_STAT_TANK1_DEPTH, (currentDepth + "|" + responseForLastUpdated).getBytes(), qos, false);
             log.info("Tank1 STAT MQTT Message published");
             
 		} catch (Exception e) {
