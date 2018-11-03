@@ -7,7 +7,7 @@ public enum DateUtil {
 	
 	INSTANCE;
 	
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	/**
 	 * @param date
