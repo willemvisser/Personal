@@ -63,8 +63,9 @@ public class BoardController {
 		
 		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??
 		try {
-			log.info("Board setmapvalue: " + boardId + ":" + mapIndex + ":" + mapValue);
-			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getBoardWithID(boardId);
+			
+			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getBoardWithID(boardId);			
+			log.info("Board (" + xbeeConfigDTO.getName() + ") setmapvalue (index:value): " + mapIndex + ":" + mapValue);			
 			xbeeConfigDTO.getRxResponseMap().put(mapIndex, mapValue);	
 			xbeeConfigDTO.setLastSync(new Date());
 			return "OK";
