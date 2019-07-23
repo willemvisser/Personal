@@ -130,8 +130,18 @@ public class XbeeConfigDTO implements Serializable {
 	public void setRxResponseEntry(int[] data) {
 		if (rxResponseMap == null) {
 			rxResponseMap = new HashMap<Integer, Integer>();
+			rxResponseMap.put(Integer.valueOf(data[0]), Integer.valueOf(data[1]) );
+		} else {
+			//TODO - we want to build in something to ignore the false 0 readings from Water meter
+			//TODO - for now, since this is the only Xbee we have in the ring, going to hardcode it (yes I know - bad idea!)
+			if (data[1] != 0) {
+				rxResponseMap.put(Integer.valueOf(data[0]), Integer.valueOf(data[1]) );
+			} else {
+				log.info("TODO - hardcoded ignore 0 value - not setting!");
+			}
 		}
-		rxResponseMap.put(Integer.valueOf(data[0]), Integer.valueOf(data[1]) );
+		
+		
 		
 		StringBuffer dataBuffer = new StringBuffer();
 		for (int i=0; i<data.length; i++) {
