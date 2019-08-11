@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.config.dto.GeneralPropertyDTO;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
+import za.co.willemvisser.wpvhomecontroller.util.NumberUtil;
 
 import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatchClientBuilder;
@@ -33,8 +34,10 @@ public class WaterTankPostMetricsJob implements InterruptableJob {
 					ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_HTTP_URL).getValue()));
 						
 			double currentDepth = 0;
+			double percentageFull = 0;
 			try {
 				currentDepth = Double.parseDouble(response.toString());
+				percentageFull = NumberUtil.round( ((198.0 - currentDepth + 13.2) / 198.0 * 100), 2);
 			} catch (Exception ee) {
 				log.error("Could not retrieve current tank depth, not posting any metrics");
 				log.error(ee);
@@ -65,10 +68,17 @@ public class WaterTankPostMetricsJob implements InterruptableJob {
 				    .withUnit(StandardUnit.None)
 				    .withValue(currentDepth)
 				    .withDimensions(dimensions);
+				
+				MetricDatum datum2 = new MetricDatum()
+					    .withMetricName("Water Tank Percentage Full")
+					    .withUnit(StandardUnit.None)
+					    .withValue(percentageFull)
+					    .withDimensions(dimensions);
 
 				PutMetricDataRequest request = new PutMetricDataRequest()
 				    .withNamespace("HomeAutomation")
-				    .withMetricData(datum);
+				    .withMetricData(datum)
+				    .withMetricData(datum2);
 
 				cw.putMetricData(request);
 				
