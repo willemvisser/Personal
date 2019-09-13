@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
-import za.co.willemvisser.wpvhomecontroller.weather.WeatherService;
 
 public enum WaterTankFillUtil {
 
@@ -55,6 +54,7 @@ public enum WaterTankFillUtil {
 			TelegramUtil.INSTANCE.sendMessage("Water Tank Fill Job ... Start with pumpingTime=" + pumpingTime + 
 					" ... Current Depth: " + currentDepth);
 			
+			/*
 			if (WeatherService.INSTANCE.isItRainingToday() || WeatherService.INSTANCE.isItRainingTomorrow()) {
 				if (currentDepth <= 85) {
 					log.info("It is raining today/tomorrow, and depth <= 85 so not filling the tank (or stopping).");
@@ -66,6 +66,7 @@ public enum WaterTankFillUtil {
 			} else {
 				log.info("Not raining today or tomorrow");
 			}
+			*/
 			
 			if (this.requestedFillDepth == -1) {
 				this.requestedFillDepth = currentDepth - maxFillInCms;
