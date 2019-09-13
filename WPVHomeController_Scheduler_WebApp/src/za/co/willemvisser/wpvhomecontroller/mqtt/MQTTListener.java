@@ -82,6 +82,7 @@ public class MQTTListener implements Runnable, MqttCallback {
         log.info("Connected");    
         client.setCallback(this);        
         client.subscribe(TOPIC_CMD_TANK1_DEPTH, qos);
+        client.subscribe(TOPIC_CMD_WEATHER_TODAY, qos);
 	}
 
 	@Override
