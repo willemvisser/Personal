@@ -12,6 +12,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
 import za.co.willemvisser.wpvhomecontroller.util.NumberUtil;
+import za.co.willemvisser.wpvhomecontroller.weather.OpenWeatherService;
 
 public class MQTTListener implements Runnable, MqttCallback {
 
@@ -28,6 +29,9 @@ public class MQTTListener implements Runnable, MqttCallback {
 	
 	public static final String TOPIC_CMD_TANK1_DEPTH = "wpvserver/cmd/tank1_depth";
 	public static final String TOPIC_STAT_TANK1_DEPTH = "wpvserver/stat/tank1_depth";
+	
+	public static final String TOPIC_CMD_WEATHER_TODAY = "wpvserver/cmd/weather_today";
+	public static final String TOPIC_STAT_WEATHER_TODAY = "wpvserver/stat/weather_today";
 	
 	public MQTTListener() {
 		super();
@@ -97,6 +101,10 @@ public class MQTTListener implements Runnable, MqttCallback {
 		log.info("Received on topic '" + topic + "': " + mqttMessage.toString());
 		if (topic.equals(TOPIC_CMD_TANK1_DEPTH)) {
 			postCurrentTank1Depth();
+		} else if (topic.startsWith(TOPIC_CMD_WEATHER_TODAY)) {
+			log.info("Dropping in to weather mqtt cmds");
+			log.info("mqqtMessage: " + mqttMessage.toString());
+			postTodaysWeather();
 		} else {
 			log.error("Unknown message!: " + topic + " -> " + mqttMessage);
 		}
@@ -135,6 +143,21 @@ public class MQTTListener implements Runnable, MqttCallback {
             
 		} catch (Exception e) {
 			log.error("Could not post tank depth to MQTT: " + e);
+		}
+	}
+	
+	/**
+	 *  Posting today's weather to MQTT 
+	 */
+	private void postTodaysWeather() {
+		try {
+			log.info("Posting Today's Weather to MQTT ...");
+									
+            client.publish(TOPIC_STAT_WEATHER_TODAY, (OpenWeatherService.INSTANCE.getCurrentForecast().toJSONString()).getBytes(), qos, false);
+            log.info("Today's Weather STAT MQTT Message published");
+            
+		} catch (Exception e) {
+			log.error("Could not today's weather to MQTT: " + e);
 		}
 	}
 
