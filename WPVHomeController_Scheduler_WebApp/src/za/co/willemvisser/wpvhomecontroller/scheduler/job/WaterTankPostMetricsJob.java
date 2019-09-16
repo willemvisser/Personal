@@ -26,6 +26,9 @@ public class WaterTankPostMetricsJob implements InterruptableJob {
 
 	static Logger log = Logger.getLogger(WaterTankPostMetricsJob.class.getName());
 	
+	final AmazonCloudWatch cw =
+		    AmazonCloudWatchClientBuilder.defaultClient();
+	
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 					
@@ -43,10 +46,7 @@ public class WaterTankPostMetricsJob implements InterruptableJob {
 				log.error(ee);
 				return;
 			}
-			
-			final AmazonCloudWatch cw =
-				    AmazonCloudWatchClientBuilder.defaultClient();
-
+						
 				
 				Collection<Dimension> dimensions = new ArrayList<Dimension>();
 			
@@ -85,6 +85,7 @@ public class WaterTankPostMetricsJob implements InterruptableJob {
 				log.debug("Tank metrics posted to CloudWatch");
 			
 		} catch (Exception e) {
+			log.error("Water Tank Post metrics error (posting to AWS: " + e);
 			throw new JobExecutionException("Could not post metrics to CloudWatch for Water Tank", e);
 		}
         
