@@ -55,12 +55,12 @@ public enum OpenWeatherService {
 	 */
 	public synchronized ForecastDayDTO getCurrentForecast() {
 		
-		Calendar calAnHourAgo = new GregorianCalendar();
-		calAnHourAgo.add(Calendar.HOUR_OF_DAY, -1);
+		Calendar calAWhileAgo = new GregorianCalendar();
+		calAWhileAgo.add(Calendar.MINUTE, -15);
 		
 		if (lastUpdatedTodaysForecast == null 
 				|| cachedForecastDayDTO == null
-				|| lastUpdatedTodaysForecast.before(calAnHourAgo.getTime()) ) {
+				|| lastUpdatedTodaysForecast.before(calAWhileAgo.getTime()) ) {
 		
 			log.info("Refreshing daily weather data from OpenWeatherService ...");
 			
