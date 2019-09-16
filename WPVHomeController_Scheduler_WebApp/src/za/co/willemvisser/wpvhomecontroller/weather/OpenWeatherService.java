@@ -93,8 +93,8 @@ public enum OpenWeatherService {
 	                forecastDayDTO.setTempMax(jsonObjectMain.getDouble("temp_max"));
 	                	                	                
 	                JSONObject jsonObjectWind = jsonObj.getJSONObject("wind");
-	                forecastDayDTO.setTemp(jsonObjectWind.getDouble("speed"));
-	                //forecastDayDTO.setTemp(jsonObjectWind.getInt("deg"));
+	                forecastDayDTO.setWindSpeed(jsonObjectWind.getDouble("speed"));
+	                forecastDayDTO.setWindDegrees(jsonObjectWind.getInt("deg"));
 	                
 	                JSONObject jsonObjectCloud = jsonObj.getJSONObject("clouds");
 	                forecastDayDTO.setCloudCover(jsonObjectCloud.getInt("all"));
@@ -109,7 +109,7 @@ public enum OpenWeatherService {
 	                log.info("Temp Min: " + forecastDayDTO.getTempMin());
 	                log.info("Temp Max: " + forecastDayDTO.getTempMax());
 	                log.info("Wind Speed: " + forecastDayDTO.getWindSpeed());
-	                //System.out.println("Wind Dir: " + forecastDayDTO.getWindDegrees());
+	                log.info("Wind Dir: " + forecastDayDTO.getWindDegrees());
 	                log.info("Cloud Cover: " + forecastDayDTO.getCloudCover());
 	                log.info("Sunrise: " + forecastDayDTO.getSunrise());
 	                log.info("Sunset: " + forecastDayDTO.getSunset());

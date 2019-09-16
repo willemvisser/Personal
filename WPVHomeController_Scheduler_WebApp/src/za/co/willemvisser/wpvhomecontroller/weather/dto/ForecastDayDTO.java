@@ -123,6 +123,7 @@ public class ForecastDayDTO {
 		forecastJSON.put("tempMin", getTempMin());
 		forecastJSON.put("tempMax", getTempMax());
 		forecastJSON.put("windSpeed", getWindSpeed());
+		forecastJSON.put("windDegress", getWindDegrees());
 		forecastJSON.put("cloudCover", getCloudCover());
 		forecastJSON.put("sunrise", getSunrise());
 		forecastJSON.put("sunset", getSunset());
