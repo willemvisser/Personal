@@ -46,7 +46,7 @@ public class BoardController {
     public String getBoardMapValue(@PathParam("boardId") String boardId,  @PathParam("mapIndex") Integer mapIndex) {		
 		//TODO - we first need to determine what device type this is.  Perhaps we prefix the device ID with the type to identify it??
 		try {	
-			log.info("Board getmapvalue: " + boardId + ":" + mapIndex);
+			log.debug("Board getmapvalue: " + boardId + ":" + mapIndex);
 			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getBoardWithID(boardId);
 			return String.valueOf( xbeeConfigDTO.getRxResponseMap().get(mapIndex.intValue()) );						
 		} catch (Exception e) {
@@ -65,7 +65,7 @@ public class BoardController {
 		try {
 			
 			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getBoardWithID(boardId);			
-			log.info("Board (" + xbeeConfigDTO.getName() + ") setmapvalue (index:value): " + mapIndex + ":" + mapValue);			
+			log.debug("Board (" + xbeeConfigDTO.getName() + ") setmapvalue (index:value): " + mapIndex + ":" + mapValue);			
 			xbeeConfigDTO.getRxResponseMap().put(mapIndex, mapValue);	
 			xbeeConfigDTO.setLastSync(new Date());
 			return "OK";
