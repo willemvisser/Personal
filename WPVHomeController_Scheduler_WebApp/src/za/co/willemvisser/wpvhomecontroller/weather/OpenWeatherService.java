@@ -86,6 +86,7 @@ public enum OpenWeatherService {
 	                JSONArray jsonArrayWeather = jsonObj.getJSONArray("weather");	                
 	                forecastDayDTO.setDescription(jsonArrayWeather.getJSONObject(0).getString("main"));
 	                forecastDayDTO.setDescriptionExtended(jsonArrayWeather.getJSONObject(0).getString("description"));
+	                forecastDayDTO.setIconName(jsonArrayWeather.getJSONObject(0).getString("icon"));
 	                
 	                JSONObject jsonObjectMain = jsonObj.getJSONObject("main");
 	                forecastDayDTO.setTemp(jsonObjectMain.getDouble("temp"));
