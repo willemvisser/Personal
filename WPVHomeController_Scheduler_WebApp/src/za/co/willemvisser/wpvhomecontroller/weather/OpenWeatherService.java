@@ -91,7 +91,10 @@ public enum OpenWeatherService {
 	                responseString = out.toString();
 	                log.info("Weather Today response: " + responseString);
 	                
-	                JSONObject jsonObj = new JSONObject(responseString);	                
+	                JSONObject jsonObj = new JSONObject(responseString);	
+	                
+	                forecastDayDTO.setStationID(String.valueOf(jsonObj.getInt("id")));
+	                forecastDayDTO.setStationName(jsonObj.getString("name"));
 	                
 	                JSONArray jsonArrayWeather = jsonObj.getJSONArray("weather");	                
 	                forecastDayDTO.setDescription(jsonArrayWeather.getJSONObject(0).getString("main"));
