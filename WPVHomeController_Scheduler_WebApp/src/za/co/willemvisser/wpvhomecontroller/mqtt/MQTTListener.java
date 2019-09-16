@@ -99,7 +99,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 	@Override
 	public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
 		
-		log.info("Received on topic '" + topic + "': " + mqttMessage.toString());
+		log.debug("Received on topic '" + topic + "': " + mqttMessage.toString());
 		if (topic.equals(TOPIC_CMD_TANK1_DEPTH)) {
 			postCurrentTank1Depth();
 		} else if (topic.startsWith(TOPIC_CMD_WEATHER_TODAY)) {
@@ -109,16 +109,16 @@ public class MQTTListener implements Runnable, MqttCallback {
 		} else {
 			log.error("Unknown message!: " + topic + " -> " + mqttMessage);
 		}
-		log.info("messageArrived Done (DELME)");
+		log.debug("messageArrived Done (DELME)");
 	}
 	
 	private void postCurrentTank1Depth() {
 		try {
-			log.info("Posting Current Tank Depth...");
+			log.debug("Posting Current Tank Depth...");
 			StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
 					ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_HTTP_URL).getValue()));
 						
-			log.info("Tank Depth Response: " + response);
+			log.debug("Tank Depth Response: " + response);
 			
 			double currentDepth = 0;
 			try {
@@ -135,10 +135,10 @@ public class MQTTListener implements Runnable, MqttCallback {
 			
 			StringBuffer responseForLastUpdated = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
 					ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_LASTUPDATED_HTTP_URL).getValue()));
-			log.info("Tank Level Last Updated: " + responseForLastUpdated);
+			log.debug("Tank Level Last Updated: " + responseForLastUpdated);
 			
 
-			log.info("Sending MQTT message ...");
+			log.debug("Sending MQTT message ...");
             client.publish(TOPIC_STAT_TANK1_DEPTH, (currentDepth + "|" + responseForLastUpdated).getBytes(), qos, false);
             log.info("Tank1 STAT MQTT Message published");
             
