@@ -10,6 +10,8 @@ import org.json.JSONObject;
  */
 public class ForecastDayDTO {
 
+	private String stationID;
+	private String stationName;
 	private String description;	
 	private String descriptionExtended;
 	private String iconName;
@@ -114,8 +116,26 @@ public class ForecastDayDTO {
 		this.iconName = iconName;
 	}
 	
+	public String getStationID() {
+		return stationID;
+	}
+
+	public void setStationID(String stationID) {
+		this.stationID = stationID;
+	}
+	
+	public String getStationName() {
+		return stationName;
+	}
+
+	public void setStationName(String stationName) {
+		this.stationName = stationName;
+	}
+	
 	public String toJSONString() throws JSONException {
 		JSONObject forecastJSON = new JSONObject();
+		forecastJSON.put("stationID", getStationID());
+		forecastJSON.put("stationName", getStationName());
 		forecastJSON.put("description", getDescription());
 		forecastJSON.put("descriptionExtended", getDescriptionExtended());
 		forecastJSON.put("iconName", getIconName());
@@ -129,4 +149,6 @@ public class ForecastDayDTO {
 		forecastJSON.put("sunset", getSunset());
 		return forecastJSON.toString();
 	}
+
+
 }

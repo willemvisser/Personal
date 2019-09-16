@@ -105,7 +105,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 		} else if (topic.startsWith(TOPIC_CMD_WEATHER_TODAY)) {
 			log.info("Dropping in to weather mqtt cmds");
 			log.info("mqqtMessage: " + mqttMessage.toString());
-			postTodaysWeather();
+			postTodaysWeather(mqttMessage.toString());
 		} else {
 			log.error("Unknown message!: " + topic + " -> " + mqttMessage);
 		}
@@ -150,11 +150,11 @@ public class MQTTListener implements Runnable, MqttCallback {
 	/**
 	 *  Posting today's weather to MQTT 
 	 */
-	private void postTodaysWeather() {
+	private void postTodaysWeather(String stationID) {
 		try {
 			log.info("Posting Today's Weather to MQTT ...");
 									
-            client.publish(TOPIC_STAT_WEATHER_TODAY, (OpenWeatherService.INSTANCE.getCurrentForecast().toJSONString()).getBytes(), qos, false);
+            client.publish(TOPIC_STAT_WEATHER_TODAY, (OpenWeatherService.INSTANCE.getCurrentForecast(stationID).toJSONString()).getBytes(), qos, false);
             log.info("Today's Weather STAT MQTT Message published");
             
 		} catch (Exception e) {

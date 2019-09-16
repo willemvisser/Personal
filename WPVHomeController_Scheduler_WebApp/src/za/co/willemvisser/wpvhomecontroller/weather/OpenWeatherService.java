@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -26,16 +27,19 @@ public enum OpenWeatherService {
 	INSTANCE;
 	
 	private static final String WEATHERSERVICE_5DAY_URL = "http://api.openweathermap.org/data/2.5/forecast?id=3370352&APPID=4e2b821b3ef36699807f3e75163d5fd3&units=metric";
-	private static final String WEATHERSERVICE_TODAY_URL = "http://api.openweathermap.org/data/2.5/weather?id=3370352&APPID=4e2b821b3ef36699807f3e75163d5fd3&units=metric";
+	private static final String WEATHERSERVICE_TODAY_URL = "http://api.openweathermap.org/data/2.5/weather?APPID=4e2b821b3ef36699807f3e75163d5fd3&units=metric&id=";
 	
 	static Logger log = Logger.getLogger(OpenWeatherService.class.getName());
 	
 	private static final SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
 	
-	private Date lastUpdatedTodaysForecast = null;
+	//private Date lastUpdatedTodaysForecast = null;
 	private Date lastUpdated5DayForecast = null;
 	private ForecastListDTO cachedForecastListDTO = null;
-	private ForecastDayDTO cachedForecastDayDTO = null;
+	//private ForecastDayDTO cachedForecastDayDTO = null;
+	
+	private HashMap<String, Date> lastUpdatedMap = new HashMap<String, Date>();
+	private HashMap<String, ForecastDayDTO> forecastTodayMap = new HashMap<String, ForecastDayDTO>();
 	
 	private OpenWeatherService() {}
 	
@@ -53,15 +57,21 @@ public enum OpenWeatherService {
 	/**
 	 * @return the current weather conditions
 	 */
-	public synchronized ForecastDayDTO getCurrentForecast() {
+	public synchronized ForecastDayDTO getCurrentForecast(String stationID) {
 		
 		Calendar calAWhileAgo = new GregorianCalendar();
 		calAWhileAgo.add(Calendar.MINUTE, -15);
 		
-		if (lastUpdatedTodaysForecast == null 
-				|| cachedForecastDayDTO == null
-				|| lastUpdatedTodaysForecast.before(calAWhileAgo.getTime()) ) {
+		String stationCacheID = "totday_" + stationID;
 		
+		if (lastUpdatedMap.get(stationCacheID) == null
+				|| forecastTodayMap.get(stationCacheID) == null
+				|| lastUpdatedMap.get(stationCacheID).before(calAWhileAgo.getTime())) {
+		
+//		if (lastUpdatedTodaysForecast == null 
+//				|| cachedForecastDayDTO == null
+//				|| lastUpdatedTodaysForecast.before(calAWhileAgo.getTime()) ) {
+//		
 			log.info("Refreshing daily weather data from OpenWeatherService ...");
 			
 			ForecastDayDTO forecastDayDTO = new ForecastDayDTO();			
@@ -72,7 +82,7 @@ public enum OpenWeatherService {
 	        try {
 	        	//System.out.println("URI: " + uri[0] );
 	        		        		        	
-	            response = httpclient.execute(new HttpGet(WEATHERSERVICE_TODAY_URL));
+	            response = httpclient.execute(new HttpGet(WEATHERSERVICE_TODAY_URL+stationID));
 	            StatusLine statusLine = response.getStatusLine();
 	            if(statusLine.getStatusCode() == HttpStatus.SC_OK){
 	                ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -104,6 +114,8 @@ public enum OpenWeatherService {
 	                forecastDayDTO.setSunrise( convertUnixTimeToString(jsonObjectSys.getLong("sunrise")));
 	                forecastDayDTO.setSunset( convertUnixTimeToString(jsonObjectSys.getLong("sunset")) );
 	                
+	                log.info("Station ID: " + forecastDayDTO.getStationID());
+	                log.info("Station Name: " + forecastDayDTO.getStationName());
 	                log.info("Description: " + forecastDayDTO.getDescription());
 	                log.info("Description Ext: " + forecastDayDTO.getDescriptionExtended());
 	                log.info("Temp: " + forecastDayDTO.getTemp());
@@ -115,10 +127,13 @@ public enum OpenWeatherService {
 	                log.info("Sunrise: " + forecastDayDTO.getSunrise());
 	                log.info("Sunset: " + forecastDayDTO.getSunset());
 	               	                	                
-	                lastUpdatedTodaysForecast = new Date();
-	                cachedForecastDayDTO = forecastDayDTO;
+	                forecastTodayMap.put(stationCacheID, forecastDayDTO);
+	        		lastUpdatedMap.put(stationCacheID, new Date());
 	                
-	                log.info("Today's Weather: " + cachedForecastDayDTO.toJSONString());
+	                //lastUpdatedTodaysForecast = new Date();
+	                //cachedForecastDayDTO = forecastDayDTO;
+	                
+	                log.info("Today's Weather: " + forecastTodayMap.get(stationCacheID).toJSONString());
 	                
 	                
 		            		            
@@ -136,7 +151,7 @@ public enum OpenWeatherService {
 	        
 		} 
 		
-		return cachedForecastDayDTO;
+		return forecastTodayMap.get(stationCacheID);
 		
 	}
 	
@@ -241,7 +256,7 @@ public enum OpenWeatherService {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//String weatherURL = "http://api.openweathermap.org/data/2.5/forecast?id=3370352&APPID=4e2b821b3ef36699807f3e75163d5fd3&units=metric";
-		OpenWeatherService.INSTANCE.getCurrentForecast();
+		OpenWeatherService.INSTANCE.getCurrentForecast("3370352");
 	}
 
 }
