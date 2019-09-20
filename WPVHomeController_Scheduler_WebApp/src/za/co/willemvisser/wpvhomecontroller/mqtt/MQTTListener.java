@@ -73,7 +73,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 	
 	private void connectAndSubscribeToServer() throws MqttException {
 		client = new MqttClient(broker, clientId, persistence);
-		client.setTimeToWait(500);
+		client.setTimeToWait(2000);
         MqttConnectOptions connOpts = new MqttConnectOptions();
         connOpts.setCleanSession(true);
         connOpts.setKeepAliveInterval(15);
