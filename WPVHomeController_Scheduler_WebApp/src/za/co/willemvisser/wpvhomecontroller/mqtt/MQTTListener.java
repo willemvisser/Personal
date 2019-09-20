@@ -139,7 +139,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 			
 
 			log.debug("Sending MQTT message ...");
-            client.publish(TOPIC_STAT_TANK1_DEPTH, (currentDepth + "|" + responseForLastUpdated).getBytes(), qos, false);
+            client.publish(TOPIC_STAT_TANK1_DEPTH, (currentDepth + "|" + responseForLastUpdated).getBytes(), qos, true);
             log.info("Tank1 STAT MQTT Message published");
             
 		} catch (Exception e) {
@@ -154,7 +154,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 		try {
 			log.info("Posting Today's Weather to MQTT ...");
 									
-            client.publish(TOPIC_STAT_WEATHER_TODAY, (OpenWeatherService.INSTANCE.getCurrentForecast(stationID).toJSONString()).getBytes(), qos, false);
+            client.publish(TOPIC_STAT_WEATHER_TODAY, new MqttMessage((OpenWeatherService.INSTANCE.getCurrentForecast(stationID).toJSONString()).getBytes()));
             log.debug("Today's Weather STAT MQTT Message published");
             
 		} catch (Exception e) {
