@@ -155,7 +155,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 			log.info("Posting Today's Weather to MQTT ...");
 									
             client.publish(TOPIC_STAT_WEATHER_TODAY, (OpenWeatherService.INSTANCE.getCurrentForecast(stationID).toJSONString()).getBytes(), qos, false);
-            log.info("Today's Weather STAT MQTT Message published");
+            log.debug("Today's Weather STAT MQTT Message published");
             
 		} catch (Exception e) {
 			log.error("Could not today's weather to MQTT: " + e);
