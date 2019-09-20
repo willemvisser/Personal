@@ -73,7 +73,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 	
 	private void connectAndSubscribeToServer() throws MqttException {
 		client = new MqttClient(broker, clientId, persistence);
-		client.setTimeToWait(2000);
+		client.setTimeToWait(500);
         MqttConnectOptions connOpts = new MqttConnectOptions();
         connOpts.setCleanSession(true);
         connOpts.setKeepAliveInterval(15);
@@ -139,8 +139,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 			
 
 			log.debug("Sending MQTT message ...");
-            client.publish(TOPIC_STAT_TANK1_DEPTH, new MqttMessage((currentDepth + "|" + responseForLastUpdated).getBytes()));
-            log.info("Tank1 STAT MQTT Message published");
+            client.publish(TOPIC_STAT_TANK1_DEPTH, new MqttMessage((currentDepth + "|" + responseForLastUpdated).getBytes()));            
             
 		} catch (Exception e) {
 			log.error("Could not post tank depth to MQTT: " + e);
