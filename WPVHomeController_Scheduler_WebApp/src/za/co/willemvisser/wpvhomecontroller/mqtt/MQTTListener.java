@@ -139,7 +139,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 			
 
 			log.debug("Sending MQTT message ...");
-            client.publish(TOPIC_STAT_TANK1_DEPTH, (currentDepth + "|" + responseForLastUpdated).getBytes(), qos, true);
+            client.publish(TOPIC_STAT_TANK1_DEPTH, new MqttMessage((currentDepth + "|" + responseForLastUpdated).getBytes()));
             log.info("Tank1 STAT MQTT Message published");
             
 		} catch (Exception e) {
