@@ -82,11 +82,11 @@ public class WaterTankPostMetricsJob implements InterruptableJob {
 
 				cw.putMetricData(request);
 				
-				log.debug("Tank metrics posted to CloudWatch");
+				log.info("Tank metrics posted to CloudWatch");
 			
 		} catch (Exception e) {
 			log.error("Water Tank Post metrics error (posting to AWS: " + e);
-			throw new JobExecutionException("Could not post metrics to CloudWatch for Water Tank", e);
+			//throw new JobExecutionException("Could not post metrics to CloudWatch for Water Tank", e);
 		}
         
 	}
