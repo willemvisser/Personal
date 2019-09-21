@@ -33,6 +33,8 @@ public class MQTTListener implements Runnable, MqttCallback {
 	public static final String TOPIC_CMD_WEATHER_TODAY = "wpvserver/cmd/weather_today";
 	public static final String TOPIC_STAT_WEATHER_TODAY = "wpvserver/stat/weather_today";
 	
+	public static final String TOPIC_STAT_BOREHOLEPUMP = "stat/sonoff_boreholepump/STATUS";
+	
 	public MQTTListener() {
 		super();
 		myThread = new Thread(this);
@@ -83,6 +85,7 @@ public class MQTTListener implements Runnable, MqttCallback {
         client.setCallback(this);        
         client.subscribe(TOPIC_CMD_TANK1_DEPTH, qos);
         client.subscribe(TOPIC_CMD_WEATHER_TODAY, qos);
+        client.subscribe(TOPIC_STAT_BOREHOLEPUMP, qos);
 	}
 
 	@Override
@@ -106,6 +109,9 @@ public class MQTTListener implements Runnable, MqttCallback {
 			log.info("Dropping in to weather mqtt cmds");
 			log.info("mqqtMessage: " + mqttMessage.toString());
 			postTodaysWeather(mqttMessage.toString());
+		} else if (topic.startsWith(TOPIC_STAT_BOREHOLEPUMP)) {
+			log.info("Received Borehole Pump Stat event...");
+			processWaterTankPumpSTATEvent(mqttMessage.toString());
 		} else {
 			log.error("Unknown message!: " + topic + " -> " + mqttMessage);
 		}
@@ -159,6 +165,14 @@ public class MQTTListener implements Runnable, MqttCallback {
 		} catch (Exception e) {
 			log.error("Could not today's weather to MQTT: " + e);
 		}
+	}
+	
+	/**
+	 *  {"Status":{"Module":1,"FriendlyName":["Borehole Pump"],"Topic":"sonoff_boreholepump","ButtonTopic":"0","Power":0,"PowerOnState":3,
+	 *  "LedState":1,"SaveData":1,"SaveState":1,"ButtonRetain":0,"PowerRetain":0}} 
+	 */
+	private void processWaterTankPumpSTATEvent(String mqttMessage) {
+		log.info("TODO: " + mqttMessage);
 	}
 
 }
