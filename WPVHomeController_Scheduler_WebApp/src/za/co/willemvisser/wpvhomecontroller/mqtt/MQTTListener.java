@@ -12,6 +12,8 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
@@ -138,6 +140,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 			if (lastRequestedUpdateForBoreholePumpStatus.before(calAWhileAgo.getTime())) {
 				log.info("Sending STAT ... (delme)");
 				client.publish(TOPIC_CMD_BOREHOLEPUMP_STATUS, new MqttMessage(("").getBytes()));
+				lastRequestedUpdateForBoreholePumpStatus = new Date();
 			}
 		} catch (Exception e) {
 			log.error("Could not post to MQTT to retrieve latest status for Tank Pump Sonoff: " + e);
@@ -201,7 +204,16 @@ public class MQTTListener implements Runnable, MqttCallback {
 		log.info("TODO: " + mqttMessage);
 		
 		try {
-			
+			JSONObject jsonObj = new JSONObject(mqttMessage);
+			log.info("obj: " + jsonObj);
+			JSONArray jsonStatus = jsonObj.getJSONArray("Status");
+			log.info("objStatus: " + jsonStatus);
+            //JSONArray  forecastArray = jsonObj.getJSONObject(TAG_FORECAST).getJSONObject(TAG_TXTFORECAST).getJSONArray(TAG_FORECASTDAYS);
+            //JSONArray  simpleForecastArray = jsonObj.getJSONObject(TAG_FORECAST).getJSONObject(TAG_SIMPLEFORECAST).getJSONArray(TAG_FORECASTDAYS);
+            
+            //JSONObject jsonArrayCity = jsonObj.getJSONObject("city");	                
+            //forecastListDTO.setCity(jsonArrayCity.getString("name"));
+            
 		} catch (Exception e) {
 			log.error("Could not process WaterTankPump STAT mqtt: " + e);
 		}
