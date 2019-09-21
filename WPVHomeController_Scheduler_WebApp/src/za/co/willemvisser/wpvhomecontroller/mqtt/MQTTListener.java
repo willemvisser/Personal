@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
 import za.co.willemvisser.wpvhomecontroller.util.NumberUtil;
+import za.co.willemvisser.wpvhomecontroller.util.WaterTankManager;
 import za.co.willemvisser.wpvhomecontroller.weather.OpenWeatherService;
 
 public class MQTTListener implements Runnable, MqttCallback {
@@ -41,6 +42,8 @@ public class MQTTListener implements Runnable, MqttCallback {
 	
 	public static final String TOPIC_STAT_BOREHOLEPUMP = "stat/sonoff_boreholepump/STATUS";
 	public static final String TOPIC_CMD_BOREHOLEPUMP_STATUS = "cmnd/sonoff_boreholepump/status";
+	
+	public static final String TOPIC_CMD_BOREHOLEPUMP_POWER = "cmnd/sonoff_boreholepump/power";
 	
 	private Date lastRequestedUpdateForBoreholePumpStatus;
 	private static final int secondsToWaitBetweenBoreholePumpStatusUpdates = 30;
@@ -204,15 +207,17 @@ public class MQTTListener implements Runnable, MqttCallback {
 		log.info("TODO: " + mqttMessage);
 		
 		try {
-			JSONObject jsonObj = new JSONObject(mqttMessage);
-			log.info("obj: " + jsonObj);
-			JSONArray jsonStatus = jsonObj.getJSONArray("Status");
+			JSONObject jsonObj = new JSONObject(mqttMessage);			
+			JSONObject jsonStatus = jsonObj.getJSONObject("Status");
 			log.info("objStatus: " + jsonStatus);
-            //JSONArray  forecastArray = jsonObj.getJSONObject(TAG_FORECAST).getJSONObject(TAG_TXTFORECAST).getJSONArray(TAG_FORECASTDAYS);
-            //JSONArray  simpleForecastArray = jsonObj.getJSONObject(TAG_FORECAST).getJSONObject(TAG_SIMPLEFORECAST).getJSONArray(TAG_FORECASTDAYS);
+			int power = jsonStatus.getInt("Power");
+			log.info("Power: " + power);
             
-            //JSONObject jsonArrayCity = jsonObj.getJSONObject("city");	                
-            //forecastListDTO.setCity(jsonArrayCity.getString("name"));
+			boolean shouldWeStopPumping = WaterTankManager.INSTANCE.updatePowerStatusAndReturnSignalToStop(power);
+			if (shouldWeStopPumping) {
+				client.publish(TOPIC_CMD_BOREHOLEPUMP_POWER, new MqttMessage(("off").getBytes()));
+			}
+			
             
 		} catch (Exception e) {
 			log.error("Could not process WaterTankPump STAT mqtt: " + e);
