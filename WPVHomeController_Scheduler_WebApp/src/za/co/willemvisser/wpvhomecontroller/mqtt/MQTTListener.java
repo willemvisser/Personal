@@ -130,7 +130,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 		} else {
 			log.error("Unknown message!: " + topic + " -> " + mqttMessage);
 		}
-		log.debug("messageArrived Done (DELME)");
+		
 	}
 	
 	private void retrieveLatestStatusForWaterTankPump() {
@@ -139,8 +139,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 			Calendar calAWhileAgo = new GregorianCalendar();
 			calAWhileAgo.add(Calendar.SECOND, -secondsToWaitBetweenBoreholePumpStatusUpdates);
 						
-			if (lastRequestedUpdateForBoreholePumpStatus.before(calAWhileAgo.getTime())) {
-				log.info("Sending STAT ... (delme)");
+			if (lastRequestedUpdateForBoreholePumpStatus.before(calAWhileAgo.getTime())) {				
 				client.publish(TOPIC_CMD_BOREHOLEPUMP_STATUS, new MqttMessage(("").getBytes()));
 				lastRequestedUpdateForBoreholePumpStatus = new Date();
 			}

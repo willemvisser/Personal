@@ -3,9 +3,12 @@ package za.co.willemvisser.wpvhomecontroller.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
+
+
 
 public enum TelegramUtil {
 
@@ -22,7 +25,8 @@ public enum TelegramUtil {
 			params.add(new BasicNameValuePair("chat_id", CHAT_ID));
 			params.add(new BasicNameValuePair("text", message));
 				
-			HttpUtil.INSTANCE.doHttpResponse(HTTPS_URL, params);
+			HttpResponse response = HttpUtil.INSTANCE.doHttpResponse(HTTPS_URL, params);
+			log.info("Telegram Post Response: " + HttpUtil.INSTANCE.getResponseContent(response) );
 		} catch (Exception e) {
 			log.error("Could not send Telegram message", e);
 		}
