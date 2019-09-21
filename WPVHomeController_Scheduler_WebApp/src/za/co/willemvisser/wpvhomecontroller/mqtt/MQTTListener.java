@@ -121,12 +121,11 @@ public class MQTTListener implements Runnable, MqttCallback {
 		log.debug("Received on topic '" + topic + "': " + mqttMessage.toString());
 		if (topic.equals(TOPIC_CMD_TANK1_DEPTH)) {
 			postCurrentTank1Depth();
-		} else if (topic.startsWith(TOPIC_CMD_WEATHER_TODAY)) {
-			log.info("Dropping in to weather mqtt cmds");
-			log.info("mqqtMessage: " + mqttMessage.toString());
+		} else if (topic.startsWith(TOPIC_CMD_WEATHER_TODAY)) {			
+			log.debug("mqqtMessage: " + mqttMessage.toString());
 			postTodaysWeather(mqttMessage.toString());
 		} else if (topic.startsWith(TOPIC_STAT_BOREHOLEPUMP)) {
-			log.info("Received Borehole Pump Stat event...");
+			log.debug("Received Borehole Pump Stat event...");
 			processWaterTankPumpSTATEvent(mqttMessage.toString());
 		} else {
 			log.error("Unknown message!: " + topic + " -> " + mqttMessage);
@@ -138,7 +137,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 		try {
 			
 			Calendar calAWhileAgo = new GregorianCalendar();
-			calAWhileAgo.add(Calendar.SECOND, -30);
+			calAWhileAgo.add(Calendar.SECOND, -secondsToWaitBetweenBoreholePumpStatusUpdates);
 						
 			if (lastRequestedUpdateForBoreholePumpStatus.before(calAWhileAgo.getTime())) {
 				log.info("Sending STAT ... (delme)");
@@ -189,7 +188,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 	 */
 	private void postTodaysWeather(String stationID) {
 		try {
-			log.info("Posting Today's Weather to MQTT ...");
+			log.debug("Posting Today's Weather to MQTT ...");
 									
             client.publish(TOPIC_STAT_WEATHER_TODAY, new MqttMessage((OpenWeatherService.INSTANCE.getCurrentForecast(stationID).toJSONString()).getBytes()));
             log.debug("Today's Weather STAT MQTT Message published");
@@ -203,15 +202,12 @@ public class MQTTListener implements Runnable, MqttCallback {
 	 *  {"Status":{"Module":1,"FriendlyName":["Borehole Pump"],"Topic":"sonoff_boreholepump","ButtonTopic":"0","Power":0,"PowerOnState":3,
 	 *  "LedState":1,"SaveData":1,"SaveState":1,"ButtonRetain":0,"PowerRetain":0}} 
 	 */
-	private void processWaterTankPumpSTATEvent(String mqttMessage) {
-		log.info("TODO: " + mqttMessage);
+	private void processWaterTankPumpSTATEvent(String mqttMessage) {		
 		
 		try {
 			JSONObject jsonObj = new JSONObject(mqttMessage);			
-			JSONObject jsonStatus = jsonObj.getJSONObject("Status");
-			log.info("objStatus: " + jsonStatus);
-			int power = jsonStatus.getInt("Power");
-			log.info("Power: " + power);
+			JSONObject jsonStatus = jsonObj.getJSONObject("Status");			
+			int power = jsonStatus.getInt("Power");			
             
 			boolean shouldWeStopPumping = WaterTankManager.INSTANCE.updatePowerStatusAndReturnSignalToStop(power);
 			if (shouldWeStopPumping) {
