@@ -115,20 +115,7 @@ public enum OpenWeatherService {
 	                
 	                JSONObject jsonObjectSys = jsonObj.getJSONObject("sys");
 	                forecastDayDTO.setSunrise( convertUnixTimeToString(jsonObjectSys.getLong("sunrise")));
-	                forecastDayDTO.setSunset( convertUnixTimeToString(jsonObjectSys.getLong("sunset")) );
-	                
-	                log.info("Station ID: " + forecastDayDTO.getStationID());
-	                log.info("Station Name: " + forecastDayDTO.getStationName());
-	                log.info("Description: " + forecastDayDTO.getDescription());
-	                log.info("Description Ext: " + forecastDayDTO.getDescriptionExtended());
-	                log.info("Temp: " + forecastDayDTO.getTemp());
-	                log.info("Temp Min: " + forecastDayDTO.getTempMin());
-	                log.info("Temp Max: " + forecastDayDTO.getTempMax());
-	                log.info("Wind Speed: " + forecastDayDTO.getWindSpeed());
-	                log.info("Wind Dir: " + forecastDayDTO.getWindDegrees());
-	                log.info("Cloud Cover: " + forecastDayDTO.getCloudCover());
-	                log.info("Sunrise: " + forecastDayDTO.getSunrise());
-	                log.info("Sunset: " + forecastDayDTO.getSunset());
+	                forecastDayDTO.setSunset( convertUnixTimeToString(jsonObjectSys.getLong("sunset")) );	                	               
 	               	                	                
 	                forecastTodayMap.put(stationCacheID, forecastDayDTO);
 	        		lastUpdatedMap.put(stationCacheID, new Date());

@@ -1,5 +1,9 @@
 package za.co.willemvisser.wpvhomecontroller.mqtt;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.apache.log4j.Logger;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -34,6 +38,10 @@ public class MQTTListener implements Runnable, MqttCallback {
 	public static final String TOPIC_STAT_WEATHER_TODAY = "wpvserver/stat/weather_today";
 	
 	public static final String TOPIC_STAT_BOREHOLEPUMP = "stat/sonoff_boreholepump/STATUS";
+	public static final String TOPIC_CMD_BOREHOLEPUMP_STATUS = "cmnd/sonoff_boreholepump/status";
+	
+	private Date lastRequestedUpdateForBoreholePumpStatus;
+	private static final int secondsToWaitBetweenBoreholePumpStatusUpdates = 30;
 	
 	public MQTTListener() {
 		super();
@@ -45,13 +53,16 @@ public class MQTTListener implements Runnable, MqttCallback {
 	@Override
 	public void run() {
 		isRunning = true;
+		lastRequestedUpdateForBoreholePumpStatus = new Date();
 		try {
 			connectAndSubscribeToServer();
 			
 			while (isRunning) {
 				try {
 					myThread.sleep(250);
-					myThread.yield();					
+					myThread.yield();	
+					
+					retrieveLatestStatusForWaterTankPump();
 				} catch (Exception e) {
 					//Do Nothing
 				}				
@@ -59,7 +70,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 		} catch (Exception e) {
 			log.error("Could not start MQTTListener thread: " + e);
 		}
-	}
+	}		
 	
 	/**
 	 *  Stop the thread 
@@ -118,6 +129,21 @@ public class MQTTListener implements Runnable, MqttCallback {
 		log.debug("messageArrived Done (DELME)");
 	}
 	
+	private void retrieveLatestStatusForWaterTankPump() {
+		try {
+			
+			Calendar calAWhileAgo = new GregorianCalendar();
+			calAWhileAgo.add(Calendar.SECOND, -30);
+						
+			if (lastRequestedUpdateForBoreholePumpStatus.before(calAWhileAgo.getTime())) {
+				log.info("Sending STAT ... (delme)");
+				client.publish(TOPIC_CMD_BOREHOLEPUMP_STATUS, new MqttMessage(("").getBytes()));
+			}
+		} catch (Exception e) {
+			log.error("Could not post to MQTT to retrieve latest status for Tank Pump Sonoff: " + e);
+		}
+	}
+	
 	private void postCurrentTank1Depth() {
 		try {
 			log.debug("Posting Current Tank Depth...");
@@ -173,6 +199,12 @@ public class MQTTListener implements Runnable, MqttCallback {
 	 */
 	private void processWaterTankPumpSTATEvent(String mqttMessage) {
 		log.info("TODO: " + mqttMessage);
+		
+		try {
+			
+		} catch (Exception e) {
+			log.error("Could not process WaterTankPump STAT mqtt: " + e);
+		}
 	}
 
 }
