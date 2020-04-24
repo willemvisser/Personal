@@ -22,6 +22,7 @@ import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDeviceDTO;
 import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigsDTO;
 import za.co.willemvisser.wpvhomecontroller.scheduler.WPVHomeControllerScheduler;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
+import za.co.willemvisser.wpvhomecontroller.util.TelegramUtil;
 import za.co.willemvisser.wpvhomecontroller.util.WaterTankFillUtil;
 import za.co.willemvisser.wpvhomecontroller.xbee.XbeeController;
 import za.co.willemvisser.wpvhomecontroller.xbee.dto.XbeeDeviceDTO;
@@ -78,6 +79,9 @@ public class SchedulerServletListener implements ServletContextListener {
 			WPVHomeControllerScheduler.INSTANCE.startScheduler(ipAddress);
 			
 			ConfigController.INSTANCE.init("54.68.136.170", context.getServletContext());
+			
+			TelegramUtil.INSTANCE.setApiToken( ConfigController.INSTANCE.getGeneralProperty("Telegram_API_Token").getValue() );
+			TelegramUtil.INSTANCE.setChatID(ConfigController.INSTANCE.getGeneralProperty("Telegram_Chat_ID").getValue());
 												
 		} catch (Exception e) {
 			e.printStackTrace();
