@@ -150,7 +150,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 				myThread.sleep(2500);
 				client.reconnect();
 				log.info("MQTT Reconnect OK");
-			} catch (Exception e) {
+			} catch (Exception ee) {
 				log.error("We could not reconnect to MQTT");
 			}
 		}
