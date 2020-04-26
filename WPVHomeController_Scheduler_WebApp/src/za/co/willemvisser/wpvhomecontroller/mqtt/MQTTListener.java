@@ -142,9 +142,17 @@ public class MQTTListener implements Runnable, MqttCallback {
 			if (lastRequestedUpdateForBoreholePumpStatus.before(calAWhileAgo.getTime())) {				
 				client.publish(TOPIC_CMD_BOREHOLEPUMP_STATUS, new MqttMessage(("").getBytes()));
 				lastRequestedUpdateForBoreholePumpStatus = new Date();
-			}
+			}		
 		} catch (Exception e) {
 			log.error("Could not post to MQTT to retrieve latest status for Tank Pump Sonoff: " + e);
+			//We know we could get "Client is not connected anymore" exception - we should handle that
+			try {
+				myThread.sleep(2500);
+				client.reconnect();
+				log.info("MQTT Reconnect OK");
+			} catch (Exception e) {
+				log.error("We could not reconnect to MQTT");
+			}
 		}
 	}
 	
