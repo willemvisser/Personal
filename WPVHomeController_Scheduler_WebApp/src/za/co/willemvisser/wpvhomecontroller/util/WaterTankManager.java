@@ -16,12 +16,13 @@ public enum WaterTankManager {
 	static Logger log = Logger.getLogger(WaterTankManager.class.getName());
 	private boolean pumping = false;	
 	private static final int maxDepthInPercentage = 75;  //This is the maximum number of centimeters we want to fill in one job
-	private static final int maxTimeInMinsWeCanPump = 15;
+	private static final int maxTimeInMinsWeCanPump = 10;
 	
 	private double pumpingStartDepthPercentage = 0;		//The depth at which we started pumping
 	private double pumpingStopDepthPercentage = 0;		//The depth at which we stopped pumping
 	private Date pumpingStartTime;						//The timestamp of when we started pumping
 	private Date pumpingStopTime;						//The timestamp of when we stopped pumping
+	private double waterTankDepthPercentageCache = -1;
 	
 	private static final SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
 	
@@ -67,14 +68,49 @@ public enum WaterTankManager {
 		return pumpingStartDepthPercentage;
 	}
 	
+	private void updateWaterTankDepthCache() {
+		waterTankDepthPercentageCache = getWaterTankDepthPercentage();
+	}
+	
+	/**
+	 * Validate that we've received a stat event the last x mins, and in case
+	 * 	we haven't, and we are pumping, we should send an Alert, and try and
+	 *  hard stop pumping 
+	 */
+	public boolean shouldWeStopPumping() {
+		updateWaterTankDepthCache();
+		
+		Calendar calAWhileAgo = new GregorianCalendar();
+		calAWhileAgo.add(Calendar.MINUTE, -maxTimeInMinsWeCanPump);
+		
+		if (pumping && waterTankDepthPercentageCache >= maxDepthInPercentage) {
+			log.info("Max Depth achieved, we should stop pumping");
+			TelegramUtil.INSTANCE.sendMessage("Max Depth achieved, we should stop pumping");			
+			return true;  	//Return true to ask to stop pumping
+		} else if (pumping && pumpingStartTime.before(calAWhileAgo.getTime())) {
+			StringBuffer msgBuffer = new StringBuffer("Max Time we are allowed to pump in one go achieved, stopping.\r\n");			
+			msgBuffer.append("Start Depth: ");
+			msgBuffer.append(pumpingStartDepthPercentage);
+			msgBuffer.append("%\\n");
+			msgBuffer.append("Current depth: ");
+			msgBuffer.append(waterTankDepthPercentageCache);
+			msgBuffer.append("%\\n");
+			
+			log.info(msgBuffer);
+			TelegramUtil.INSTANCE.sendMessage(msgBuffer.toString());
+			return true;  	//Return true to ask to stop pumping
+		} else {
+			return false;	//Return false to ask to continue pumping
+		}
+	}
+	
 	/**
 	 * @param power  0 for false, 1 for true (pumping)
 	 * @return  if true, stop pumping
 	 */
 	public boolean updatePowerStatusAndReturnSignalToStop(int power) {
 		double waterTankDepthPercentage = getWaterTankDepthPercentage();
-		Calendar calAWhileAgo = new GregorianCalendar();
-		calAWhileAgo.add(Calendar.MINUTE, -maxTimeInMinsWeCanPump);
+		
 		
 		if (!pumping && power == 1) {
 			//We have started to pump - set all the variables
@@ -96,17 +132,7 @@ public enum WaterTankManager {
 						
 		} 
 		
-		if (pumping && waterTankDepthPercentage >= maxDepthInPercentage) {
-			log.info("Max Depth achieved, we should stop pumping");
-			TelegramUtil.INSTANCE.sendMessage("Max Depth achieved, we should stop pumping");
-			return true;  	//Return true to ask to stop pumping
-		} else if (pumping && pumpingStartTime.before(calAWhileAgo.getTime())) {
-			log.info("Max Time we are allowed to pump in one go achieved, we should stop pumping");
-			TelegramUtil.INSTANCE.sendMessage("Max Time we are allowed to pump in one go achieved, we should stop pumping");
-			return true;  	//Return true to ask to stop pumping
-		} else {
-			return false;	//Return false to ask to continue pumping
-		}
+		return shouldWeStopPumping();
 
 	}
 	
