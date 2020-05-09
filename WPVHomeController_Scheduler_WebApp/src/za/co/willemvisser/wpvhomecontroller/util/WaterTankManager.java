@@ -84,8 +84,15 @@ public enum WaterTankManager {
 		calAWhileAgo.add(Calendar.MINUTE, -maxTimeInMinsWeCanPump);
 		
 		if (pumping && waterTankDepthPercentageCache >= maxDepthInPercentage) {
-			log.info("Max Depth achieved, we should stop pumping");
-			TelegramUtil.INSTANCE.sendMessage("Max Depth achieved, we should stop pumping");			
+						
+			StringBuffer buffer = new StringBuffer("Max Depth achieved, we should stop pumping.\r\n");
+			buffer.append("StartDepth: "); buffer.append(pumpingStartDepthPercentage); buffer.append(" StopDepth: "); buffer.append(pumpingStopDepthPercentage);
+			buffer.append("\r\n");
+			buffer.append("Started At: "); buffer.append(timeFormatter.format(pumpingStartTime)); 
+			
+			log.info(buffer);
+			TelegramUtil.INSTANCE.sendMessage(buffer.toString());
+							
 			return true;  	//Return true to ask to stop pumping
 		} else if (pumping && pumpingStartTime.before(calAWhileAgo.getTime())) {
 			StringBuffer msgBuffer = new StringBuffer("Max Time we are allowed to pump in one go achieved, stopping.\r\n");			
