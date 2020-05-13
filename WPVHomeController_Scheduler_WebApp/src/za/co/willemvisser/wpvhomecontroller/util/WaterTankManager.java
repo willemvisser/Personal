@@ -1,10 +1,13 @@
 package za.co.willemvisser.wpvhomecontroller.util;
 
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.log4j.Logger;
 
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
@@ -91,20 +94,20 @@ public enum WaterTankManager {
 			buffer.append("Started At: "); buffer.append(timeFormatter.format(pumpingStartTime)); 
 			
 			log.info(buffer);
-			TelegramUtil.INSTANCE.sendMessage(buffer.toString());
+			TelegramUtil.INSTANCE.sendMessage(URLEncoder.encode(buffer.toString()));
 							
 			return true;  	//Return true to ask to stop pumping
 		} else if (pumping && pumpingStartTime.before(calAWhileAgo.getTime())) {
 			StringBuffer msgBuffer = new StringBuffer("Max Time we are allowed to pump in one go achieved, stopping.\r\n");			
 			msgBuffer.append("Start Depth: ");
 			msgBuffer.append(pumpingStartDepthPercentage);
-			msgBuffer.append("%\\n");
+			msgBuffer.append("\r\n");
 			msgBuffer.append("Current depth: ");
 			msgBuffer.append(waterTankDepthPercentageCache);
-			msgBuffer.append("%\\n");
+			msgBuffer.append("\r\n");
 			
 			log.info(msgBuffer);
-			TelegramUtil.INSTANCE.sendMessage(msgBuffer.toString());
+			TelegramUtil.INSTANCE.sendMessage(URLEncoder.encode(msgBuffer.toString()));
 			return true;  	//Return true to ask to stop pumping
 		} else {
 			return false;	//Return false to ask to continue pumping
@@ -135,7 +138,7 @@ public enum WaterTankManager {
 			buffer.append("Started At: "); buffer.append(timeFormatter.format(pumpingStartTime)); buffer.append(" Stopped At: "); buffer.append(timeFormatter.format(pumpingStopTime));
 			
 			log.info(buffer);
-			TelegramUtil.INSTANCE.sendMessage(buffer.toString());
+			TelegramUtil.INSTANCE.sendMessage(URLEncoder.encode(buffer.toString()));
 						
 		} 
 		
