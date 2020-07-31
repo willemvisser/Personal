@@ -18,7 +18,8 @@ public enum WaterTankManager {
 	
 	static Logger log = Logger.getLogger(WaterTankManager.class.getName());
 	private boolean pumping = false;	
-	private static final int maxDepthInPercentage = 75;  //This is the maximum number of centimeters we want to fill in one job
+	//Override to 110 from 75 to fake it
+	private static final int maxDepthInPercentage = 110;  //This is the maximum number of centimeters we want to fill in one job
 	private static final int maxTimeInMinsWeCanPump = 20;
 	
 	private double pumpingStartDepthPercentage = 0;		//The depth at which we started pumping
