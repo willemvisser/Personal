@@ -38,6 +38,7 @@ public enum ConfigController {
 	public static final String PROPERTY_TANK_LEVEL_LASTUPDATED_HTTP_URL = "TankLevelLastUpdatedHttpURL";
 	public static final String PROPERTY_XBEE_PORTNAME = "XbeePortName";
 	public static final String PROPERTY_XBEE_BAUDRATE = "XbeeBaudRate";
+	public static final String PROPERTY_XBEE_ENABLED = "XbeeEnabled";
 	
 	private String remoteConfigHostAddress;
 	private XbeeConfigsDTO xbeeConfigsDTO;
@@ -50,7 +51,7 @@ public enum ConfigController {
 		
 		this.xbeeConfigsDTO = (XbeeConfigsDTO)loadXmlFromResource(XbeeConfigsDTO.class, context, XML_FILENAME_XBEECONFIG);
 		this.generalPropertiesDTO = (GeneralPropertiesDTO)loadXmlFromResource(GeneralPropertiesDTO.class, context, 
-				getHostName() + XML_FILENAME_GENERALPROPS);
+				XML_FILENAME_GENERALPROPS);
 				
 
 	}

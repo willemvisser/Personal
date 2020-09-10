@@ -64,15 +64,9 @@ public class SchedulerServletListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent context) {
 		System.out.println("Starting up...");
-							
-			
-		//TODO - get this from config
-		//String ipAddress = "192.168.1.201";
+										
 		String ipAddress = "localhost";
-		
-		InputStream configXmlInputStream = context.getServletContext().getResourceAsStream(configXmlWarFilePath);
-		
-		//
+				
 		
 		try {			
 		    
@@ -82,27 +76,34 @@ public class SchedulerServletListener implements ServletContextListener {
 			
 			TelegramUtil.INSTANCE.setApiToken( ConfigController.INSTANCE.getGeneralProperty("Telegram_API_Token").getValue() );
 			TelegramUtil.INSTANCE.setChatID(ConfigController.INSTANCE.getGeneralProperty("Telegram_Chat_ID").getValue());
+			
+			
+			/* See if we need to enable XBEE flows */
+			try { 
+				if (ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_ENABLED).getValue().equalsIgnoreCase("true")) {
+									
+					String xbeePortName = ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_PORTNAME).getValue();
+					int xbeeBaudRate = Integer.parseInt(ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_BAUDRATE).getValue());
+					
+					XbeeController.INSTANCE.init(xbeePortName, xbeeBaudRate, ConfigController.INSTANCE.getXbeeConfigsDTO());
+				} else {
+					System.out.println("Xbee Disabled as per GeneralProperties");
+				}
+			} catch (Exception e) {
+				System.out.println("WARNING *** - Could not start up Xbee: " + e.getMessage());
+				e.printStackTrace();
+			}			
 												
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
 		
-		try { 
-			
-			String xbeePortName = ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_PORTNAME).getValue();
-			int xbeeBaudRate = Integer.parseInt(ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_BAUDRATE).getValue());
-			
-			XbeeController.INSTANCE.init(xbeePortName, xbeeBaudRate, ConfigController.INSTANCE.getXbeeConfigsDTO());
-		} catch (Exception e) {
-			System.out.println("WARNING *** - Could not start up Xbee: " + e.getMessage());
-			e.printStackTrace();
-		}
+		
 		
 		
 	}
 	
-	private Object loadXmlFromResource(Class classType, ServletContext context, String fileName) throws JAXBException {
-	//private Object loadXmlFromResource(Class classType, InputStream is) throws JAXBException {
+	private Object loadXmlFromResource(Class classType, ServletContext context, String fileName) throws JAXBException {	
 		
 		JAXBContext jaxbContext = JAXBContext.newInstance(classType);
 		Unmarshaller um = jaxbContext.createUnmarshaller();
