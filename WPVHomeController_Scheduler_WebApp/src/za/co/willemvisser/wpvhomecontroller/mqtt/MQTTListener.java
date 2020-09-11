@@ -24,7 +24,7 @@ import za.co.willemvisser.wpvhomecontroller.weather.OpenWeatherService;
 public class MQTTListener implements Runnable, MqttCallback {
 
 	private int qos             = 0;
-	private String broker       = "tcp://192.168.1.200:1883";
+	private String broker       = "tcp://localhost:1883";
 	private String clientId     = "wpvserver";
 	
 	static Logger log = Logger.getLogger(MQTTListener.class.getName());	
