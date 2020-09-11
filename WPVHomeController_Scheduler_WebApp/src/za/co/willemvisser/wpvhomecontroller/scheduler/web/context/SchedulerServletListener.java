@@ -56,7 +56,9 @@ public class SchedulerServletListener implements ServletContextListener {
 		/* See if we need to shut down XBEE flows */
 		
 		try {			
-			if (ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_ENABLED).getValue().equalsIgnoreCase("true")) {			
+			GeneralPropertyDTO propDTO = ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_ENABLED);
+			
+			if (propDTO != null && propDTO.getValue().equalsIgnoreCase("true")) {			
 				XbeeController.INSTANCE.shutdown();
 			}
 		} catch (Exception e) {
@@ -83,7 +85,9 @@ public class SchedulerServletListener implements ServletContextListener {
 			
 			/* See if we need to enable XBEE flows */
 			try { 
-				if (ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_ENABLED).getValue().equalsIgnoreCase("true")) {
+				GeneralPropertyDTO propDTO = ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_ENABLED);
+				
+				if (propDTO != null && propDTO.getValue().equalsIgnoreCase("true")) {
 									
 					String xbeePortName = ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_PORTNAME).getValue();
 					int xbeeBaudRate = Integer.parseInt(ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_BAUDRATE).getValue());
