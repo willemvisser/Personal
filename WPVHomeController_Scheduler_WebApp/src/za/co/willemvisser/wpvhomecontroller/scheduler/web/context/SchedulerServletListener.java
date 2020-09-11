@@ -53,9 +53,12 @@ public class SchedulerServletListener implements ServletContextListener {
 			e.printStackTrace();
 		}
 		
-		try {
-			/* Shutting down Xbee Controller */
-			XbeeController.INSTANCE.shutdown();
+		/* See if we need to shut down XBEE flows */
+		
+		try {			
+			if (ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_XBEE_ENABLED).getValue().equalsIgnoreCase("true")) {			
+				XbeeController.INSTANCE.shutdown();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
