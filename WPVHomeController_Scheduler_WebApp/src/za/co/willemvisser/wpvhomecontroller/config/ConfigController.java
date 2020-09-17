@@ -90,8 +90,9 @@ public enum ConfigController {
 	 * @return GeneralPropertyDTO with given key
 	 */
 	public GeneralPropertyDTO getGeneralProperty(String propertyKey) {
+		log.info("Retrieving General Property: " + propertyKey);
 		for (GeneralPropertyDTO generalPropertyDTO : this.generalPropertiesDTO.getGeneralPropertyList()) {
-			if (generalPropertyDTO.getKey().equals(propertyKey)) {
+			if (generalPropertyDTO != null && generalPropertyDTO.getKey().equals(propertyKey)) {
 				return generalPropertyDTO;
 			}
 		}
