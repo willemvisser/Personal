@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
+import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
+
 
 public enum WaterTankFillUtil {
 
@@ -19,10 +21,10 @@ public enum WaterTankFillUtil {
 	private static final int maxFillInCms = 10;  //This is the maximum number of centimeters we want to fill in one job
 	
 	
-	private int minFillDepth = 40;				//This is the depth we want to fill to - estimate 15cm is 100%, we don't want more than 40cm (?) to avoid too much damp in sensor
-	private int requestedFillDepth = 9999;		 
+	private double minFillDepth = 40;				//This is the depth we want to fill to - estimate 15cm is 100%, we don't want more than 40cm (?) to avoid too much damp in sensor
+	private double requestedFillDepth = 9999;		 
 													
-	private int currentDepth = 0;
+	private double currentDepth = 0;
 	
 	private int DEFAULT_FILL_TIME_IN_SECS = 80;		
 	
@@ -204,9 +206,22 @@ public enum WaterTankFillUtil {
 	 * @throws NumberFormatException
 	 */
 	private void updateCurrentDepth() throws IOException, NumberFormatException {
-		StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet("http://192.168.1.202:8080/WPVHomeController_Scheduler_WebApp/xbee/device/getmapvalue/TANK_LEVEL"));
+		
+		StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
+				ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_HTTP_URL).getValue()));
+					
+		currentDepth = -1;
+		
+		try {
+			currentDepth = Double.parseDouble(response.toString());			
+		} catch (Exception ee) {
+			log.error("Could not retrieve current tank depth, not posting any metrics");
+			log.error(ee);			
+			return;
+		}
+						
 		log.info("Tank Depth: " + response);
-		currentDepth = Integer.parseInt(response.toString());
+		
 	}
 	
 	private void switchOffPumpNow() {
