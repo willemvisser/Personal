@@ -49,9 +49,11 @@ public enum ConfigController {
 	public void init(String remoteConfigHostAddress, ServletContext context) throws Exception {
 		this.remoteConfigHostAddress = remoteConfigHostAddress;
 		
-		this.xbeeConfigsDTO = (XbeeConfigsDTO)loadXmlFromResource(XbeeConfigsDTO.class, context, XML_FILENAME_XBEECONFIG);
 		this.generalPropertiesDTO = (GeneralPropertiesDTO)loadXmlFromResource(GeneralPropertiesDTO.class, context, 
 				XML_FILENAME_GENERALPROPS);
+		
+		this.xbeeConfigsDTO = (XbeeConfigsDTO)loadXmlFromResource(XbeeConfigsDTO.class, context, XML_FILENAME_XBEECONFIG);
+		
 				
 
 	}
