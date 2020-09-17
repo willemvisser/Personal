@@ -95,6 +95,7 @@ public enum ConfigController {
 				return generalPropertyDTO;
 			}
 		}
+		log.error("Error - could not find a general property with key name: " + propertyKey);
 		return null;
 	}
 		
