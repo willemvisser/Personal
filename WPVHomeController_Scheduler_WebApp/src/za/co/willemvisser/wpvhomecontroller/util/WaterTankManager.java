@@ -11,6 +11,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.log4j.Logger;
 
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
+import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigDTO;
+import za.co.willemvisser.wpvhomecontroller.property.PropertyManager;
+import za.co.willemvisser.wpvhomecontroller.xbee.XbeeController;
 
 public enum WaterTankManager {
 	
@@ -36,19 +39,25 @@ public enum WaterTankManager {
 	public double getWaterTankDepthPercentage() {
 		double currentDepth = -111;
 		try {
-			StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
-				ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_HTTP_URL).getValue()));
-					
-			log.debug("Tank Depth Response: " + response);					
-		 
-			double tankDepthInCm = Double.parseDouble(response.toString()); 								
-			currentDepth = NumberUtil.round( ((198.0 - tankDepthInCm + 13.2) / 198.0 * 100), 2);  
+									
+			double tankDepthInCm = Double.valueOf( PropertyManager.INSTANCE.getProperty(PropertyManager.PROP_TANK1_DEPTH).getValue() );
+						 							
+			currentDepth = NumberUtil.round( ((198.0 - tankDepthInCm + 13.2) / 198.0 * 100), 2);
+			
+			return currentDepth;
 			
 		} catch (Exception ee) {			
 			log.error("Could not retrieve current tank depth, posting a value of -111");
 			log.error(ee);				
 		}
 		return currentDepth;
+	}
+	
+	/**
+	 * @return the Date when the main tank depth were last updated
+	 */
+	public Date getWaterTankLastUpdated() {
+		return PropertyManager.INSTANCE.getProperty(PropertyManager.PROP_TANK1_DEPTH).getLastUpdated();
 	}
 
 	public boolean isPumping() {

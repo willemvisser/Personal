@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
+import za.co.willemvisser.wpvhomecontroller.util.DateUtil;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
 import za.co.willemvisser.wpvhomecontroller.util.NumberUtil;
 import za.co.willemvisser.wpvhomecontroller.util.WaterTankManager;
@@ -158,31 +159,38 @@ public class MQTTListener implements Runnable, MqttCallback {
 		}
 	}
 	
+	
+	/**
+	 * Posts the current main tank depth to MQTT 
+	 */
 	private void postCurrentTank1Depth() {
 		try {
-			log.debug("Posting Current Tank Depth...");
-			StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
-					ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_HTTP_URL).getValue()));
-						
-			log.debug("Tank Depth Response: " + response);
-			
-			double currentDepth = 0;
-			try {
-				double tankDepthInCm = Double.parseDouble(response.toString()); 								
-				currentDepth = NumberUtil.round( ((198.0 - tankDepthInCm + 13.2) / 198.0 * 100), 2);  
-				
-			} catch (Exception ee) {
-				currentDepth = -111;
-				log.error("Could not retrieve current tank depth, posting a value of -111");
-				log.error(ee);				
-			}
+//			log.debug("Posting Current Tank Depth...");
+//			StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
+//					ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_HTTP_URL).getValue()));
+
+			double currentDepth = WaterTankManager.INSTANCE.getWaterTankDepthPercentage();
+//			log.info("Tank Depth Response: " + currentDepth);
+//			
+//			double currentDepth = 0;
+//			try {
+//				double tankDepthInCm = Double.parseDouble(response.toString()); 								
+//				currentDepth = NumberUtil.round( ((198.0 - tankDepthInCm + 13.2) / 198.0 * 100), 2);  
+//				
+//			} catch (Exception ee) {
+//				currentDepth = -111;
+//				log.error("Could not retrieve current tank depth, posting a value of -111");
+//				log.error(ee);				
+//			}
 			
 			log.info("Current Depth: " + currentDepth);
 			
-			StringBuffer responseForLastUpdated = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
-					ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_LASTUPDATED_HTTP_URL).getValue()));
-			log.debug("Tank Level Last Updated: " + responseForLastUpdated);
+//			StringBuffer responseForLastUpdated = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
+//					ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_LASTUPDATED_HTTP_URL).getValue()));
+//			log.debug("Tank Level Last Updated: " + responseForLastUpdated);
 			
+			
+			String responseForLastUpdated = DateUtil.INSTANCE.convertDateTimeToString( WaterTankManager.INSTANCE.getWaterTankLastUpdated() );
 
 			log.debug("Sending MQTT message ...");
             client.publish(TOPIC_STAT_TANK1_DEPTH, new MqttMessage((currentDepth + "|" + responseForLastUpdated).getBytes()));            

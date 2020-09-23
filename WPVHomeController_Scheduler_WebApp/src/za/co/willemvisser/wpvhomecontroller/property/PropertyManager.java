@@ -9,6 +9,9 @@ public enum PropertyManager {
 	INSTANCE;
 	
 	static Logger log = Logger.getLogger(PropertyManager.class.getName());
+
+	public static final String PROP_TANK1_DEPTH = "tank1_depth";	//Main House water tank
+	
 	
 	private HashMap<String, PropertyDTO> keyMap = new HashMap<String, PropertyDTO>();
 	
