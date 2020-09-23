@@ -29,7 +29,7 @@
  
  	<servlet-mapping>  
   		<servlet-name>jersey-servlet</servlet-name>  
-  		<url-pattern>/xbee/*</url-pattern>  
+  		<url-pattern>/ws/*</url-pattern>  
  	</servlet-mapping> 
  
   <welcome-file-list>
