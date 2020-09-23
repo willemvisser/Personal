@@ -129,7 +129,7 @@
 	<logger name="za.co.willemvisser.wpvhomecontroller.mqtt.MQTTListener"
 				additivity="false">
   		<appender-ref ref="console" />
-  		<level value="INFO"/> 
+  		<level value="DEBUG"/> 
 	</logger>
  	 
 </log4j:configuration>
