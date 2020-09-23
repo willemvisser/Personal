@@ -53,7 +53,7 @@ public enum ConfigController {
 			
 			this.remoteConfigHostAddress = remoteConfigHostAddress;
 			
-			log.info("Loading: " + XML_FILENAME_GENERALPROPS);
+			log.info("Loading XML config: " + XML_FILENAME_GENERALPROPS);
 			this.generalPropertiesDTO = (GeneralPropertiesDTO)loadXmlFromResource(GeneralPropertiesDTO.class, context, 
 					XML_FILENAME_GENERALPROPS);
 			System.out.println("ConfigController init done");
@@ -117,8 +117,9 @@ public enum ConfigController {
 		
 	
 	private Object loadXmlFromResource(Class classType, ServletContext context, String fileName) throws Exception {
-		log.info("Loading config: " + fileName);
+		log.info("loadXmlFromResource: " + fileName);
 		JAXBContext jaxbContext = JAXBContext.newInstance(classType);
+		log.info("jaxbContext newInstance");
 		Unmarshaller um = jaxbContext.createUnmarshaller();
 		
 		try {
