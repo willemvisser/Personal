@@ -9,7 +9,6 @@ import javax.servlet.ServletContext;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-
 import org.apache.http.HttpResponse;
 import org.apache.log4j.Logger;
 
