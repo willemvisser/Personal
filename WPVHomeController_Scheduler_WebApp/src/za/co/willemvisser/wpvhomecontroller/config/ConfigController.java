@@ -117,19 +117,24 @@ public enum ConfigController {
 		
 	
 	private Object loadXmlFromResource(Class classType, ServletContext context, String fileName) throws Exception {
-		log.info("loadXmlFromResource: " + fileName);
-		JAXBContext jaxbContext = JAXBContext.newInstance(classType);
-		log.info("jaxbContext newInstance");
-		Unmarshaller um = jaxbContext.createUnmarshaller();
+		
 		
 		try {
+			log.info("loadXmlFromResource: " + fileName);
+			JAXBContext jaxbContext = JAXBContext.newInstance(classType);
+			log.info("jaxbContext newInstance");
+			Unmarshaller um = jaxbContext.createUnmarshaller();
+			
 			log.info("About to loadXmlFromRemoteResource...");
 			return loadXmlFromRemoteResource(um, fileName);			
 		} catch (Exception e) {
 			log.error("Could not load resource from remote location", e);
 			
 			log.info("Loading resource from local path");
-			return loadXmlFromLocalResource(um, context, fileName);
+			return null;
+		} catch (Throwable t) {
+			log.error("Could not load class: " + t.getMessage());
+			return null;
 		}
 	}
 	
