@@ -34,7 +34,12 @@
   		<appender-ref ref="console" />
   		<level value="info"/> 
 	</logger>
-	
+			
+	<logger name="za.co.willemvisser.wpvhomecontroller.ws.rest.BoardController"
+				additivity="false">
+  		<appender-ref ref="console" />
+  		<level value="debug"/> 
+	</logger>
 	
 	<logger name="za.co.willemvisser.wpvhomecontroller.xbee.ws.rest.XDeviceController"
 				additivity="false">
