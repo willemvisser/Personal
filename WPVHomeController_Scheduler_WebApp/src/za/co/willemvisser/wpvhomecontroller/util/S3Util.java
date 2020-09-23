@@ -31,9 +31,9 @@ public enum S3Util {
 	}
 	
 	public String getBucketAsString(String bucketName, String key) throws AmazonServiceException, AmazonClientException{
-		AmazonS3 s3Client = new AmazonS3Client();
-
-        log.info("Downloading object: " + bucketName + " \\ " + key);
+		log.info("Downloading object: " + bucketName + " \\ " + key);
+		System.out.println("Downloading object: " + bucketName + " \\ " + key);
+		AmazonS3 s3Client = new AmazonS3Client();        
         return s3Client.getObjectAsString(bucketName, key);
         
                     
