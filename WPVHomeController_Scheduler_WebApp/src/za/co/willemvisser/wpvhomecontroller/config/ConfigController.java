@@ -119,6 +119,7 @@ public enum ConfigController {
 		Unmarshaller um = jaxbContext.createUnmarshaller();
 		
 		try {
+			log.info("About to loadXmlFromRemoteResource...");
 			return loadXmlFromRemoteResource(um, fileName);			
 		} catch (Exception e) {
 			log.error("Could not load resource from remote location", e);
