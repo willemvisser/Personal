@@ -48,19 +48,22 @@ public enum ConfigController {
 	
 	public void init(String remoteConfigHostAddress, ServletContext context) throws Exception {
 		
-		log.info("ConfigController init");
-		
-		this.remoteConfigHostAddress = remoteConfigHostAddress;
-		
-		log.info("Loading: " + XML_FILENAME_GENERALPROPS);
-		this.generalPropertiesDTO = (GeneralPropertiesDTO)loadXmlFromResource(GeneralPropertiesDTO.class, context, 
-				XML_FILENAME_GENERALPROPS);
-		System.out.println("ConfigController init done");
-		log.info("this.generalPropertiesDTO initialized: " + this.generalPropertiesDTO);
-		
-		this.xbeeConfigsDTO = (XbeeConfigsDTO)loadXmlFromResource(XbeeConfigsDTO.class, context, XML_FILENAME_XBEECONFIG);
-		System.out.println("ConfigController xbee load init done");
-				
+		try {
+			log.info("ConfigController init");
+			
+			this.remoteConfigHostAddress = remoteConfigHostAddress;
+			
+			log.info("Loading: " + XML_FILENAME_GENERALPROPS);
+			this.generalPropertiesDTO = (GeneralPropertiesDTO)loadXmlFromResource(GeneralPropertiesDTO.class, context, 
+					XML_FILENAME_GENERALPROPS);
+			System.out.println("ConfigController init done");
+			log.info("this.generalPropertiesDTO initialized: " + this.generalPropertiesDTO);
+			
+			this.xbeeConfigsDTO = (XbeeConfigsDTO)loadXmlFromResource(XbeeConfigsDTO.class, context, XML_FILENAME_XBEECONFIG);
+			System.out.println("ConfigController xbee load init done");
+		} catch (Exception e) {
+			log.error("Could not init ConfigController: " + e.toString() );
+		}
 
 	}
 	
