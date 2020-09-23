@@ -84,7 +84,9 @@ public enum XbeeController {
 	}
 	
 	public void shutdown() {
-		xbee.close();
+		if (xbee != null) {
+			xbee.close();
+		}
 	}
 	
 	/**

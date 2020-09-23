@@ -82,7 +82,9 @@ public class MQTTListener implements Runnable, MqttCallback {
 	 */
 	public void stop() {
 		try {
-			client.disconnect();
+			if (client != null) {
+				client.disconnect();
+			}
 		} catch (Exception e) {
 			log.error("Could not disconnect: " + e);
 		}

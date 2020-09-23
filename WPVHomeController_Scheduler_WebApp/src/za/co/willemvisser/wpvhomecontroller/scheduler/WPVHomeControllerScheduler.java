@@ -204,7 +204,9 @@ public enum WPVHomeControllerScheduler {
 	 * @throws InterruptedException 
 	 */
 	public void stopScheduler() throws SchedulerException, InterruptedException {
-		scheduler.shutdown(true);
+		if (scheduler != null) {
+			scheduler.shutdown(true);
+		}
 		Thread.sleep(1000);
 	}
 	
