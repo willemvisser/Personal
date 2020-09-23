@@ -47,15 +47,19 @@ public enum ConfigController {
 	static Logger log = Logger.getLogger(ConfigController.class.getName());
 	
 	public void init(String remoteConfigHostAddress, ServletContext context) throws Exception {
+		
+		log.info("ConfigController init");
+		
 		this.remoteConfigHostAddress = remoteConfigHostAddress;
 		
+		log.info("Loading: " + XML_FILENAME_GENERALPROPS);
 		this.generalPropertiesDTO = (GeneralPropertiesDTO)loadXmlFromResource(GeneralPropertiesDTO.class, context, 
 				XML_FILENAME_GENERALPROPS);
-		
+		System.out.println("ConfigController init done");
 		log.info("this.generalPropertiesDTO initialized: " + this.generalPropertiesDTO);
 		
 		this.xbeeConfigsDTO = (XbeeConfigsDTO)loadXmlFromResource(XbeeConfigsDTO.class, context, XML_FILENAME_XBEECONFIG);
-		
+		System.out.println("ConfigController xbee load init done");
 				
 
 	}

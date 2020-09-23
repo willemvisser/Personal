@@ -75,10 +75,10 @@ public class SchedulerServletListener implements ServletContextListener {
 		
 		try {			
 		    
-			WPVHomeControllerScheduler.INSTANCE.startScheduler(ipAddress);
-			
 			ConfigController.INSTANCE.init("54.68.136.170", context.getServletContext());
 			
+			WPVHomeControllerScheduler.INSTANCE.startScheduler(ipAddress);
+									
 			TelegramUtil.INSTANCE.setApiToken( ConfigController.INSTANCE.getGeneralProperty("Telegram_API_Token").getValue() );
 			TelegramUtil.INSTANCE.setChatID(ConfigController.INSTANCE.getGeneralProperty("Telegram_Chat_ID").getValue());
 			
