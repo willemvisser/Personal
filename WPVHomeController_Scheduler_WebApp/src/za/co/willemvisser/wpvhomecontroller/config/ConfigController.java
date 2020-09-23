@@ -52,6 +52,8 @@ public enum ConfigController {
 		this.generalPropertiesDTO = (GeneralPropertiesDTO)loadXmlFromResource(GeneralPropertiesDTO.class, context, 
 				XML_FILENAME_GENERALPROPS);
 		
+		log.info("this.generalPropertiesDTO initialized: " + this.generalPropertiesDTO);
+		
 		this.xbeeConfigsDTO = (XbeeConfigsDTO)loadXmlFromResource(XbeeConfigsDTO.class, context, XML_FILENAME_XBEECONFIG);
 		
 				
@@ -93,6 +95,10 @@ public enum ConfigController {
 	 */
 	public GeneralPropertyDTO getGeneralProperty(String propertyKey) {
 		log.info("Retrieving General Property: " + propertyKey);
+		log.info("GeneralProperties != null: " + (this.generalPropertiesDTO != null) );
+		if (this.generalPropertiesDTO != null) {
+			log.info("getGeneralPropertyList != null: " + (this.generalPropertiesDTO.getGeneralPropertyList() != null) );
+		}
 		for (GeneralPropertyDTO generalPropertyDTO : this.generalPropertiesDTO.getGeneralPropertyList()) {
 			if (generalPropertyDTO != null && generalPropertyDTO.getKey().equals(propertyKey)) {
 				return generalPropertyDTO;
