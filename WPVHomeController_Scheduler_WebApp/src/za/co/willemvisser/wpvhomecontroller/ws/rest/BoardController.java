@@ -65,7 +65,7 @@ public class BoardController {
 		try {
 			
 			XbeeConfigDTO xbeeConfigDTO = XbeeController.INSTANCE.getBoardWithID(boardId);			
-			log.debug("Board (" + xbeeConfigDTO.getName() + ") setmapvalue (index:value): " + mapIndex + ":" + mapValue);			
+			log.info("Board (" + xbeeConfigDTO.getName() + ") setmapvalue (index:value): " + mapIndex + ":" + mapValue);			
 			xbeeConfigDTO.getRxResponseMap().put(mapIndex, mapValue);	
 			xbeeConfigDTO.setLastSync(new Date());
 			return "OK";
