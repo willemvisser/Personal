@@ -13,6 +13,7 @@ import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
 import za.co.willemvisser.wpvhomecontroller.config.dto.GeneralPropertyDTO;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
 import za.co.willemvisser.wpvhomecontroller.util.NumberUtil;
+import za.co.willemvisser.wpvhomecontroller.util.WaterTankManager;
 
 import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatchClientBuilder;
@@ -34,21 +35,11 @@ public class WaterTankPostMetricsJob implements InterruptableJob {
 		try {
 			AmazonCloudWatch cw = AmazonCloudWatchClientBuilder.defaultClient();
 			
-			StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
-					ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_HTTP_URL).getValue()));
+			
 						
-			double currentDepth = 0;
-			double percentageFull = 0;
-			try {
-				currentDepth = Double.parseDouble(response.toString());
-				percentageFull = NumberUtil.round( ((198.0 - currentDepth + 13.2) / 198.0 * 100), 2);
-			} catch (Exception ee) {
-				log.error("Could not retrieve current tank depth, not posting any metrics");
-				log.error(ee);
-				return;
-			}
-						
-				
+			double currentDepth = WaterTankManager.INSTANCE.getWaterTankDepthInCM();
+			double percentageFull = WaterTankManager.INSTANCE.getWaterTankDepthPercentage();
+													
 			Collection<Dimension> dimensions = new ArrayList<Dimension>();
 			
 			Dimension dimensionHostName = new Dimension()
@@ -86,8 +77,7 @@ public class WaterTankPostMetricsJob implements InterruptableJob {
 			log.debug("Tank metrics posted to CloudWatch");
 			
 		} catch (Exception e) {
-			log.error("Water Tank Post metrics error (posting to AWS: " + e);
-			//throw new JobExecutionException("Could not post metrics to CloudWatch for Water Tank", e);
+			log.error("Water Tank Post metrics error (posting to AWS: " + e);			
 		}
         
 	}

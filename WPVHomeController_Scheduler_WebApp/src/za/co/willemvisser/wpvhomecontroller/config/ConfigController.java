@@ -18,6 +18,7 @@ import za.co.willemvisser.wpvhomecontroller.config.dto.XbeeConfigsDTO;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
 import za.co.willemvisser.wpvhomecontroller.util.S3Util;
 
+
 public enum ConfigController {
 
 	INSTANCE;
@@ -48,18 +49,14 @@ public enum ConfigController {
 	public void init(String remoteConfigHostAddress, ServletContext context) throws Exception {
 		
 		try {
-			log.info("ConfigController init");
-			
+						
 			this.remoteConfigHostAddress = remoteConfigHostAddress;
-			
-			log.info("Loading XML config: " + XML_FILENAME_GENERALPROPS);
+						
 			this.generalPropertiesDTO = (GeneralPropertiesDTO)loadXmlFromResource(GeneralPropertiesDTO.class, context, 
 					XML_FILENAME_GENERALPROPS);
-			System.out.println("ConfigController init done");
-			log.info("this.generalPropertiesDTO initialized: " + this.generalPropertiesDTO);
 			
 			this.xbeeConfigsDTO = (XbeeConfigsDTO)loadXmlFromResource(XbeeConfigsDTO.class, context, XML_FILENAME_XBEECONFIG);
-			System.out.println("ConfigController xbee load init done");
+			
 		} catch (Exception e) {
 			log.error("Could not init ConfigController: " + e.toString() );
 		}
@@ -100,11 +97,7 @@ public enum ConfigController {
 	 * @return GeneralPropertyDTO with given key
 	 */
 	public GeneralPropertyDTO getGeneralProperty(String propertyKey) {
-		log.info("Retrieving General Property: " + propertyKey);
-		log.info("GeneralProperties != null: " + (this.generalPropertiesDTO != null) );
-		if (this.generalPropertiesDTO != null) {
-			log.info("getGeneralPropertyList != null: " + (this.generalPropertiesDTO.getGeneralPropertyList() != null) );
-		}
+				
 		for (GeneralPropertyDTO generalPropertyDTO : this.generalPropertiesDTO.getGeneralPropertyList()) {
 			if (generalPropertyDTO != null && generalPropertyDTO.getKey().equals(propertyKey)) {
 				return generalPropertyDTO;
@@ -118,13 +111,10 @@ public enum ConfigController {
 	private Object loadXmlFromResource(Class classType, ServletContext context, String fileName) throws Exception {
 		
 		
-		try {
-			log.info("loadXmlFromResource: " + fileName);
-			JAXBContext jaxbContext = JAXBContext.newInstance(classType);
-			log.info("jaxbContext newInstance");
+		try {			
+			JAXBContext jaxbContext = JAXBContext.newInstance(classType);			
 			Unmarshaller um = jaxbContext.createUnmarshaller();
-			
-			log.info("About to loadXmlFromRemoteResource...");
+						
 			return loadXmlFromRemoteResource(um, fileName);			
 		} catch (Exception e) {
 			log.error("Could not load resource from remote location", e);
@@ -147,29 +137,7 @@ public enum ConfigController {
 	 */
 	private Object loadXmlFromRemoteResource(Unmarshaller um, String fileName) throws JAXBException, IOException {										
 		/* Attempt to download from remote server */
-		/*
-		String remoteUrl = HTTP_PREFIX + remoteConfigHostAddress + 
-				"/config/" + 
-				fileName;
-			
 		
-		HttpResponse response = HttpUtil.INSTANCE.doHttpGet(remoteUrl);
-		if (response.getStatusLine().getStatusCode() == 200) {		
-			
-			
-			try { 
-				S3Util.INSTANCE.writeStringToBucket(S3Util.BUCKET_WPVHOMESCHEDULER, fileName,  HttpUtil.INSTANCE.getResponseContent(response).toString()  );
-			} catch (Exception e) {
-				log.error(e);
-			}
-		
-					
-			return um.unmarshal( response.getEntity().getContent() );
-			
-		} else {
-			throw new IOException("Could not load Remote XML file: " + remoteUrl);
-		}
-		*/
 		return um.unmarshal( new StringReader( S3Util.INSTANCE.getBucketAsString(S3Util.BUCKET_WPVHOMESCHEDULER, fileName) ) );
 							
 	}
