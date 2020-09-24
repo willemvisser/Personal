@@ -36,6 +36,23 @@ public enum WaterTankManager {
 	/**
 	 * @return the depth of the main house water tank in CM
 	 */
+	public double getWaterTankDepthInCM() {
+		double currentDepth = -111;
+		try {
+									
+			return Double.valueOf( PropertyManager.INSTANCE.getProperty(PropertyManager.PROP_TANK1_DEPTH).getValue() );
+						 													
+			
+		} catch (Exception ee) {			
+			log.error("Could not retrieve current tank depth, posting a value of -111");
+			log.error(ee);				
+		}
+		return currentDepth;
+	}
+	
+	/**
+	 * @return the depth of the main house water tank as a %
+	 */
 	public double getWaterTankDepthPercentage() {
 		double currentDepth = -111;
 		try {
