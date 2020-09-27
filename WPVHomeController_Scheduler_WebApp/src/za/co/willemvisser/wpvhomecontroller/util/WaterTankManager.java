@@ -39,10 +39,9 @@ public enum WaterTankManager {
 	public double getWaterTankDepthInCM() {
 		double currentDepth = -111;
 		try {
-									
-			return Double.valueOf( PropertyManager.INSTANCE.getProperty(PropertyManager.PROP_TANK1_DEPTH).getValue() );
-						 													
-			
+			currentDepth = Double.valueOf( PropertyManager.INSTANCE.getProperty(PropertyManager.PROP_TANK1_DEPTH).getValue() );
+			log.info("getWaterTankDepthInCM: " + currentDepth);				
+			return currentDepth;						 																
 		} catch (Exception ee) {			
 			log.error("Could not retrieve current tank depth, posting a value of -111");
 			log.error(ee);				
@@ -55,14 +54,11 @@ public enum WaterTankManager {
 	 */
 	public double getWaterTankDepthPercentage() {
 		double currentDepth = -111;
-		try {
-									
-			double tankDepthInCm = Double.valueOf( PropertyManager.INSTANCE.getProperty(PropertyManager.PROP_TANK1_DEPTH).getValue() );
-						 							
+		try {									
+			double tankDepthInCm = Double.valueOf( PropertyManager.INSTANCE.getProperty(PropertyManager.PROP_TANK1_DEPTH).getValue() );						 							
 			currentDepth = NumberUtil.round( ((198.0 - tankDepthInCm + 13.2) / 198.0 * 100), 2);
-			
-			return currentDepth;
-			
+			log.info("getWaterTankDepthPercentage: " + currentDepth);
+			return currentDepth;			
 		} catch (Exception ee) {			
 			log.error("Could not retrieve current tank depth, posting a value of -111");
 			log.error(ee);				

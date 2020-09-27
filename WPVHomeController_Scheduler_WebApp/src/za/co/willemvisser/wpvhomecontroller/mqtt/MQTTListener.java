@@ -183,7 +183,7 @@ public class MQTTListener implements Runnable, MqttCallback {
 //				log.error(ee);				
 //			}
 			
-			log.info("Current Depth: " + currentDepth);
+			log.debug("Posting Current Depth to MQTT: " + currentDepth);
 			
 //			StringBuffer responseForLastUpdated = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
 //					ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_LASTUPDATED_HTTP_URL).getValue()));

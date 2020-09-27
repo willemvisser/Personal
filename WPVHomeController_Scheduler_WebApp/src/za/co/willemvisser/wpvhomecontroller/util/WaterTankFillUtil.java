@@ -18,10 +18,10 @@ public enum WaterTankFillUtil {
 	
 	private boolean pumping = false;
 	
-	private static final int maxFillInCms = 10;  //This is the maximum number of centimeters we want to fill in one job
+	private static final int maxFillInPercentage = 10;  //This is the maximum percentage we want to fill in one job
 	
 	
-	private double minFillDepth = 40;				//This is the depth we want to fill to - estimate 15cm is 100%, we don't want more than 40cm (?) to avoid too much damp in sensor
+	private double minFillDepthPercentage = 80;				//This is the depth we want to fill to
 	private double requestedFillDepth = 9999;		 
 													
 	private double currentDepth = 0;
@@ -71,12 +71,12 @@ public enum WaterTankFillUtil {
 			*/
 			
 			if (this.requestedFillDepth == -1) {
-				this.requestedFillDepth = currentDepth - maxFillInCms;
+				this.requestedFillDepth = currentDepth - maxFillInPercentage;
 			}
 			
-			if (currentDepth <= minFillDepth) {
-				log.info("We are not going to add any water:" + currentDepth + " <= " + minFillDepth + " (min depth)" );
-				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... We are already at required minimum depth: " + minFillDepth);
+			if (currentDepth <= minFillDepthPercentage) {
+				log.info("We are not going to add any water:" + currentDepth + " <= " + minFillDepthPercentage + " (min depth)" );
+				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... We are already at required minimum depth: " + minFillDepthPercentage);
 				return;
 			} else if (currentDepth <= requestedFillDepth) {
 				log.info("We are not going to add any water:" +  currentDepth + " <= " + requestedFillDepth + " (requested depth): True!" );
@@ -100,7 +100,7 @@ public enum WaterTankFillUtil {
 				updateCurrentDepth();
 				
 				if (this.requestedFillDepth == -1) {
-					this.requestedFillDepth = currentDepth - maxFillInCms;
+					this.requestedFillDepth = currentDepth - maxFillInPercentage;
 				}
 				
 			} catch (Exception e) {
@@ -165,12 +165,12 @@ public enum WaterTankFillUtil {
 				break;
 			}
 			
-			if (currentDepth <= minFillDepth) {
-				log.info( currentDepth + " <= " + minFillDepth + " (min depth): True!" );
+			if (currentDepth <= minFillDepthPercentage) {
+				log.info( currentDepth + " <= " + minFillDepthPercentage + " (min depth): True!" );
 				pumping = false;
 				log.info("Stopping");
 				log.info("Stopping, we are now on depth: " + currentDepth);
-				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... stopping at depth: " + currentDepth + " after " + noCycles + " cycles, we have reached minimum fill depth: " + minFillDepth);
+				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... stopping at depth: " + currentDepth + " after " + noCycles + " cycles, we have reached minimum fill depth: " + minFillDepthPercentage);
 			} else if (currentDepth <= requestedFillDepth) {
 				log.info( currentDepth + " <= " + requestedFillDepth + " (requested depth): True!" );
 				pumping = false;				
@@ -207,20 +207,10 @@ public enum WaterTankFillUtil {
 	 */
 	private void updateCurrentDepth() throws IOException, NumberFormatException {
 		
-		StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet(
-				ConfigController.INSTANCE.getGeneralProperty(ConfigController.PROPERTY_TANK_LEVEL_HTTP_URL).getValue()));
-					
-		currentDepth = -1;
 		
-		try {
-			currentDepth = Double.parseDouble(response.toString());			
-		} catch (Exception ee) {
-			log.error("Could not retrieve current tank depth, not posting any metrics");
-			log.error(ee);			
-			return;
-		}
-						
-		log.info("Tank Depth: " + response);
+		currentDepth = WaterTankManager.INSTANCE.getWaterTankDepthPercentage();
+										
+		log.info("Tank Depth: " + currentDepth);
 		
 	}
 	
