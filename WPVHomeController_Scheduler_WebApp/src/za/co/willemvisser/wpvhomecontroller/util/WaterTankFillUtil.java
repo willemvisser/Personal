@@ -74,11 +74,11 @@ public enum WaterTankFillUtil {
 				this.requestedFillDepth = currentDepth - maxFillInPercentage;
 			}
 			
-			if (currentDepth <= minFillDepthPercentage) {
+			if (currentDepth >= minFillDepthPercentage) {
 				log.info("We are not going to add any water:" + currentDepth + " <= " + minFillDepthPercentage + " (min depth)" );
 				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... We are already at required minimum depth: " + minFillDepthPercentage);
 				return;
-			} else if (currentDepth <= requestedFillDepth) {
+			} else if (currentDepth >= requestedFillDepth) {
 				log.info("We are not going to add any water:" +  currentDepth + " <= " + requestedFillDepth + " (requested depth): True!" );
 				TelegramUtil.INSTANCE.sendMessage("Water Tank Fill ... End ... We are already at requested depth: " + requestedFillDepth);
 				return;
