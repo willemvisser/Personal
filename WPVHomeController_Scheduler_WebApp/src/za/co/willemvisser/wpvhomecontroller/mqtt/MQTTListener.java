@@ -263,6 +263,8 @@ public class MQTTListener implements Runnable, MqttCallback {
 	 */
 	private void processRainfallSTATEvent(String mqttMessage) {
 		try {
+			log.info("processRainfallSTATEvent: " + mqttMessage);
+			
 			AmazonCloudWatch cw = AmazonCloudWatchClientBuilder.defaultClient();
 			
 													
