@@ -1,6 +1,8 @@
 package za.co.willemvisser.wpvhomecontroller.mqtt;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -15,7 +17,15 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClientBuilder;
+import com.amazonaws.services.cloudwatch.model.Dimension;
+import com.amazonaws.services.cloudwatch.model.MetricDatum;
+import com.amazonaws.services.cloudwatch.model.PutMetricDataRequest;
+import com.amazonaws.services.cloudwatch.model.StandardUnit;
+
 import za.co.willemvisser.wpvhomecontroller.config.ConfigController;
+import za.co.willemvisser.wpvhomecontroller.config.dto.GeneralPropertyDTO;
 import za.co.willemvisser.wpvhomecontroller.util.DateUtil;
 import za.co.willemvisser.wpvhomecontroller.util.HttpUtil;
 import za.co.willemvisser.wpvhomecontroller.util.NumberUtil;
@@ -45,6 +55,8 @@ public class MQTTListener implements Runnable, MqttCallback {
 	public static final String TOPIC_CMD_BOREHOLEPUMP_STATUS = "cmnd/sonoff_boreholepump/status";
 	
 	public static final String TOPIC_CMD_BOREHOLEPUMP_POWER = "cmnd/sonoff_boreholepump/power";
+	
+	public static final String TOPIC_STAT_RAIN = "stat/weatherstation/rainfall";
 	
 	private Date lastRequestedUpdateForBoreholePumpStatus;
 	private static final int secondsToWaitBetweenBoreholePumpStatusUpdates = 30;
@@ -92,6 +104,9 @@ public class MQTTListener implements Runnable, MqttCallback {
 		isRunning = false;
 	}
 	
+	/**
+	 * @throws MqttException
+	 */
 	private void connectAndSubscribeToServer() throws MqttException {
 		client = new MqttClient(broker, clientId, persistence);
 		client.setTimeToWait(500);
@@ -105,6 +120,7 @@ public class MQTTListener implements Runnable, MqttCallback {
         client.subscribe(TOPIC_CMD_TANK1_DEPTH, qos);
         client.subscribe(TOPIC_CMD_WEATHER_TODAY, qos);
         client.subscribe(TOPIC_STAT_BOREHOLEPUMP, qos);
+        client.subscribe(TOPIC_STAT_RAIN, qos);
 	}
 
 	@Override
@@ -130,6 +146,9 @@ public class MQTTListener implements Runnable, MqttCallback {
 		} else if (topic.startsWith(TOPIC_STAT_BOREHOLEPUMP)) {
 			log.debug("Received Borehole Pump Stat event...");
 			processWaterTankPumpSTATEvent(mqttMessage.toString());
+		} else if (topic.startsWith(TOPIC_STAT_RAIN)) {
+			log.debug("Received Waterfall Stat event");
+			processRainfallSTATEvent(mqttMessage.toString());
 		} else {
 			log.error("Unknown message!: " + topic + " -> " + mqttMessage);
 		}
@@ -234,6 +253,50 @@ public class MQTTListener implements Runnable, MqttCallback {
             
 		} catch (Exception e) {
 			log.error("Could not process WaterTankPump STAT mqtt: " + e);
+		}
+	}
+	
+	/**
+	 * Received a message signalling we've received  a rain meter tip event
+	 * Each tip is 0.2794mm
+	 * @param mqttMessage
+	 */
+	private void processRainfallSTATEvent(String mqttMessage) {
+		try {
+			AmazonCloudWatch cw = AmazonCloudWatchClientBuilder.defaultClient();
+			
+													
+			Collection<Dimension> dimensions = new ArrayList<Dimension>();
+			
+			Dimension dimensionHostName = new Dimension()
+			    .withName("Host Name")
+			    .withValue(ConfigController.INSTANCE.getHostName());
+			dimensions.add(dimensionHostName);
+			
+			GeneralPropertyDTO propDTO = ConfigController.INSTANCE.getGeneralProperty("ServerType");
+			if (propDTO != null) {
+				Dimension dimensionServerType = new Dimension()
+			    	.withName("Server Type")
+			    	.withValue(propDTO.getValue());
+				dimensions.add(dimensionServerType);
+			}
+			
+			MetricDatum datum = new MetricDatum()
+			    .withMetricName("Rain")
+			    .withUnit(StandardUnit.None)
+			    .withValue(0.2794)
+			    .withDimensions(dimensions);						
+
+			PutMetricDataRequest request = new PutMetricDataRequest()
+			    .withNamespace("HomeAutomation")
+			    .withMetricData(datum);
+
+			cw.putMetricData(request);			
+			
+			log.debug("Rain metrics posted to CloudWatch");
+			
+		} catch (Exception e) {
+			log.error("Rain Post metrics error (posting to AWS: " + e);			
 		}
 	}
 
