@@ -20,6 +20,7 @@ public class WaterTankListener implements Runnable {
 	
 	@Override
 	public void run() {
+		log.info("Starting WaterTankListener ...");
 		while (isRunning) {
 			try {
 				
