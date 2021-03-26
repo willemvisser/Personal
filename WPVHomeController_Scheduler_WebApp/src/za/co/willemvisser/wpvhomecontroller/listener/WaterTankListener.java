@@ -60,12 +60,12 @@ public class WaterTankListener implements Runnable {
 	 */
 	private boolean shouldWeCheckNow() {
 		Date now = new Date();
-		long milliSecondsPassed = now.getTime() - lastCheckTimeStamp.getTime();
-		lastCheckTimeStamp = now;
+		long milliSecondsPassed = now.getTime() - lastCheckTimeStamp.getTime();		
 		log.info("MillPassed: " + milliSecondsPassed + ", Mins: " + (milliSecondsPassed/1000/60));
-		if (milliSecondsPassed/1000/60 > 5) {
+		if (milliSecondsPassed/1000/60 > 1) {
 			return true;
 		} else {
+			lastCheckTimeStamp = now;
 			return false;
 		}
 		
