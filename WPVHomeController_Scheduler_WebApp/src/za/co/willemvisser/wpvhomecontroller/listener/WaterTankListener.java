@@ -14,6 +14,7 @@ public class WaterTankListener implements Runnable {
 	
 	public WaterTankListener() {
 		super();
+		isRunning = true;
 		myThread = new Thread(this);
 		myThread.start();
 	}
