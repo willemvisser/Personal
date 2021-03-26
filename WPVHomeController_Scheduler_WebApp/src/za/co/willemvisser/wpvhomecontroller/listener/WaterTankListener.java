@@ -86,8 +86,7 @@ public class WaterTankListener implements Runnable {
 	 */
 	private boolean shouldWeCheckNowForTankTopUp() {
 		Date now = new Date();
-		long milliSecondsPassed = now.getTime() - lastCheckTimeStamp_tanktopup.getTime();		
-		log.info("MillPassed: " + milliSecondsPassed + ", Mins: " + (milliSecondsPassed/1000/60));
+		long milliSecondsPassed = now.getTime() - lastCheckTimeStamp_tanktopup.getTime();				
 		if (milliSecondsPassed/1000/60 > 30) {
 			lastCheckTimeStamp_tanktopup = now;
 			return true;
@@ -104,8 +103,7 @@ public class WaterTankListener implements Runnable {
 	 */
 	private boolean shouldWeCheckNowForTurningOffPump() {
 		Date now = new Date();
-		long milliSecondsPassed = now.getTime() - lastCheckTimeStamp_pumpturnoff.getTime();		
-		log.info("MillPassed: " + milliSecondsPassed + ", Mins: " + (milliSecondsPassed/1000/60));
+		long milliSecondsPassed = now.getTime() - lastCheckTimeStamp_pumpturnoff.getTime();				
 		if (milliSecondsPassed/1000/60 > 1) {
 			lastCheckTimeStamp_pumpturnoff = now;
 			return true;
