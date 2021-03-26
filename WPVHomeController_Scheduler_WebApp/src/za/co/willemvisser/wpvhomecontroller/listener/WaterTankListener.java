@@ -61,6 +61,7 @@ public class WaterTankListener implements Runnable {
 		Date now = new Date();
 		long milliSecondsPassed = now.getTime() - lastCheckTimeStamp.getTime();
 		lastCheckTimeStamp = now;
+		log.info("MillPassed: " + milliSecondsPassed + ", Mins: " + (milliSecondsPassed/1000/60));
 		if (milliSecondsPassed/1000/60 > 5) {
 			return true;
 		} else {
