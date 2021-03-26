@@ -16,7 +16,7 @@ public class WaterTankServletListener implements ServletContextListener {
 		try {			
 			myListener = new WaterTankListener();			
         } catch (Exception e) {
-        	log.error("Could not stop WaterTankListener thread: " + e);
+        	log.error("Could not start WaterTankListener thread: " + e);
         }
 	}
 	
