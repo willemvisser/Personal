@@ -23,7 +23,7 @@ public enum WaterTankManager {
 	private boolean pumping = false;	
 	//Override to 110 from 75 to fake it
 	private static final int maxDepthInPercentage = 110;  //This is the maximum number of centimeters we want to fill in one job
-	private static final int maxTimeInMinsWeCanPump = 20;
+	private static final int maxTimeInMinsWeCanPump = 12;
 	
 	private double pumpingStartDepthPercentage = 0;		//The depth at which we started pumping
 	private double pumpingStopDepthPercentage = 0;		//The depth at which we stopped pumping
@@ -167,6 +167,38 @@ public enum WaterTankManager {
 		
 		return shouldWeStopPumping();
 
+	}
+	
+	/**
+	 * Turns on the borehole pump 
+	 */
+	public void startPumping() {
+		try {
+			StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet("http://192.168.1.167/cm?cmnd=Power%20On"));			
+			if (!response.toString().equals("OK")) {
+				log.info("Pump On");
+			} else {
+				log.error("Could not switch on pump: " + response.toString());
+			}
+		} catch (Exception e) {
+			log.error("Could not switch on pump: " + e.toString());
+		} 
+	}
+	
+	/**
+	 * Turns on the borehole pump 
+	 */
+	public void stopPumping() {
+		try {
+			StringBuffer response = HttpUtil.INSTANCE.getResponseContent(HttpUtil.INSTANCE.doHttpGet("http://192.168.1.167/cm?cmnd=Power%20Off"));			
+			if (!response.toString().equals("OK")) {
+				log.info("Pump On");
+			} else {
+				log.error("Could not switch off pump: " + response.toString());
+			}
+		} catch (Exception e) {
+			log.error("Could not switch off pump: " + e.toString());
+		} 
 	}
 	
 }

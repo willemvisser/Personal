@@ -214,6 +214,7 @@ public enum WaterTankFillUtil {
 		
 	}
 	
+	@Deprecated
 	private void switchOffPumpNow() {
 		// We should use the XoffController here
 		log.info("Breaking out ... switching off pump ...");
