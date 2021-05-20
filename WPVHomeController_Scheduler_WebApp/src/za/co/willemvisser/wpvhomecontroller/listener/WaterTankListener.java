@@ -29,9 +29,9 @@ public class WaterTankListener implements Runnable {
 			try {
 				
 				if (shouldWeCheckNowForTankTopUp()) {
-					log.info("Checking if we should fill up the tank now ...");
+					log.debug("Checking if we should fill up the tank now ...");
 					if (!WaterTankManager.INSTANCE.isPumping()) {
-						log.info("Not pumping - evaluating depth now: " + WaterTankManager.INSTANCE.getWaterTankDepthPercentage());
+						log.debug("Not pumping - evaluating depth now: " + WaterTankManager.INSTANCE.getWaterTankDepthPercentage());
 						Date now = new Date();
 						long milliSecondsPassed = now.getTime() - WaterTankManager.INSTANCE.getWaterTankLastUpdated().getTime();								
 						if (milliSecondsPassed/1000/60 > 3) {
@@ -49,7 +49,7 @@ public class WaterTankListener implements Runnable {
 				}
 				
 				if (shouldWeCheckNowForTurningOffPump()) {
-					log.info("Checking if we should turn off the pump ...");
+					log.debug("Checking if we should turn off the pump ...");
 					if (WaterTankManager.INSTANCE.shouldWeStopPumping()) {
 						WaterTankManager.INSTANCE.stopPumping();
 					}
